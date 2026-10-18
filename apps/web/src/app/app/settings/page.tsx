@@ -109,10 +109,10 @@ export default function SettingsPage() {
     <form onSubmit={handleSaveAll} className="space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h2 className="font-display text-2xl font-bold text-[#0F291E]">
+          <h2 className="font-display text-2xl font-bold text-[#101820]">
             Restaurant Profile, GST Billing & QR Theme Settings
           </h2>
-          <p className="text-xs text-[#4A5950]">
+          <p className="text-xs text-[#64748B]">
             Configure Indian GST modes, NPCI UPI VPA, and guest ordering theme
             presets
           </p>
@@ -120,17 +120,17 @@ export default function SettingsPage() {
 
         <button
           type="submit"
-          className="inline-flex items-center gap-2 rounded-xl bg-[#0F291E] px-5 py-2.5 text-xs font-semibold text-white hover:bg-[#163829]"
+          className="inline-flex items-center gap-2 rounded-xl bg-[#176B52] px-5 py-2.5 text-xs font-semibold text-white hover:bg-[#125541]"
         >
-          <Save className="h-4 w-4 text-[#84CC16]" />
+          <Save className="h-4 w-4 text-[#20A67A]" />
           Save All Settings
         </button>
       </div>
 
-      <div className="rounded-2xl border border-[#E5E0D5] bg-white p-6 shadow-card space-y-4">
-        <div className="flex items-center gap-2 border-b border-[#E5E0D5] pb-3">
-          <Store className="h-4 w-4 text-[#0F291E]" />
-          <h3 className="font-display font-bold text-base text-[#0F291E]">
+      <div className="rounded-2xl border border-[#E5E7EB] bg-white p-6 shadow-card space-y-4">
+        <div className="flex items-center gap-2 border-b border-[#E5E7EB] pb-3">
+          <Store className="h-4 w-4 text-[#101820]" />
+          <h3 className="font-display font-bold text-base text-[#101820]">
             Restaurant Identity & Statutory Details
           </h3>
         </div>
@@ -141,7 +141,7 @@ export default function SettingsPage() {
             <input
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="w-full rounded-lg border border-[#E5E0D5] px-3 py-2"
+              className="w-full rounded-lg border border-[#E5E7EB] px-3 py-2"
             />
           </div>
           <div>
@@ -149,7 +149,7 @@ export default function SettingsPage() {
             <input
               value={city}
               onChange={(e) => setCity(e.target.value)}
-              className="w-full rounded-lg border border-[#E5E0D5] px-3 py-2"
+              className="w-full rounded-lg border border-[#E5E7EB] px-3 py-2"
             />
           </div>
           <div>
@@ -157,7 +157,7 @@ export default function SettingsPage() {
             <input
               value={state}
               onChange={(e) => setState(e.target.value)}
-              className="w-full rounded-lg border border-[#E5E0D5] px-3 py-2"
+              className="w-full rounded-lg border border-[#E5E7EB] px-3 py-2"
             />
           </div>
         </div>
@@ -168,7 +168,7 @@ export default function SettingsPage() {
             <input
               value={gstin}
               onChange={(e) => setGstin(e.target.value)}
-              className="w-full rounded-lg border border-[#E5E0D5] px-3 py-2 font-mono"
+              className="w-full rounded-lg border border-[#E5E7EB] px-3 py-2 font-mono"
             />
           </div>
           <div>
@@ -178,7 +178,7 @@ export default function SettingsPage() {
             <input
               value={fssaiNumber}
               onChange={(e) => setFssaiNumber(e.target.value)}
-              className="w-full rounded-lg border border-[#E5E0D5] px-3 py-2 font-mono"
+              className="w-full rounded-lg border border-[#E5E7EB] px-3 py-2 font-mono"
             />
           </div>
           <div>
@@ -188,17 +188,17 @@ export default function SettingsPage() {
             <input
               value={upiVpa}
               onChange={(e) => setUpiVpa(e.target.value)}
-              className="w-full rounded-lg border border-[#E5E0D5] px-3 py-2 font-mono"
+              className="w-full rounded-lg border border-[#E5E7EB] px-3 py-2 font-mono"
               placeholder="saojikitchen@okicici"
             />
           </div>
         </div>
       </div>
 
-      <div className="rounded-2xl border border-[#E5E0D5] bg-white p-6 shadow-card space-y-4">
-        <div className="flex items-center gap-2 border-b border-[#E5E0D5] pb-3">
-          <ReceiptIndianRupee className="h-4 w-4 text-[#0F291E]" />
-          <h3 className="font-display font-bold text-base text-[#0F291E]">
+      <div className="rounded-2xl border border-[#E5E7EB] bg-white p-6 shadow-card space-y-4">
+        <div className="flex items-center gap-2 border-b border-[#E5E7EB] pb-3">
+          <ReceiptIndianRupee className="h-4 w-4 text-[#101820]" />
+          <h3 className="font-display font-bold text-base text-[#101820]">
             Indian GST & Billing Rules (Integer Paise)
           </h3>
         </div>
@@ -209,7 +209,7 @@ export default function SettingsPage() {
             <select
               value={taxMode}
               onChange={(e) => setTaxMode(e.target.value as TaxMode)}
-              className="w-full rounded-lg border border-[#E5E0D5] px-3 py-2 font-semibold"
+              className="w-full rounded-lg border border-[#E5E7EB] px-3 py-2 font-semibold"
             >
               <option value="TAX_EXCLUSIVE">
                 TAX_EXCLUSIVE (+CGST & SGST)
@@ -230,7 +230,7 @@ export default function SettingsPage() {
               type="number"
               value={cgstRateBps}
               onChange={(e) => setCgstRateBps(e.target.value)}
-              className="w-full rounded-lg border border-[#E5E0D5] px-3 py-2 font-mono"
+              className="w-full rounded-lg border border-[#E5E7EB] px-3 py-2 font-mono"
             />
           </div>
           <div>
@@ -241,7 +241,7 @@ export default function SettingsPage() {
               type="number"
               value={sgstRateBps}
               onChange={(e) => setSgstRateBps(e.target.value)}
-              className="w-full rounded-lg border border-[#E5E0D5] px-3 py-2 font-mono"
+              className="w-full rounded-lg border border-[#E5E7EB] px-3 py-2 font-mono"
             />
           </div>
           <div>
@@ -252,7 +252,7 @@ export default function SettingsPage() {
               type="number"
               value={serviceChargeRateBps}
               onChange={(e) => setServiceChargeRateBps(e.target.value)}
-              className="w-full rounded-lg border border-[#E5E0D5] px-3 py-2 font-mono"
+              className="w-full rounded-lg border border-[#E5E7EB] px-3 py-2 font-mono"
             />
           </div>
         </div>
@@ -285,10 +285,10 @@ export default function SettingsPage() {
         </div>
       </div>
 
-      <div className="rounded-2xl border border-[#E5E0D5] bg-white p-6 shadow-card space-y-4">
-        <div className="flex items-center gap-2 border-b border-[#E5E0D5] pb-3">
-          <Palette className="h-4 w-4 text-[#D97706]" />
-          <h3 className="font-display font-bold text-base text-[#0F291E]">
+      <div className="rounded-2xl border border-[#E5E7EB] bg-white p-6 shadow-card space-y-4">
+        <div className="flex items-center gap-2 border-b border-[#E5E7EB] pb-3">
+          <Palette className="h-4 w-4 text-[#C6A15B]" />
+          <h3 className="font-display font-bold text-base text-[#101820]">
             Guest QR Menu Theme Preset (4 Original Presets)
           </h3>
         </div>
@@ -299,7 +299,7 @@ export default function SettingsPage() {
               id: "botanical" as const,
               title: "Botanical Bistro",
               desc: "Deep forest green & warm alabaster paper",
-              swatch: "bg-[#0F291E] text-[#84CC16]",
+              swatch: "bg-[#176B52] text-[#20A67A]",
             },
             {
               id: "midnight" as const,
@@ -326,8 +326,8 @@ export default function SettingsPage() {
               onClick={() => setQrThemePreset(preset.id)}
               className={`text-left rounded-xl border p-4 transition-all space-y-2 ${
                 qrThemePreset === preset.id
-                  ? "border-[#0F291E] ring-2 ring-[#0F291E] bg-[#FBF9F5]"
-                  : "border-[#E5E0D5] bg-white hover:bg-[#FBF9F5]"
+                  ? "border-[#176B52] ring-2 ring-[#176B52] bg-[#F8F7F3]"
+                  : "border-[#E5E7EB] bg-white hover:bg-[#F8F7F3]"
               }`}
             >
               <div
@@ -335,7 +335,7 @@ export default function SettingsPage() {
               >
                 {preset.title}
               </div>
-              <p className="text-xs text-[#4A5950]">{preset.desc}</p>
+              <p className="text-xs text-[#64748B]">{preset.desc}</p>
             </button>
           ))}
         </div>

@@ -97,10 +97,10 @@ export default function LoyaltyLedgerPage() {
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h2 className="font-display text-2xl font-bold text-[#0F291E]">
+          <h2 className="font-display text-2xl font-bold text-[#101820]">
             Loyalty Rewards & Auditable Points Ledger
           </h2>
-          <p className="text-xs text-[#4A5950]">
+          <p className="text-xs text-[#64748B]">
             Points accrue idempotently when qualifying orders complete. Tier
             thresholds: Silver (400), Gold (1,000), Platinum (2,500).
           </p>
@@ -114,17 +114,17 @@ export default function LoyaltyLedgerPage() {
               if (rewards[0]) setSelectedRewardId(rewards[0]._id);
               setRedeemModalOpen(true);
             }}
-            className="inline-flex items-center gap-1.5 rounded-xl border border-[#0F291E] bg-white px-3.5 py-2.5 text-xs font-semibold text-[#0F291E] hover:bg-[#F2EFE9]"
+            className="inline-flex items-center gap-1.5 rounded-xl border border-[#176B52] bg-white px-3.5 py-2.5 text-xs font-semibold text-[#101820] hover:bg-[#F1EFE9]"
           >
-            <Gift className="h-4 w-4 text-[#D97706]" />
+            <Gift className="h-4 w-4 text-[#C6A15B]" />
             Redeem Customer Points
           </button>
           <button
             type="button"
             onClick={() => setRewardModalOpen(true)}
-            className="inline-flex items-center gap-1.5 rounded-xl bg-[#0F291E] px-4 py-2.5 text-xs font-semibold text-white hover:bg-[#163829]"
+            className="inline-flex items-center gap-1.5 rounded-xl bg-[#176B52] px-4 py-2.5 text-xs font-semibold text-white hover:bg-[#125541]"
           >
-            <Plus className="h-4 w-4 text-[#84CC16]" />
+            <Plus className="h-4 w-4 text-[#20A67A]" />
             Add Reward
           </button>
         </div>
@@ -134,21 +134,21 @@ export default function LoyaltyLedgerPage() {
         {rewards.map((r: any) => (
           <div
             key={r._id}
-            className="rounded-2xl border border-[#E5E0D5] bg-white p-5 shadow-card flex flex-col justify-between space-y-3"
+            className="rounded-2xl border border-[#E5E7EB] bg-white p-5 shadow-card flex flex-col justify-between space-y-3"
           >
             <div className="space-y-1.5">
               <div className="flex items-center justify-between">
-                <span className="rounded bg-[#E6ECE8] px-2.5 py-0.5 font-mono text-xs font-bold text-[#0F291E]">
+                <span className="rounded bg-[#E8F3EF] px-2.5 py-0.5 font-mono text-xs font-bold text-[#101820]">
                   {r.pointsCost} Points
                 </span>
                 <span className="font-mono text-xs font-semibold text-emerald-700">
                   Value: {formatINR(r.discountValuePaise)}
                 </span>
               </div>
-              <h3 className="font-display font-bold text-base text-[#0F291E]">
+              <h3 className="font-display font-bold text-base text-[#101820]">
                 {r.name}
               </h3>
-              <p className="text-xs text-[#4A5950] leading-relaxed">
+              <p className="text-xs text-[#64748B] leading-relaxed">
                 {r.description}
               </p>
             </div>
@@ -156,16 +156,16 @@ export default function LoyaltyLedgerPage() {
         ))}
       </div>
 
-      <div className="rounded-2xl border border-[#E5E0D5] bg-white overflow-x-auto shadow-card">
-        <div className="p-4 border-b border-[#E5E0D5] flex items-center gap-2">
-          <History className="h-4 w-4 text-[#0F291E]" />
-          <h3 className="font-display font-bold text-sm text-[#0F291E]">
+      <div className="rounded-2xl border border-[#E5E7EB] bg-white overflow-x-auto shadow-card">
+        <div className="p-4 border-b border-[#E5E7EB] flex items-center gap-2">
+          <History className="h-4 w-4 text-[#101820]" />
+          <h3 className="font-display font-bold text-sm text-[#101820]">
             Immutable Points Transaction Ledger
           </h3>
         </div>
         <table className="w-full text-left border-collapse text-xs">
           <thead>
-            <tr className="border-b border-[#E5E0D5] bg-[#FBF9F5] text-[#4A5950]">
+            <tr className="border-b border-[#E5E7EB] bg-[#F8F7F3] text-[#64748B]">
               <th className="py-3 px-4 font-semibold">Date & Time</th>
               <th className="py-3 px-4 font-semibold">Customer</th>
               <th className="py-3 px-4 font-semibold">Type</th>
@@ -174,13 +174,13 @@ export default function LoyaltyLedgerPage() {
               <th className="py-3 px-4 font-semibold">Audit Description</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-[#E5E0D5]">
+          <tbody className="divide-y divide-[#E5E7EB]">
             {transactions.map((tx: any) => (
-              <tr key={tx._id} className="hover:bg-[#FBF9F5]/60">
-                <td className="py-3 px-4 font-mono text-[11px] text-[#718077]">
+              <tr key={tx._id} className="hover:bg-[#F8F7F3]/60">
+                <td className="py-3 px-4 font-mono text-[11px] text-[#64748B]">
                   {new Date(tx.createdAt).toLocaleString("en-IN")}
                 </td>
-                <td className="py-3 px-4 font-semibold text-[#0F291E]">
+                <td className="py-3 px-4 font-semibold text-[#101820]">
                   {tx.customerName}
                 </td>
                 <td className="py-3 px-4">
@@ -205,7 +205,7 @@ export default function LoyaltyLedgerPage() {
                 <td className="py-3 px-4 font-mono font-semibold">
                   {tx.balanceAfter} pts
                 </td>
-                <td className="py-3 px-4 text-[#4A5950]">{tx.description}</td>
+                <td className="py-3 px-4 text-[#64748B]">{tx.description}</td>
               </tr>
             ))}
           </tbody>
@@ -214,8 +214,8 @@ export default function LoyaltyLedgerPage() {
 
       {rewardModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
-          <div className="w-full max-w-md rounded-2xl bg-white border border-[#E5E0D5] p-6 shadow-editorial space-y-4">
-            <h3 className="font-display font-bold text-lg text-[#0F291E]">
+          <div className="w-full max-w-md rounded-2xl bg-white border border-[#E5E7EB] p-6 shadow-editorial space-y-4">
+            <h3 className="font-display font-bold text-lg text-[#101820]">
               Create Loyalty Reward
             </h3>
             <form onSubmit={handleCreateReward} className="space-y-3">
@@ -228,7 +228,7 @@ export default function LoyaltyLedgerPage() {
                   value={rewardName}
                   onChange={(e) => setRewardName(e.target.value)}
                   placeholder="Complimentary Santra Barfi Dessert"
-                  className="w-full rounded-lg border border-[#E5E0D5] px-3 py-2 text-xs"
+                  className="w-full rounded-lg border border-[#E5E7EB] px-3 py-2 text-xs"
                 />
               </div>
               <div className="grid grid-cols-2 gap-3">
@@ -241,7 +241,7 @@ export default function LoyaltyLedgerPage() {
                     min="10"
                     value={pointsCost}
                     onChange={(e) => setPointsCost(e.target.value)}
-                    className="w-full rounded-lg border border-[#E5E0D5] px-3 py-2 text-xs font-mono"
+                    className="w-full rounded-lg border border-[#E5E7EB] px-3 py-2 text-xs font-mono"
                   />
                 </div>
                 <div>
@@ -253,7 +253,7 @@ export default function LoyaltyLedgerPage() {
                     min="10"
                     value={discountRupees}
                     onChange={(e) => setDiscountRupees(e.target.value)}
-                    className="w-full rounded-lg border border-[#E5E0D5] px-3 py-2 text-xs font-mono"
+                    className="w-full rounded-lg border border-[#E5E7EB] px-3 py-2 text-xs font-mono"
                   />
                 </div>
               </div>
@@ -264,20 +264,20 @@ export default function LoyaltyLedgerPage() {
                 <input
                   value={rewardDesc}
                   onChange={(e) => setRewardDesc(e.target.value)}
-                  className="w-full rounded-lg border border-[#E5E0D5] px-3 py-2 text-xs"
+                  className="w-full rounded-lg border border-[#E5E7EB] px-3 py-2 text-xs"
                 />
               </div>
               <div className="flex justify-end gap-2 pt-2">
                 <button
                   type="button"
                   onClick={() => setRewardModalOpen(false)}
-                  className="rounded-xl border border-[#E5E0D5] px-4 py-2 text-xs font-semibold"
+                  className="rounded-xl border border-[#E5E7EB] px-4 py-2 text-xs font-semibold"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="rounded-xl bg-[#0F291E] px-4 py-2 text-xs font-semibold text-white"
+                  className="rounded-xl bg-[#176B52] px-4 py-2 text-xs font-semibold text-white"
                 >
                   Create Reward
                 </button>
@@ -289,8 +289,8 @@ export default function LoyaltyLedgerPage() {
 
       {redeemModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
-          <div className="w-full max-w-md rounded-2xl bg-white border border-[#E5E0D5] p-6 shadow-editorial space-y-4">
-            <h3 className="font-display font-bold text-lg text-[#0F291E]">
+          <div className="w-full max-w-md rounded-2xl bg-white border border-[#E5E7EB] p-6 shadow-editorial space-y-4">
+            <h3 className="font-display font-bold text-lg text-[#101820]">
               Redeem Customer Loyalty Points
             </h3>
             <form onSubmit={handleRedeemReward} className="space-y-3">
@@ -301,7 +301,7 @@ export default function LoyaltyLedgerPage() {
                 <select
                   value={selectedCustomerId}
                   onChange={(e) => setSelectedCustomerId(e.target.value)}
-                  className="w-full rounded-lg border border-[#E5E0D5] px-3 py-2 text-xs"
+                  className="w-full rounded-lg border border-[#E5E7EB] px-3 py-2 text-xs"
                 >
                   {customers.map((c: any) => (
                     <option key={c._id} value={c._id}>
@@ -317,7 +317,7 @@ export default function LoyaltyLedgerPage() {
                 <select
                   value={selectedRewardId}
                   onChange={(e) => setSelectedRewardId(e.target.value)}
-                  className="w-full rounded-lg border border-[#E5E0D5] px-3 py-2 text-xs"
+                  className="w-full rounded-lg border border-[#E5E7EB] px-3 py-2 text-xs"
                 >
                   {rewards.map((r: any) => (
                     <option key={r._id} value={r._id}>
@@ -330,13 +330,13 @@ export default function LoyaltyLedgerPage() {
                 <button
                   type="button"
                   onClick={() => setRedeemModalOpen(false)}
-                  className="rounded-xl border border-[#E5E0D5] px-4 py-2 text-xs font-semibold"
+                  className="rounded-xl border border-[#E5E7EB] px-4 py-2 text-xs font-semibold"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="rounded-xl bg-[#0F291E] px-4 py-2 text-xs font-semibold text-white"
+                  className="rounded-xl bg-[#176B52] px-4 py-2 text-xs font-semibold text-white"
                 >
                   Confirm Redemption
                 </button>

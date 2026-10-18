@@ -36,10 +36,10 @@ export default function ReportsPage() {
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h2 className="font-display text-2xl font-bold text-[#0F291E]">
+          <h2 className="font-display text-2xl font-bold text-[#101820]">
             Automated Business Reports & CSV Exports
           </h2>
-          <p className="text-xs text-[#4A5950]">
+          <p className="text-xs text-[#64748B]">
             Consistent accounting definitions across dashboard charts and
             downloadable reports
           </p>
@@ -53,8 +53,8 @@ export default function ReportsPage() {
               onClick={() => setDays(d)}
               className={`rounded-lg px-3 py-1.5 text-xs font-semibold ${
                 days === d
-                  ? "bg-[#0F291E] text-white"
-                  : "bg-white border border-[#E5E0D5] text-[#4A5950]"
+                  ? "bg-[#176B52] text-white"
+                  : "bg-white border border-[#E5E7EB] text-[#64748B]"
               }`}
             >
               {d} Days
@@ -64,34 +64,34 @@ export default function ReportsPage() {
       </div>
 
       {overview && (
-        <div className="rounded-2xl border border-[#E5E0D5] bg-white p-6 shadow-card space-y-4">
-          <div className="flex items-start gap-2.5 text-xs text-[#0F291E]">
-            <Info className="h-4 w-4 text-[#D97706] shrink-0 mt-0.5" />
+        <div className="rounded-2xl border border-[#E5E7EB] bg-white p-6 shadow-card space-y-4">
+          <div className="flex items-start gap-2.5 text-xs text-[#101820]">
+            <Info className="h-4 w-4 text-[#C6A15B] shrink-0 mt-0.5" />
             <p>{overview.accountingDefinition}</p>
           </div>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-2 border-t border-[#E5E0D5] text-xs">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-2 border-t border-[#E5E7EB] text-xs">
             <div>
-              <span className="text-[#718077] block">Gross Sales</span>
-              <span className="font-mono font-bold text-base text-[#0F291E]">
+              <span className="text-[#64748B] block">Gross Sales</span>
+              <span className="font-mono font-bold text-base text-[#101820]">
                 {formatINR(overview.grossSalesPaise)}
               </span>
             </div>
             <div>
-              <span className="text-[#718077] block">
+              <span className="text-[#64748B] block">
                 Net Sales (Excl. Tax)
               </span>
-              <span className="font-mono font-bold text-base text-[#0F291E]">
+              <span className="font-mono font-bold text-base text-[#101820]">
                 {formatINR(overview.netSalesPaise)}
               </span>
             </div>
             <div>
-              <span className="text-[#718077] block">CGST + SGST Collected</span>
-              <span className="font-mono font-bold text-base text-[#0F291E]">
+              <span className="text-[#64748B] block">CGST + SGST Collected</span>
+              <span className="font-mono font-bold text-base text-[#101820]">
                 {formatINR(overview.totalTaxCollectedPaise)}
               </span>
             </div>
             <div>
-              <span className="text-[#718077] block">Est. Gross Profit</span>
+              <span className="text-[#64748B] block">Est. Gross Profit</span>
               <span className="font-mono font-bold text-base text-emerald-700">
                 {formatINR(overview.totalEstimatedGrossProfitPaise)}
               </span>
@@ -104,25 +104,25 @@ export default function ReportsPage() {
         {reportCards.map((card) => (
           <div
             key={card.type}
-            className="rounded-2xl border border-[#E5E0D5] bg-white p-6 shadow-card flex flex-col justify-between space-y-5"
+            className="rounded-2xl border border-[#E5E7EB] bg-white p-6 shadow-card flex flex-col justify-between space-y-5"
           >
             <div className="space-y-2.5">
-              <div className="h-10 w-10 rounded-xl bg-[#E6ECE8] text-[#0F291E] flex items-center justify-center">
+              <div className="h-10 w-10 rounded-xl bg-[#E8F3EF] text-[#101820] flex items-center justify-center">
                 <FileSpreadsheet className="h-5 w-5" />
               </div>
-              <h3 className="font-display font-bold text-base text-[#0F291E]">
+              <h3 className="font-display font-bold text-base text-[#101820]">
                 {card.title}
               </h3>
-              <p className="text-xs text-[#4A5950] leading-relaxed">
+              <p className="text-xs text-[#64748B] leading-relaxed">
                 {card.desc}
               </p>
             </div>
 
             <a
               href={`/api/v1/analytics/export?type=${card.type}&days=${days}`}
-              className="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-[#0F291E] py-2.5 px-4 text-xs font-semibold text-white hover:bg-[#163829]"
+              className="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-[#176B52] py-2.5 px-4 text-xs font-semibold text-white hover:bg-[#125541]"
             >
-              <Download className="h-3.5 w-3.5 text-[#84CC16]" />
+              <Download className="h-3.5 w-3.5 text-[#20A67A]" />
               Download CSV ({days}d)
             </a>
           </div>

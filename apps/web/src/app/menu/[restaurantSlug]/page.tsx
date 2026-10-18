@@ -4,6 +4,7 @@ import React, { Suspense, useEffect, useState } from "react";
 import Link from "next/link";
 import { useParams, useSearchParams } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import {
   Search,
   ShoppingBag,
@@ -32,6 +33,7 @@ function GuestQrMenuContent() {
   const appendOrderParam = searchParams?.get("appendOrder") || undefined;
 
   const { toast } = useToast();
+  const prefersReducedMotion = useReducedMotion();
 
   const [themeOverride, setThemeOverride] = useState<QrThemePreset | null>(null);
   const [selectedCategoryId, setSelectedCategoryId] = useState<string>("ALL");
@@ -166,12 +168,12 @@ function GuestQrMenuContent() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-[#FBF9F5] flex items-center justify-center p-6">
+      <div className="min-h-screen bg-[#F8F7F3] flex items-center justify-center p-6">
         <div className="text-center space-y-2">
-          <div className="h-10 w-10 rounded-xl bg-[#0F291E] text-[#84CC16] flex items-center justify-center mx-auto animate-pulse">
+          <div className="h-10 w-10 rounded-xl bg-[#176B52] text-[#20A67A] flex items-center justify-center mx-auto animate-pulse">
             <UtensilsCrossed className="h-5 w-5" />
           </div>
-          <p className="text-xs font-medium text-[#4A5950]">
+          <p className="text-xs font-medium text-[#64748B]">
             Loading digital QR menu...
           </p>
         </div>
@@ -181,17 +183,17 @@ function GuestQrMenuContent() {
 
   if (error || !restaurant) {
     return (
-      <div className="min-h-screen bg-[#FBF9F5] flex items-center justify-center p-6">
-        <div className="max-w-md rounded-2xl border border-[#E5E0D5] bg-white p-8 text-center space-y-4">
-          <h1 className="font-display text-xl font-bold text-[#0F291E]">
+      <div className="min-h-screen bg-[#F8F7F3] flex items-center justify-center p-6">
+        <div className="max-w-md rounded-2xl border border-[#E5E7EB] bg-white p-8 text-center space-y-4">
+          <h1 className="font-display text-xl font-bold text-[#101820]">
             Restaurant Menu Unavailable
           </h1>
-          <p className="text-xs text-[#4A5950]">
+          <p className="text-xs text-[#64748B]">
             We couldn’t find a menu for slug <code>{restaurantSlug}</code>.
           </p>
           <Link
             href="/menu/saoji-spice-nagpur?table=tbl_saoji_t01"
-            className="inline-flex items-center gap-2 rounded-xl bg-[#0F291E] px-4 py-2.5 text-xs font-semibold text-white"
+            className="inline-flex items-center gap-2 rounded-xl bg-[#176B52] px-4 py-2.5 text-xs font-semibold text-white"
           >
             Open Flagship Demo Menu (Saoji Spice Kitchen)
           </Link>
@@ -463,179 +465,213 @@ function GuestQrMenuContent() {
         )}
       </main>
 
-      {customizingItem && (
-        <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/60 p-0 sm:p-4">
-          <div className="w-full max-w-md rounded-t-2xl sm:rounded-2xl bg-white text-[#111C16] p-6 space-y-4 shadow-editorial max-h-[85vh] overflow-y-auto">
-            <div className="flex items-start justify-between border-b border-[#E5E0D5] pb-3">
-              <div>
-                <span className="text-[10px] font-bold uppercase text-[#718077]">
-                  {customizingItem.dietaryTag} • {customizingItem.spiceLevel}
-                </span>
-                <h3 className="font-display font-bold text-lg text-[#0F291E]">
-                  {customizingItem.name}
-                </h3>
-                <p className="font-mono text-xs font-semibold text-[#4A5950]">
-                  Base Price: {formatINR(customizingItem.basePricePaise)}
-                </p>
-              </div>
-              <button
-                type="button"
-                onClick={() => setCustomizingItem(null)}
-                className="text-xs font-semibold text-[#718077] hover:text-[#111C16]"
-              >
-                Close ✕
-              </button>
-            </div>
-
-            {customizingItem.variants?.length > 0 && (
-              <div className="space-y-2">
-                <label className="block text-xs font-bold text-[#0F291E]">
-                  Choose Portion / Variant
-                </label>
-                <div className="space-y-1.5">
-                  {customizingItem.variants.map((v: any) => (
-                    <label
-                      key={v.name}
-                      className="flex items-center justify-between rounded-xl border border-[#E5E0D5] px-3.5 py-2.5 text-xs cursor-pointer hover:bg-[#FBF9F5]"
-                    >
-                      <span className="flex items-center gap-2 font-medium">
-                        <input
-                          type="radio"
-                          name="variant"
-                          checked={selectedVariantName === v.name}
-                          onChange={() => setSelectedVariantName(v.name)}
-                        />
-                        {v.name}
-                      </span>
-                      <span className="font-mono font-semibold text-[#0F291E]">
-                        {v.priceDeltaPaise >= 0
-                          ? `+${formatINR(v.priceDeltaPaise)}`
-                          : formatINR(v.priceDeltaPaise)}
-                      </span>
-                    </label>
-                  ))}
+      <AnimatePresence>
+        {customizingItem && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.16 }}
+            className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-[#101820]/60 backdrop-blur-xs p-0 sm:p-4"
+            onClick={() => setCustomizingItem(null)}
+          >
+            <motion.div
+              initial={
+                prefersReducedMotion
+                  ? { opacity: 1 }
+                  : { opacity: 0, y: 24, scale: 0.98 }
+              }
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={
+                prefersReducedMotion
+                  ? { opacity: 0 }
+                  : { opacity: 0, y: 16, scale: 0.98 }
+              }
+              transition={{ duration: 0.2, ease: "easeOut" }}
+              onClick={(e) => e.stopPropagation()}
+              className="w-full max-w-md rounded-t-2xl sm:rounded-2xl bg-white text-[#101820] p-6 space-y-4 shadow-elevated max-h-[85vh] overflow-y-auto"
+            >
+              <div className="flex items-start justify-between border-b border-[#E5E7EB] pb-3">
+                <div>
+                  <span className="text-[10px] font-bold uppercase text-[#64748B]">
+                    {customizingItem.dietaryTag} • {customizingItem.spiceLevel}
+                  </span>
+                  <h3 className="font-display font-bold text-lg text-[#101820]">
+                    {customizingItem.name}
+                  </h3>
+                  <p className="font-mono text-xs font-semibold text-[#64748B]">
+                    Base Price: {formatINR(customizingItem.basePricePaise)}
+                  </p>
                 </div>
+                <button
+                  type="button"
+                  onClick={() => setCustomizingItem(null)}
+                  className="text-xs font-semibold text-[#64748B] hover:text-[#101820]"
+                >
+                  Close ✕
+                </button>
               </div>
-            )}
 
-            {customizingItem.addons?.length > 0 && (
-              <div className="space-y-2">
-                <label className="block text-xs font-bold text-[#0F291E]">
-                  Optional Add-Ons
-                </label>
-                <div className="space-y-1.5">
-                  {customizingItem.addons.map((a: any) => {
-                    const checked = selectedAddonNames.includes(a.name);
-                    return (
+              {customizingItem.variants?.length > 0 && (
+                <div className="space-y-2">
+                  <label className="block text-xs font-bold text-[#101820]">
+                    Choose Portion / Variant
+                  </label>
+                  <div className="space-y-1.5">
+                    {customizingItem.variants.map((v: any) => (
                       <label
-                        key={a.name}
-                        className="flex items-center justify-between rounded-xl border border-[#E5E0D5] px-3.5 py-2.5 text-xs cursor-pointer hover:bg-[#FBF9F5]"
+                        key={v.name}
+                        className="flex items-center justify-between rounded-xl border border-[#E5E7EB] px-3.5 py-2.5 text-xs cursor-pointer hover:bg-[#F8F7F3]"
                       >
                         <span className="flex items-center gap-2 font-medium">
                           <input
-                            type="checkbox"
-                            checked={checked}
-                            onChange={(e) => {
-                              if (e.target.checked) {
-                                setSelectedAddonNames([
-                                  ...selectedAddonNames,
-                                  a.name,
-                                ]);
-                              } else {
-                                setSelectedAddonNames(
-                                  selectedAddonNames.filter((n) => n !== a.name)
-                                );
-                              }
-                            }}
+                            type="radio"
+                            name="variant"
+                            checked={selectedVariantName === v.name}
+                            onChange={() => setSelectedVariantName(v.name)}
                           />
-                          {a.name}
+                          {v.name}
                         </span>
-                        <span className="font-mono font-semibold text-[#0F291E]">
-                          +{formatINR(a.pricePaise)}
+                        <span className="font-mono font-semibold text-[#101820]">
+                          {v.priceDeltaPaise >= 0
+                            ? `+${formatINR(v.priceDeltaPaise)}`
+                            : formatINR(v.priceDeltaPaise)}
                         </span>
                       </label>
-                    );
-                  })}
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {customizingItem.addons?.length > 0 && (
+                <div className="space-y-2">
+                  <label className="block text-xs font-bold text-[#101820]">
+                    Optional Add-Ons
+                  </label>
+                  <div className="space-y-1.5">
+                    {customizingItem.addons.map((a: any) => {
+                      const checked = selectedAddonNames.includes(a.name);
+                      return (
+                        <label
+                          key={a.name}
+                          className="flex items-center justify-between rounded-xl border border-[#E5E7EB] px-3.5 py-2.5 text-xs cursor-pointer hover:bg-[#F8F7F3]"
+                        >
+                          <span className="flex items-center gap-2 font-medium">
+                            <input
+                              type="checkbox"
+                              checked={checked}
+                              onChange={(e) => {
+                                if (e.target.checked) {
+                                  setSelectedAddonNames([
+                                    ...selectedAddonNames,
+                                    a.name,
+                                  ]);
+                                } else {
+                                  setSelectedAddonNames(
+                                    selectedAddonNames.filter(
+                                      (n) => n !== a.name
+                                    )
+                                  );
+                                }
+                              }}
+                            />
+                            {a.name}
+                          </span>
+                          <span className="font-mono font-semibold text-[#101820]">
+                            +{formatINR(a.pricePaise)}
+                          </span>
+                        </label>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
+
+              <div>
+                <label className="block text-xs font-bold text-[#101820] mb-1">
+                  Cooking Instructions (Optional)
+                </label>
+                <input
+                  value={itemNotes}
+                  onChange={(e) => setItemNotes(e.target.value)}
+                  placeholder="Less oil, extra tarri, Jain preparation..."
+                  className="w-full rounded-xl border border-[#E5E7EB] px-3 py-2 text-xs"
+                />
+              </div>
+
+              <div className="flex items-center justify-between gap-3 pt-2">
+                <div className="inline-flex items-center gap-3 rounded-xl border border-[#E5E7EB] px-3 py-2">
+                  <button
+                    type="button"
+                    onClick={() => setItemQty(Math.max(1, itemQty - 1))}
+                  >
+                    <Minus className="h-3.5 w-3.5" />
+                  </button>
+                  <span className="font-mono font-bold text-sm">{itemQty}</span>
+                  <button
+                    type="button"
+                    onClick={() => setItemQty(Math.min(20, itemQty + 1))}
+                  >
+                    <Plus className="h-3.5 w-3.5" />
+                  </button>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={handleAddCustomizedItem}
+                  className="flex-1 rounded-xl bg-[#176B52] py-3 px-4 text-xs font-bold text-white hover:bg-[#125541]"
+                >
+                  Add {itemQty} to Order
+                </button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <AnimatePresence>
+        {totalItemsInCart > 0 && (
+          <motion.div
+            initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: 18 }}
+            transition={{ duration: 0.2, ease: "easeOut" }}
+            className="fixed bottom-0 inset-x-0 z-40 p-4"
+          >
+            <div className="mx-auto max-w-3xl rounded-2xl bg-[#101820] border border-white/15 text-white p-4 shadow-navy flex items-center justify-between gap-4">
+              <div className="flex items-center gap-3">
+                <div className="h-10 w-10 rounded-xl bg-[#176B52] text-white flex items-center justify-center font-mono font-bold text-sm">
+                  {totalItemsInCart}
+                </div>
+                <div>
+                  <p className="font-mono font-bold text-sm tabular-nums">
+                    {formatINR(cartSubtotalPaise)}{" "}
+                    <span className="text-[11px] font-normal text-[#94A3B8]">
+                      + GST
+                    </span>
+                  </p>
+                  <p className="text-[11px] text-[#94A3B8]">
+                    {appendOrderParam
+                      ? "Ready to fire next KOT batch to kitchen"
+                      : "Review bill breakdown & fire KOT"}
+                  </p>
                 </div>
               </div>
-            )}
 
-            <div>
-              <label className="block text-xs font-bold text-[#0F291E] mb-1">
-                Cooking Instructions (Optional)
-              </label>
-              <input
-                value={itemNotes}
-                onChange={(e) => setItemNotes(e.target.value)}
-                placeholder="Less oil, extra tarri, Jain preparation..."
-                className="w-full rounded-xl border border-[#E5E0D5] px-3 py-2 text-xs"
-              />
-            </div>
-
-            <div className="flex items-center justify-between gap-3 pt-2">
-              <div className="inline-flex items-center gap-3 rounded-xl border border-[#E5E0D5] px-3 py-2">
-                <button
-                  type="button"
-                  onClick={() => setItemQty(Math.max(1, itemQty - 1))}
-                >
-                  <Minus className="h-3.5 w-3.5" />
-                </button>
-                <span className="font-mono font-bold text-sm">{itemQty}</span>
-                <button
-                  type="button"
-                  onClick={() => setItemQty(Math.min(20, itemQty + 1))}
-                >
-                  <Plus className="h-3.5 w-3.5" />
-                </button>
-              </div>
-
-              <button
-                type="button"
-                onClick={handleAddCustomizedItem}
-                className="flex-1 rounded-xl bg-[#0F291E] py-3 px-4 text-xs font-bold text-white hover:bg-[#163829]"
+              <Link
+                href={`/menu/${restaurantSlug}/cart${
+                  tableParam ? `?table=${encodeURIComponent(tableParam)}` : ""
+                }`}
+                className="inline-flex items-center gap-2 rounded-xl bg-[#176B52] px-4 py-2.5 text-xs font-bold text-white hover:bg-[#125541] transition-colors"
               >
-                Add {itemQty} to Order
-              </button>
+                <ShoppingBag className="h-4 w-4 text-[#20A67A]" />
+                View Cart & Checkout
+                <ArrowRight className="h-3.5 w-3.5" />
+              </Link>
             </div>
-          </div>
-        </div>
-      )}
-
-      {totalItemsInCart > 0 && (
-        <div className="fixed bottom-0 inset-x-0 z-40 p-4">
-          <div className="mx-auto max-w-3xl rounded-2xl bg-[#0F291E] text-white p-4 shadow-editorial flex items-center justify-between gap-4">
-            <div className="flex items-center gap-3">
-              <div className="h-10 w-10 rounded-xl bg-[#84CC16] text-[#0F291E] flex items-center justify-center font-mono font-bold text-sm">
-                {totalItemsInCart}
-              </div>
-              <div>
-                <p className="font-mono font-bold text-sm">
-                  {formatINR(cartSubtotalPaise)}{" "}
-                  <span className="text-[11px] font-normal text-[#E6ECE8]/75">
-                    + GST
-                  </span>
-                </p>
-                <p className="text-[11px] text-[#E6ECE8]/80">
-                  {appendOrderParam
-                    ? "Ready to fire next KOT batch to kitchen"
-                    : "Review bill breakdown & fire KOT"}
-                </p>
-              </div>
-            </div>
-
-            <Link
-              href={`/menu/${restaurantSlug}/cart${
-                tableParam ? `?table=${encodeURIComponent(tableParam)}` : ""
-              }`}
-              className="inline-flex items-center gap-2 rounded-xl bg-[#84CC16] px-4 py-2.5 text-xs font-bold text-[#0F291E] hover:bg-[#9BE32B]"
-            >
-              <ShoppingBag className="h-4 w-4" />
-              View Cart & Checkout
-              <ArrowRight className="h-3.5 w-3.5" />
-            </Link>
-          </div>
-        </div>
-      )}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
@@ -644,7 +680,7 @@ export default function GuestQrMenuPage() {
   return (
     <Suspense
       fallback={
-        <div className="min-h-screen bg-[#FBF9F5] flex items-center justify-center p-6 text-xs text-[#4A5950]">
+        <div className="min-h-screen bg-[#F8F7F3] flex items-center justify-center p-6 text-xs text-[#64748B]">
           Loading digital QR menu...
         </div>
       }

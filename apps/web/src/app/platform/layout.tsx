@@ -40,8 +40,8 @@ export default function PlatformAdminLayout({
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#FBF9F5] flex items-center justify-center p-6">
-        <p className="text-xs font-medium text-[#4A5950]">
+      <div className="min-h-screen bg-[#F8F7F3] flex items-center justify-center p-6">
+        <p className="text-xs font-medium text-[#64748B]">
           Verifying Platform Administrator privileges...
         </p>
       </div>
@@ -50,13 +50,13 @@ export default function PlatformAdminLayout({
 
   if (user && !user.isPlatformAdmin) {
     return (
-      <div className="min-h-screen bg-[#FBF9F5] flex items-center justify-center p-6">
+      <div className="min-h-screen bg-[#F8F7F3] flex items-center justify-center p-6">
         <div className="max-w-md rounded-2xl border border-red-200 bg-white p-8 text-center space-y-4 shadow-editorial">
           <ShieldAlert className="h-10 w-10 text-red-600 mx-auto" />
-          <h1 className="font-display text-xl font-bold text-[#0F291E]">
+          <h1 className="font-display text-xl font-bold text-[#101820]">
             Platform Admin Access Restricted
           </h1>
-          <p className="text-xs text-[#4A5950] leading-relaxed">
+          <p className="text-xs text-[#64748B] leading-relaxed">
             Your current account (<code>{user.email}</code>) is a tenant user
             and does not have <code>isPlatformAdmin</code> privileges. Sign in
             with <code>admin@dinepilot.in</code> to access `/platform/*`.
@@ -64,13 +64,13 @@ export default function PlatformAdminLayout({
           <div className="flex justify-center gap-3 pt-2">
             <Link
               href="/app/overview"
-              className="rounded-xl border border-[#E5E0D5] px-4 py-2 text-xs font-semibold text-[#0F291E]"
+              className="rounded-xl border border-[#E5E7EB] px-4 py-2 text-xs font-semibold text-[#101820]"
             >
               Return to Restaurant App
             </Link>
             <Link
               href="/login"
-              className="rounded-xl bg-[#0F291E] px-4 py-2 text-xs font-semibold text-white"
+              className="rounded-xl bg-[#176B52] px-4 py-2 text-xs font-semibold text-white"
             >
               Switch to Platform Admin Account
             </Link>
@@ -81,17 +81,17 @@ export default function PlatformAdminLayout({
   }
 
   return (
-    <div className="min-h-screen flex bg-[#FBF9F5] text-[#111C16]">
-      <aside className="w-64 shrink-0 bg-[#0F291E] text-white flex flex-col justify-between">
+    <div className="min-h-screen flex bg-[#F8F7F3] text-[#101820]">
+      <aside className="w-64 shrink-0 bg-[#101820] text-white flex flex-col justify-between border-r border-white/10">
         <div>
-          <div className="p-5 border-b border-[#1E4635]">
-            <span className="rounded bg-[#84CC16] px-2 py-0.5 text-[10px] font-bold text-[#0F291E]">
+          <div className="p-5 border-b border-white/10">
+            <span className="rounded bg-[#C6A15B]/15 border border-[#C6A15B]/40 px-2 py-0.5 text-[10px] font-bold text-[#C6A15B]">
               SUPERADMIN CONTROL PLANE
             </span>
             <h1 className="font-display font-bold text-lg mt-1.5">
               DinePilot Platform
             </h1>
-            <p className="text-[11px] text-[#E6ECE8]/75">
+            <p className="text-[11px] text-[#94A3B8]">
               Multi-Tenant SaaS Governance
             </p>
           </div>
@@ -106,8 +106,8 @@ export default function PlatformAdminLayout({
                   href={item.href}
                   className={`flex items-center gap-2.5 rounded-xl px-3 py-2.5 text-xs font-medium transition-colors ${
                     active
-                      ? "bg-[#84CC16] text-[#0F291E] font-bold"
-                      : "text-[#E6ECE8]/85 hover:bg-[#163829]"
+                      ? "bg-[#176B52] text-white font-semibold"
+                      : "text-[#94A3B8] hover:bg-white/5 hover:text-white"
                   }`}
                 >
                   <Icon className="h-4 w-4" />
@@ -118,10 +118,10 @@ export default function PlatformAdminLayout({
           </nav>
         </div>
 
-        <div className="p-4 border-t border-[#1E4635] space-y-2">
+        <div className="p-4 border-t border-white/10 space-y-2 bg-[#0B1117]/60">
           <Link
             href="/app/overview"
-            className="w-full inline-flex items-center justify-center gap-2 rounded-xl border border-[#234F3C] bg-[#163829] px-3 py-2 text-xs font-semibold text-[#E6ECE8]"
+            className="w-full inline-flex items-center justify-center gap-2 rounded-xl border border-white/10 bg-[#182430] px-3 py-2 text-xs font-semibold text-white hover:bg-[#223242]"
           >
             <ArrowLeft className="h-3.5 w-3.5" />
             Restaurant Dashboard

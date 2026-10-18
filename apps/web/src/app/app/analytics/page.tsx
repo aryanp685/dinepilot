@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
+import { motion } from "framer-motion";
 import {
   ResponsiveContainer,
   BarChart,
@@ -11,13 +12,7 @@ import {
   Tooltip,
   CartesianGrid,
 } from "recharts";
-import {
-  Download,
-  Sparkles,
-  TrendingUp,
-  AlertCircle,
-  Compass,
-} from "lucide-react";
+import { Download } from "lucide-react";
 import { formatINR } from "@dinepilot/shared";
 import { apiFetch } from "@/lib/api";
 
@@ -70,10 +65,10 @@ export default function ProfitabilityAnalyticsPage() {
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h2 className="font-display text-2xl font-bold text-[#0F291E]">
+          <h2 className="font-display text-2xl font-bold text-[#101820]">
             Menu Profitability Engine
           </h2>
-          <p className="text-xs text-[#4A5950]">
+          <p className="text-xs text-[#64748B]">
             Benchmarks: Avg Volume {benchmarks.avgUnitsSold} units • Avg Gross
             Margin {benchmarks.avgGrossMarginPercent}%
           </p>
@@ -81,36 +76,46 @@ export default function ProfitabilityAnalyticsPage() {
 
         <a
           href={`/api/v1/analytics/export?type=profitability&days=${days}`}
-          className="inline-flex items-center gap-2 rounded-xl bg-[#0F291E] px-4 py-2.5 text-xs font-semibold text-white hover:bg-[#163829]"
+          className="inline-flex items-center gap-2 rounded-xl bg-[#176B52] px-4 py-2.5 text-xs font-semibold text-white hover:bg-[#125541] transition-colors shadow-card"
         >
-          <Download className="h-4 w-4 text-[#84CC16]" />
+          <Download className="h-4 w-4 text-[#F8F7F3]" />
           Export Profitability CSV
         </a>
       </div>
 
-      <div className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-[#E5E0D5] bg-white p-4">
-        <div className="flex items-center gap-2">
-          {[7, 30, 90].map((d) => (
-            <button
-              key={d}
-              type="button"
-              onClick={() => setDays(d)}
-              className={`rounded-lg px-3 py-1.5 text-xs font-semibold ${
-                days === d
-                  ? "bg-[#0F291E] text-white"
-                  : "bg-[#FBF9F5] text-[#4A5950]"
-              }`}
-            >
-              {d} Days
-            </button>
-          ))}
+      <div className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-[#E5E7EB] bg-white p-4 shadow-card">
+        <div className="inline-flex items-center gap-1 rounded-xl bg-[#F8F7F3] border border-[#E5E7EB] p-1">
+          {[7, 30, 90].map((d) => {
+            const active = days === d;
+            return (
+              <button
+                key={d}
+                type="button"
+                onClick={() => setDays(d)}
+                className={`relative rounded-lg px-3 py-1.5 text-xs font-semibold transition-colors z-10 ${
+                  active
+                    ? "text-white"
+                    : "text-[#64748B] hover:text-[#101820]"
+                }`}
+              >
+                {active && (
+                  <motion.span
+                    layoutId="profitability-days-pill"
+                    transition={{ duration: 0.2, ease: "easeOut" }}
+                    className="absolute inset-0 rounded-lg bg-[#176B52] -z-10"
+                  />
+                )}
+                {d} Days
+              </button>
+            );
+          })}
         </div>
 
         <div className="flex flex-wrap items-center gap-2">
           <select
             value={categoryId}
             onChange={(e) => setCategoryId(e.target.value)}
-            className="rounded-lg border border-[#E5E0D5] bg-[#FBF9F5] px-3 py-1.5 text-xs font-semibold"
+            className="rounded-xl border border-[#E5E7EB] bg-[#F8F7F3] px-3 py-1.5 text-xs font-semibold text-[#101820]"
           >
             <option value="ALL">All Categories</option>
             {(menuData?.categories || []).map((c: any) => (
@@ -123,7 +128,7 @@ export default function ProfitabilityAnalyticsPage() {
           <select
             value={orderType}
             onChange={(e) => setOrderType(e.target.value)}
-            className="rounded-lg border border-[#E5E0D5] bg-[#FBF9F5] px-3 py-1.5 text-xs font-semibold"
+            className="rounded-xl border border-[#E5E7EB] bg-[#F8F7F3] px-3 py-1.5 text-xs font-semibold text-[#101820]"
           >
             <option value="ALL">All Order Channels</option>
             <option value="DINE_IN">Dine-In Only</option>
@@ -139,7 +144,7 @@ export default function ProfitabilityAnalyticsPage() {
             key: "HIGH_VOLUME_HIGH_MARGIN" as const,
             title: "Stars (High Vol • High Margin)",
             badge: "Protect & Promote",
-            tone: "border-emerald-300 bg-emerald-50/50",
+            tone: "border-[#20A67A]/35 bg-[#E6F7F1]/60",
           },
           {
             key: "HIGH_VOLUME_LOW_MARGIN" as const,
@@ -151,45 +156,45 @@ export default function ProfitabilityAnalyticsPage() {
             key: "LOW_VOLUME_HIGH_MARGIN" as const,
             title: "Puzzles (Low Vol • High Margin)",
             badge: "Upsell in QR Cart",
-            tone: "border-blue-300 bg-blue-50/50",
+            tone: "border-[#C6A15B]/45 bg-[#FCF9F3]",
           },
           {
             key: "LOW_VOLUME_LOW_MARGIN" as const,
             title: "Dogs (Low Vol • Low Margin)",
             badge: "Re-engineer or Retire",
-            tone: "border-stone-300 bg-stone-50",
+            tone: "border-[#E5E7EB] bg-white",
           },
         ].map((q) => {
           const group = quadrantGroups[q.key];
           return (
             <div
               key={q.key}
-              className={`rounded-2xl border p-4 space-y-2.5 ${q.tone}`}
+              className={`rounded-2xl border p-4 space-y-2.5 shadow-card ${q.tone}`}
             >
               <div className="flex items-center justify-between">
-                <span className="text-[10px] font-bold uppercase tracking-wider text-[#0F291E]">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-[#176B52]">
                   {q.badge}
                 </span>
-                <span className="font-mono text-xs font-bold text-[#0F291E]">
+                <span className="font-mono text-xs font-bold text-[#101820] tabular-nums">
                   {group.length} Dish(es)
                 </span>
               </div>
-              <h3 className="font-display font-bold text-sm text-[#0F291E]">
+              <h3 className="font-display font-bold text-sm text-[#101820]">
                 {q.title}
               </h3>
-              <ul className="space-y-1 text-xs text-[#111C16]">
+              <ul className="space-y-1 text-xs text-[#101820]">
                 {group.length === 0 ? (
-                  <li className="text-[#718077] italic">None in this window</li>
+                  <li className="text-[#64748B] italic">None in this window</li>
                 ) : (
                   group.map((item: any) => (
                     <li
                       key={item.menuItemId}
-                      className="flex items-center justify-between bg-white/80 rounded px-2 py-1 border border-black/5"
+                      className="flex items-center justify-between bg-white/90 rounded-lg px-2.5 py-1.5 border border-[#E5E7EB]"
                     >
                       <span className="truncate pr-2 font-medium">
                         {item.name}
                       </span>
-                      <span className="font-mono text-[11px] font-semibold">
+                      <span className="font-mono text-[11px] font-semibold text-[#176B52] tabular-nums">
                         {item.grossMarginPercent !== null
                           ? `${item.grossMarginPercent}%`
                           : "No Recipe"}
@@ -203,35 +208,39 @@ export default function ProfitabilityAnalyticsPage() {
         })}
       </div>
 
-      <div className="rounded-2xl border border-[#E5E0D5] bg-white p-6 shadow-card space-y-4">
+      <div className="rounded-2xl border border-[#E5E7EB] bg-white p-6 shadow-card space-y-4">
         <div>
-          <h3 className="font-display font-bold text-base text-[#0F291E]">
+          <h3 className="font-display font-bold text-base text-[#101820]">
             Net Sales vs. Estimated Gross Profit by Dish (INR)
           </h3>
-          <p className="text-xs text-[#718077]">
+          <p className="text-xs text-[#64748B]">
             Derived from actual order line items and yield-adjusted recipes
           </p>
         </div>
         <div className="h-64 w-full">
           <ResponsiveContainer width="100%" height="100%">
             <BarChart data={chartData}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#E5E0D5" />
-              <XAxis dataKey="name" tick={{ fontSize: 11 }} />
-              <YAxis tick={{ fontSize: 11 }} />
+              <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" />
+              <XAxis dataKey="name" tick={{ fontSize: 11, fill: "#64748B" }} />
+              <YAxis tick={{ fontSize: 11, fill: "#64748B" }} />
               <Tooltip
                 formatter={(v: any) => [`₹${v}`, ""]}
-                contentStyle={{ borderRadius: "12px", fontSize: "12px" }}
+                contentStyle={{
+                  borderRadius: "12px",
+                  borderColor: "#E5E7EB",
+                  fontSize: "12px",
+                }}
               />
               <Bar
                 dataKey="netSalesRupees"
                 name="Net Sales (₹)"
-                fill="#286249"
+                fill="#101820"
                 radius={[4, 4, 0, 0]}
               />
               <Bar
                 dataKey="grossProfitRupees"
                 name="Est. Gross Profit (₹)"
-                fill="#84CC16"
+                fill="#20A67A"
                 radius={[4, 4, 0, 0]}
               />
             </BarChart>
@@ -239,10 +248,10 @@ export default function ProfitabilityAnalyticsPage() {
         </div>
       </div>
 
-      <div className="rounded-2xl border border-[#E5E0D5] bg-white overflow-x-auto shadow-card">
+      <div className="rounded-2xl border border-[#E5E7EB] bg-white overflow-x-auto shadow-card">
         <table className="w-full text-left border-collapse text-xs">
           <thead>
-            <tr className="border-b border-[#E5E0D5] bg-[#FBF9F5] text-[#4A5950]">
+            <tr className="border-b border-[#E5E7EB] bg-[#F8F7F3] text-[#64748B]">
               <th className="py-3.5 px-4 font-semibold">Dish & Category</th>
               <th className="py-3.5 px-4 font-semibold">Units Sold</th>
               <th className="py-3.5 px-4 font-semibold">Net Sales</th>
@@ -255,24 +264,24 @@ export default function ProfitabilityAnalyticsPage() {
               </th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-[#E5E0D5]">
+          <tbody className="divide-y divide-[#E5E7EB]">
             {isLoading ? (
               <tr>
-                <td colSpan={8} className="p-8 text-center text-[#718077]">
+                <td colSpan={8} className="p-8 text-center text-[#64748B]">
                   Calculating profitability matrix...
                 </td>
               </tr>
             ) : (
               items.map((item: any) => (
-                <tr key={item.menuItemId} className="hover:bg-[#FBF9F5]/60">
+                <tr key={item.menuItemId} className="hover:bg-[#F8F7F3]/60">
                   <td className="py-3.5 px-4">
-                    <p className="font-bold text-[#0F291E]">{item.name}</p>
-                    <p className="text-[11px] text-[#718077]">
+                    <p className="font-bold text-[#101820]">{item.name}</p>
+                    <p className="text-[11px] text-[#64748B]">
                       {item.categoryName} • Price:{" "}
                       {formatINR(item.sellingPricePaise)}
                     </p>
                   </td>
-                  <td className="py-3.5 px-4 font-mono font-bold">
+                  <td className="py-3.5 px-4 font-mono font-bold tabular-nums">
                     {item.unitsSold}
                     {item.cancelledUnits > 0 && (
                       <span className="block text-[10px] text-red-700">
@@ -280,10 +289,10 @@ export default function ProfitabilityAnalyticsPage() {
                       </span>
                     )}
                   </td>
-                  <td className="py-3.5 px-4 font-mono">
+                  <td className="py-3.5 px-4 font-mono tabular-nums">
                     {formatINR(item.netSalesPaise)}
                   </td>
-                  <td className="py-3.5 px-4 font-mono">
+                  <td className="py-3.5 px-4 font-mono tabular-nums">
                     {item.hasRecipe && item.totalIngredientCostPaise !== null ? (
                       formatINR(item.totalIngredientCostPaise)
                     ) : (
@@ -292,20 +301,20 @@ export default function ProfitabilityAnalyticsPage() {
                       </span>
                     )}
                   </td>
-                  <td className="py-3.5 px-4 font-mono font-bold text-emerald-700">
+                  <td className="py-3.5 px-4 font-mono font-bold text-[#20A67A] tabular-nums">
                     {item.estimatedGrossProfitPaise !== null
                       ? formatINR(item.estimatedGrossProfitPaise)
                       : "—"}
                   </td>
-                  <td className="py-3.5 px-4 font-mono font-bold">
+                  <td className="py-3.5 px-4 font-mono font-bold tabular-nums">
                     {item.grossMarginPercent !== null
                       ? `${item.grossMarginPercent}%`
                       : "—"}
                   </td>
-                  <td className="py-3.5 px-4 font-mono">
+                  <td className="py-3.5 px-4 font-mono tabular-nums">
                     {item.popularitySharePercent}%
                   </td>
-                  <td className="py-3.5 px-4 text-[#4A5950] max-w-xs leading-relaxed">
+                  <td className="py-3.5 px-4 text-[#64748B] max-w-xs leading-relaxed">
                     {item.recommendation}
                   </td>
                 </tr>

@@ -17,7 +17,7 @@
     "test": "npm --workspace=@dinepilot/shared run test && npm --workspace=@dinepilot/api run test",
     "test:api": "npm --workspace=@dinepilot/api run test",
     "seed": "npm --workspace=@dinepilot/api run seed",
-    "typecheck": "npm --workspace=@dinepilot/shared run typecheck && npm --workspace=@dinepilot/api run typecheck && npm --workspace=@dinepilot/web run typecheck"
+    "typecheck": "npm --workspace=@dinepilot/shared run build && npm --workspace=@dinepilot/api run build && npm --workspace=@dinepilot/shared run typecheck && npm --workspace=@dinepilot/api run typecheck && npm --workspace=@dinepilot/web run typecheck"
   },
   "engines": {
     "node": ">=20.0.0"

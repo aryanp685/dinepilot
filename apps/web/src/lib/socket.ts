@@ -6,12 +6,12 @@ let sharedSocket: Socket | null = null;
 
 export function getSocket(): Socket {
   if (!sharedSocket) {
-    sharedSocket = io({
+    sharedSocket = io(process.env.NEXT_PUBLIC_SOCKET_URL || undefined, {
       path: "/socket.io",
       withCredentials: true,
       transports: ["polling", "websocket"],
-      reconnectionAttempts: 10,
-      reconnectionDelay: 1500,
+      reconnectionAttempts: 3,
+      reconnectionDelay: 2500,
     });
   }
   return sharedSocket;

@@ -13,19 +13,19 @@ export default function PlatformUsersPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="font-display text-2xl font-bold text-[#0F291E]">
+        <h2 className="font-display text-2xl font-bold text-[#101820]">
           Platform Users & Tenant Memberships
         </h2>
-        <p className="text-xs text-[#4A5950]">
+        <p className="text-xs text-[#64748B]">
           Inspect user accounts, platform admin flags, and assigned restaurant
           workspaces
         </p>
       </div>
 
-      <div className="rounded-2xl border border-[#E5E0D5] bg-white overflow-x-auto shadow-card">
+      <div className="rounded-2xl border border-[#E5E7EB] bg-white overflow-x-auto shadow-card">
         <table className="w-full text-left border-collapse text-xs">
           <thead>
-            <tr className="border-b border-[#E5E0D5] bg-[#FBF9F5] text-[#4A5950]">
+            <tr className="border-b border-[#E5E7EB] bg-[#F8F7F3] text-[#64748B]">
               <th className="py-3.5 px-4 font-semibold">User Name</th>
               <th className="py-3.5 px-4 font-semibold">Email & Phone</th>
               <th className="py-3.5 px-4 font-semibold">Platform Role</th>
@@ -35,25 +35,25 @@ export default function PlatformUsersPage() {
               <th className="py-3.5 px-4 font-semibold">Status</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-[#E5E0D5]">
+          <tbody className="divide-y divide-[#E5E7EB]">
             {isLoading ? (
               <tr>
-                <td colSpan={5} className="p-8 text-center text-[#718077]">
+                <td colSpan={5} className="p-8 text-center text-[#64748B]">
                   Loading platform users...
                 </td>
               </tr>
             ) : (
               users.map((u: any) => (
-                <tr key={u._id} className="hover:bg-[#FBF9F5]/60">
-                  <td className="py-3.5 px-4 font-bold text-[#0F291E]">
+                <tr key={u._id} className="hover:bg-[#F8F7F3]/60">
+                  <td className="py-3.5 px-4 font-bold text-[#101820]">
                     {u.name}
                   </td>
-                  <td className="py-3.5 px-4 font-mono text-[11px] text-[#4A5950]">
+                  <td className="py-3.5 px-4 font-mono text-[11px] text-[#64748B]">
                     {u.email} {u.phone ? `• ${u.phone}` : ""}
                   </td>
                   <td className="py-3.5 px-4">
                     {u.isPlatformAdmin ? (
-                      <span className="rounded bg-[#0F291E] px-2 py-0.5 text-[10px] font-bold text-[#84CC16]">
+                      <span className="rounded bg-[#176B52] px-2 py-0.5 text-[10px] font-bold text-[#20A67A]">
                         PLATFORM ADMIN
                       </span>
                     ) : (

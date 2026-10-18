@@ -82,13 +82,13 @@ export default function FeaturesPage() {
     <MarketingLayout>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-14">
         <div className="max-w-3xl space-y-4">
-          <span className="inline-flex items-center gap-2 rounded-full bg-[#E6ECE8] px-3 py-1 text-xs font-semibold text-[#0F291E]">
+          <span className="inline-flex items-center gap-2 rounded-full bg-[#E8F3EF] px-3 py-1 text-xs font-semibold text-[#101820]">
             Platform Architecture
           </span>
-          <h1 className="font-display text-4xl font-bold text-[#0F291E]">
+          <h1 className="font-display text-4xl font-bold text-[#101820]">
             Engineered from the database up for restaurant unit economics
           </h1>
-          <p className="text-base text-[#4A5950] leading-relaxed">
+          <p className="text-base text-[#64748B] leading-relaxed">
             Explore how every module in DinePilot connects guest ordering to
             kitchen execution, inventory control, and financial clarity.
           </p>
@@ -100,21 +100,21 @@ export default function FeaturesPage() {
             return (
               <div
                 key={m.title}
-                className="rounded-2xl border border-[#E5E0D5] bg-white p-7 shadow-card space-y-4"
+                className="rounded-2xl border border-[#E5E7EB] bg-white p-7 shadow-card space-y-4"
               >
                 <div className="flex items-center justify-between">
-                  <span className="rounded-md bg-[#E6ECE8] px-2.5 py-1 text-xs font-semibold text-[#0F291E]">
+                  <span className="rounded-md bg-[#E8F3EF] px-2.5 py-1 text-xs font-semibold text-[#101820]">
                     {m.tag}
                   </span>
-                  <Icon className="h-5 w-5 text-[#D97706]" />
+                  <Icon className="h-5 w-5 text-[#C6A15B]" />
                 </div>
-                <h2 className="font-display text-xl font-bold text-[#0F291E]">
+                <h2 className="font-display text-xl font-bold text-[#101820]">
                   {m.title}
                 </h2>
-                <ul className="space-y-2.5 text-sm text-[#4A5950]">
+                <ul className="space-y-2.5 text-sm text-[#64748B]">
                   {m.points.map((pt) => (
                     <li key={pt} className="flex items-start gap-2.5">
-                      <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-[#0F291E] shrink-0" />
+                      <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-[#176B52] shrink-0" />
                       <span>{pt}</span>
                     </li>
                   ))}
@@ -124,7 +124,7 @@ export default function FeaturesPage() {
           })}
         </div>
 
-        <div className="rounded-2xl bg-[#0F291E] text-white p-8 sm:p-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+        <div className="rounded-2xl bg-[#176B52] text-white p-8 sm:p-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
           <div className="space-y-2 max-w-xl">
             <h3 className="font-display text-2xl font-bold">
               Test every module live in the Nagpur Demo Workspace
@@ -136,7 +136,7 @@ export default function FeaturesPage() {
           </div>
           <Link
             href="/login"
-            className="inline-flex items-center gap-2 rounded-xl bg-[#84CC16] px-6 py-3.5 text-sm font-bold text-[#0F291E] hover:bg-[#9BE028] transition-colors shrink-0"
+            className="inline-flex items-center gap-2 rounded-xl bg-[#20A67A] px-6 py-3.5 text-sm font-bold text-[#101820] hover:bg-[#198763] transition-colors shrink-0"
           >
             Open Demo Console
             <ArrowRight className="h-4 w-4" />

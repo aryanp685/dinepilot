@@ -128,10 +128,10 @@ export default function InventoryPage() {
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h2 className="font-display text-2xl font-bold text-[#0F291E]">
+          <h2 className="font-display text-2xl font-bold text-[#101820]">
             Ingredient Inventory & Waste Intelligence
           </h2>
-          <p className="text-xs text-[#4A5950]">
+          <p className="text-xs text-[#64748B]">
             Auditable movement ledger, usable yield costing, and spoilage
             analytics
           </p>
@@ -144,59 +144,59 @@ export default function InventoryPage() {
               if (ingredients[0] && !moveIngId) setMoveIngId(ingredients[0]._id);
               setMoveModalOpen(true);
             }}
-            className="inline-flex items-center gap-1.5 rounded-xl border border-[#0F291E] bg-white px-3.5 py-2.5 text-xs font-semibold text-[#0F291E] hover:bg-[#F2EFE9]"
+            className="inline-flex items-center gap-1.5 rounded-xl border border-[#176B52] bg-white px-3.5 py-2.5 text-xs font-semibold text-[#101820] hover:bg-[#F1EFE9]"
           >
-            <ArrowUpDown className="h-4 w-4 text-[#D97706]" />
+            <ArrowUpDown className="h-4 w-4 text-[#C6A15B]" />
             Record Stock Movement
           </button>
           <button
             type="button"
             onClick={() => setIngModalOpen(true)}
-            className="inline-flex items-center gap-1.5 rounded-xl bg-[#0F291E] px-4 py-2.5 text-xs font-semibold text-white hover:bg-[#163829]"
+            className="inline-flex items-center gap-1.5 rounded-xl bg-[#176B52] px-4 py-2.5 text-xs font-semibold text-white hover:bg-[#125541]"
           >
-            <Plus className="h-4 w-4 text-[#84CC16]" />
+            <Plus className="h-4 w-4 text-[#20A67A]" />
             Add Ingredient
           </button>
         </div>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <div className="rounded-2xl border border-[#E5E0D5] bg-white p-5">
-          <span className="text-xs text-[#4A5950] font-semibold">
+        <div className="rounded-2xl border border-[#E5E7EB] bg-white p-5">
+          <span className="text-xs text-[#64748B] font-semibold">
             On-Hand Stock Valuation
           </span>
-          <p className="font-mono text-2xl font-bold text-[#0F291E] mt-1">
+          <p className="font-mono text-2xl font-bold text-[#101820] mt-1">
             {formatINR(totalInventoryValuePaise)}
           </p>
-          <p className="text-[11px] text-[#718077] mt-0.5">
+          <p className="text-[11px] text-[#64748B] mt-0.5">
             Across {ingredients.length} tracked ingredients
           </p>
         </div>
-        <div className="rounded-2xl border border-[#E5E0D5] bg-white p-5">
-          <span className="text-xs text-[#4A5950] font-semibold">
+        <div className="rounded-2xl border border-[#E5E7EB] bg-white p-5">
+          <span className="text-xs text-[#64748B] font-semibold">
             Low-Stock Reorder Alerts
           </span>
           <p className="font-mono text-2xl font-bold text-amber-700 mt-1">
             {lowStockCount} Ingredient(s)
           </p>
-          <p className="text-[11px] text-[#718077] mt-0.5">
+          <p className="text-[11px] text-[#64748B] mt-0.5">
             At or below safety reorder threshold
           </p>
         </div>
-        <div className="rounded-2xl border border-[#E5E0D5] bg-white p-5">
-          <span className="text-xs text-[#4A5950] font-semibold">
+        <div className="rounded-2xl border border-[#E5E7EB] bg-white p-5">
+          <span className="text-xs text-[#64748B] font-semibold">
             Measured Waste & Spoilage Cost
           </span>
           <p className="font-mono text-2xl font-bold text-red-700 mt-1">
             {formatINR(wasteReport?.totalWasteCostPaise || 0)}
           </p>
-          <p className="text-[11px] text-[#718077] mt-0.5">
+          <p className="text-[11px] text-[#64748B] mt-0.5">
             {wasteReport?.totalWasteEvents || 0} auditable waste/spoilage logs
           </p>
         </div>
       </div>
 
-      <div className="flex items-center gap-2 border-b border-[#E5E0D5] pb-2">
+      <div className="flex items-center gap-2 border-b border-[#E5E7EB] pb-2">
         {[
           { id: "ingredients", label: "Ingredients & Yield", icon: Boxes },
           { id: "movements", label: "Auditable Movement Ledger", icon: History },
@@ -210,8 +210,8 @@ export default function InventoryPage() {
               onClick={() => setActiveTab(tab.id as any)}
               className={`inline-flex items-center gap-2 rounded-xl px-4 py-2 text-xs font-semibold transition-colors ${
                 activeTab === tab.id
-                  ? "bg-[#0F291E] text-white"
-                  : "text-[#4A5950] hover:bg-white"
+                  ? "bg-[#176B52] text-white"
+                  : "text-[#64748B] hover:bg-white"
               }`}
             >
               <Icon className="h-3.5 w-3.5" />
@@ -222,10 +222,10 @@ export default function InventoryPage() {
       </div>
 
       {activeTab === "ingredients" && (
-        <div className="rounded-2xl border border-[#E5E0D5] bg-white overflow-x-auto shadow-card">
+        <div className="rounded-2xl border border-[#E5E7EB] bg-white overflow-x-auto shadow-card">
           <table className="w-full text-left border-collapse text-xs">
             <thead>
-              <tr className="border-b border-[#E5E0D5] bg-[#FBF9F5] text-[#4A5950]">
+              <tr className="border-b border-[#E5E7EB] bg-[#F8F7F3] text-[#64748B]">
                 <th className="py-3.5 px-4 font-semibold">Ingredient</th>
                 <th className="py-3.5 px-4 font-semibold">On-Hand Stock</th>
                 <th className="py-3.5 px-4 font-semibold">Reorder Threshold</th>
@@ -238,26 +238,26 @@ export default function InventoryPage() {
                 <th className="py-3.5 px-4 font-semibold">Status</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-[#E5E0D5]">
+            <tbody className="divide-y divide-[#E5E7EB]">
               {isLoading ? (
                 <tr>
-                  <td colSpan={8} className="p-8 text-center text-[#718077]">
+                  <td colSpan={8} className="p-8 text-center text-[#64748B]">
                     Loading ingredients...
                   </td>
                 </tr>
               ) : (
                 ingredients.map((ing: any) => (
-                  <tr key={ing._id} className="hover:bg-[#FBF9F5]/60">
-                    <td className="py-3.5 px-4 font-semibold text-[#0F291E]">
+                  <tr key={ing._id} className="hover:bg-[#F8F7F3]/60">
+                    <td className="py-3.5 px-4 font-semibold text-[#101820]">
                       {ing.name}
-                      <span className="block text-[10px] font-normal text-[#718077]">
+                      <span className="block text-[10px] font-normal text-[#64748B]">
                         {ing.category} • {ing.storageNotes || "Standard store"}
                       </span>
                     </td>
-                    <td className="py-3.5 px-4 font-mono font-bold text-[#111C16]">
+                    <td className="py-3.5 px-4 font-mono font-bold text-[#101820]">
                       {ing.currentStock} {ing.unit}
                     </td>
-                    <td className="py-3.5 px-4 font-mono text-[#4A5950]">
+                    <td className="py-3.5 px-4 font-mono text-[#64748B]">
                       {ing.reorderThreshold} {ing.unit}
                     </td>
                     <td className="py-3.5 px-4 font-mono">
@@ -266,10 +266,10 @@ export default function InventoryPage() {
                     <td className="py-3.5 px-4 font-mono">
                       {ing.usableYieldPercent}%
                     </td>
-                    <td className="py-3.5 px-4 font-mono font-semibold text-[#0F291E]">
+                    <td className="py-3.5 px-4 font-mono font-semibold text-[#101820]">
                       {formatINR(ing.effectiveCostPerUnitPaise)}/{ing.unit}
                     </td>
-                    <td className="py-3.5 px-4 text-[#4A5950]">
+                    <td className="py-3.5 px-4 text-[#64748B]">
                       {ing.supplierName}
                     </td>
                     <td className="py-3.5 px-4">
@@ -297,10 +297,10 @@ export default function InventoryPage() {
       )}
 
       {activeTab === "movements" && (
-        <div className="rounded-2xl border border-[#E5E0D5] bg-white overflow-x-auto shadow-card">
+        <div className="rounded-2xl border border-[#E5E7EB] bg-white overflow-x-auto shadow-card">
           <table className="w-full text-left border-collapse text-xs">
             <thead>
-              <tr className="border-b border-[#E5E0D5] bg-[#FBF9F5] text-[#4A5950]">
+              <tr className="border-b border-[#E5E7EB] bg-[#F8F7F3] text-[#64748B]">
                 <th className="py-3.5 px-4 font-semibold">Timestamp</th>
                 <th className="py-3.5 px-4 font-semibold">Ingredient</th>
                 <th className="py-3.5 px-4 font-semibold">Movement Type</th>
@@ -310,13 +310,13 @@ export default function InventoryPage() {
                 <th className="py-3.5 px-4 font-semibold">Reason & Actor</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-[#E5E0D5]">
+            <tbody className="divide-y divide-[#E5E7EB]">
               {movements.map((m: any) => (
-                <tr key={m._id} className="hover:bg-[#FBF9F5]/60">
-                  <td className="py-3 px-4 font-mono text-[11px] text-[#718077]">
+                <tr key={m._id} className="hover:bg-[#F8F7F3]/60">
+                  <td className="py-3 px-4 font-mono text-[11px] text-[#64748B]">
                     {new Date(m.createdAt).toLocaleString("en-IN")}
                   </td>
-                  <td className="py-3 px-4 font-semibold text-[#0F291E]">
+                  <td className="py-3 px-4 font-semibold text-[#101820]">
                     {m.ingredientNameSnapshot}
                   </td>
                   <td className="py-3 px-4">
@@ -341,15 +341,15 @@ export default function InventoryPage() {
                     {m.quantityDelta > 0 ? "+" : ""}
                     {m.quantityDelta} {m.unit}
                   </td>
-                  <td className="py-3 px-4 font-mono text-[#4A5950]">
+                  <td className="py-3 px-4 font-mono text-[#64748B]">
                     {m.previousStock} → {m.newStock} {m.unit}
                   </td>
                   <td className="py-3 px-4 font-mono">
                     {formatINR(m.totalCostPaise)}
                   </td>
-                  <td className="py-3 px-4 text-[#4A5950]">
+                  <td className="py-3 px-4 text-[#64748B]">
                     {m.reason}
-                    <span className="block text-[10px] text-[#718077]">
+                    <span className="block text-[10px] text-[#64748B]">
                       By {m.performedByName}
                     </span>
                   </td>
@@ -365,23 +365,23 @@ export default function InventoryPage() {
           {(wasteReport?.topWastedIngredients || []).map((item: any) => (
             <div
               key={item.ingredientId}
-              className="rounded-2xl border border-[#E5E0D5] bg-white p-5 shadow-card flex flex-col sm:flex-row sm:items-center justify-between gap-4"
+              className="rounded-2xl border border-[#E5E7EB] bg-white p-5 shadow-card flex flex-col sm:flex-row sm:items-center justify-between gap-4"
             >
               <div className="space-y-1">
                 <div className="flex items-center gap-2">
-                  <span className="font-display font-bold text-base text-[#0F291E]">
+                  <span className="font-display font-bold text-base text-[#101820]">
                     {item.name}
                   </span>
                   <span className="rounded bg-red-100 px-2 py-0.5 text-[11px] font-bold text-red-900">
                     {item.totalQuantityWasted} {item.unit} Wasted
                   </span>
                 </div>
-                <p className="text-xs text-[#4A5950] leading-relaxed">
+                <p className="text-xs text-[#64748B] leading-relaxed">
                   {item.recommendation}
                 </p>
               </div>
               <div className="text-right shrink-0">
-                <span className="text-[11px] text-[#718077] block">
+                <span className="text-[11px] text-[#64748B] block">
                   Estimated Waste Cost
                 </span>
                 <span className="font-mono font-bold text-lg text-red-700">
@@ -395,8 +395,8 @@ export default function InventoryPage() {
 
       {ingModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
-          <div className="w-full max-w-md rounded-2xl bg-white border border-[#E5E0D5] p-6 shadow-editorial space-y-4">
-            <h3 className="font-display font-bold text-lg text-[#0F291E]">
+          <div className="w-full max-w-md rounded-2xl bg-white border border-[#E5E7EB] p-6 shadow-editorial space-y-4">
+            <h3 className="font-display font-bold text-lg text-[#101820]">
               Add Tracked Ingredient
             </h3>
             <form onSubmit={handleCreateIngredient} className="space-y-3">
@@ -408,7 +408,7 @@ export default function InventoryPage() {
                   required
                   value={ingName}
                   onChange={(e) => setIngName(e.target.value)}
-                  className="w-full rounded-lg border border-[#E5E0D5] px-3 py-2 text-xs"
+                  className="w-full rounded-lg border border-[#E5E7EB] px-3 py-2 text-xs"
                   placeholder="Byadgi Dry Red Chillies"
                 />
               </div>
@@ -422,7 +422,7 @@ export default function InventoryPage() {
                     onChange={(e) =>
                       setIngUnit(e.target.value as MeasurementUnit)
                     }
-                    className="w-full rounded-lg border border-[#E5E0D5] px-3 py-2 text-xs"
+                    className="w-full rounded-lg border border-[#E5E7EB] px-3 py-2 text-xs"
                   >
                     <option value="kg">kg (Kilograms)</option>
                     <option value="g">g (Grams)</option>
@@ -440,7 +440,7 @@ export default function InventoryPage() {
                     step="0.1"
                     value={ingStock}
                     onChange={(e) => setIngStock(e.target.value)}
-                    className="w-full rounded-lg border border-[#E5E0D5] px-3 py-2 text-xs font-mono"
+                    className="w-full rounded-lg border border-[#E5E7EB] px-3 py-2 text-xs font-mono"
                   />
                 </div>
               </div>
@@ -453,7 +453,7 @@ export default function InventoryPage() {
                     type="number"
                     value={ingCostRupees}
                     onChange={(e) => setIngCostRupees(e.target.value)}
-                    className="w-full rounded-lg border border-[#E5E0D5] px-2.5 py-2 text-xs font-mono"
+                    className="w-full rounded-lg border border-[#E5E7EB] px-2.5 py-2 text-xs font-mono"
                   />
                 </div>
                 <div>
@@ -466,7 +466,7 @@ export default function InventoryPage() {
                     max="100"
                     value={ingYield}
                     onChange={(e) => setIngYield(e.target.value)}
-                    className="w-full rounded-lg border border-[#E5E0D5] px-2.5 py-2 text-xs font-mono"
+                    className="w-full rounded-lg border border-[#E5E7EB] px-2.5 py-2 text-xs font-mono"
                   />
                 </div>
                 <div>
@@ -477,7 +477,7 @@ export default function InventoryPage() {
                     type="number"
                     value={ingReorder}
                     onChange={(e) => setIngReorder(e.target.value)}
-                    className="w-full rounded-lg border border-[#E5E0D5] px-2.5 py-2 text-xs font-mono"
+                    className="w-full rounded-lg border border-[#E5E7EB] px-2.5 py-2 text-xs font-mono"
                   />
                 </div>
               </div>
@@ -485,13 +485,13 @@ export default function InventoryPage() {
                 <button
                   type="button"
                   onClick={() => setIngModalOpen(false)}
-                  className="rounded-xl border border-[#E5E0D5] px-4 py-2 text-xs font-semibold"
+                  className="rounded-xl border border-[#E5E7EB] px-4 py-2 text-xs font-semibold"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="rounded-xl bg-[#0F291E] px-4 py-2 text-xs font-semibold text-white"
+                  className="rounded-xl bg-[#176B52] px-4 py-2 text-xs font-semibold text-white"
                 >
                   Create Ingredient
                 </button>
@@ -503,8 +503,8 @@ export default function InventoryPage() {
 
       {moveModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
-          <div className="w-full max-w-md rounded-2xl bg-white border border-[#E5E0D5] p-6 shadow-editorial space-y-4">
-            <h3 className="font-display font-bold text-lg text-[#0F291E]">
+          <div className="w-full max-w-md rounded-2xl bg-white border border-[#E5E7EB] p-6 shadow-editorial space-y-4">
+            <h3 className="font-display font-bold text-lg text-[#101820]">
               Record Auditable Stock Movement
             </h3>
             <form onSubmit={handleRecordMovement} className="space-y-3">
@@ -515,7 +515,7 @@ export default function InventoryPage() {
                 <select
                   value={moveIngId}
                   onChange={(e) => setMoveIngId(e.target.value)}
-                  className="w-full rounded-lg border border-[#E5E0D5] px-3 py-2 text-xs"
+                  className="w-full rounded-lg border border-[#E5E7EB] px-3 py-2 text-xs"
                 >
                   {ingredients.map((i: any) => (
                     <option key={i._id} value={i._id}>
@@ -534,7 +534,7 @@ export default function InventoryPage() {
                     onChange={(e) =>
                       setMoveType(e.target.value as InventoryMovementType)
                     }
-                    className="w-full rounded-lg border border-[#E5E0D5] px-3 py-2 text-xs"
+                    className="w-full rounded-lg border border-[#E5E7EB] px-3 py-2 text-xs"
                   >
                     <option value="PURCHASE_RECEIVED">
                       PURCHASE_RECEIVED (+)
@@ -563,7 +563,7 @@ export default function InventoryPage() {
                     min="0.01"
                     value={moveQty}
                     onChange={(e) => setMoveQty(e.target.value)}
-                    className="w-full rounded-lg border border-[#E5E0D5] px-3 py-2 text-xs font-mono"
+                    className="w-full rounded-lg border border-[#E5E7EB] px-3 py-2 text-xs font-mono"
                   />
                 </div>
               </div>
@@ -576,20 +576,20 @@ export default function InventoryPage() {
                   value={moveReason}
                   onChange={(e) => setMoveReason(e.target.value)}
                   placeholder="e.g. Morning delivery invoice #492 or evening trim waste"
-                  className="w-full rounded-lg border border-[#E5E0D5] px-3 py-2 text-xs"
+                  className="w-full rounded-lg border border-[#E5E7EB] px-3 py-2 text-xs"
                 />
               </div>
               <div className="flex justify-end gap-2 pt-2">
                 <button
                   type="button"
                   onClick={() => setMoveModalOpen(false)}
-                  className="rounded-xl border border-[#E5E0D5] px-4 py-2 text-xs font-semibold"
+                  className="rounded-xl border border-[#E5E7EB] px-4 py-2 text-xs font-semibold"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="rounded-xl bg-[#0F291E] px-4 py-2 text-xs font-semibold text-white"
+                  className="rounded-xl bg-[#176B52] px-4 py-2 text-xs font-semibold text-white"
                 >
                   Commit to Ledger
                 </button>

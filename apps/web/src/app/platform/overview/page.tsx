@@ -15,10 +15,10 @@ export default function PlatformOverviewPage() {
   if (isLoading || !data) {
     return (
       <div className="space-y-4">
-        <h2 className="font-display text-2xl font-bold text-[#0F291E]">
+        <h2 className="font-display text-2xl font-bold text-[#101820]">
           Platform Multi-Tenant Telemetry
         </h2>
-        <p className="text-xs text-[#4A5950]">Loading platform metrics...</p>
+        <p className="text-xs text-[#64748B]">Loading platform metrics...</p>
       </div>
     );
   }
@@ -54,10 +54,10 @@ export default function PlatformOverviewPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="font-display text-2xl font-bold text-[#0F291E]">
+        <h2 className="font-display text-2xl font-bold text-[#101820]">
           Platform Control Plane Overview
         </h2>
-        <p className="text-xs text-[#4A5950]">
+        <p className="text-xs text-[#64748B]">
           Real-time SaaS tenant health, recurring subscription revenue, and
           platform-wide GMV
         </p>
@@ -69,13 +69,13 @@ export default function PlatformOverviewPage() {
           return (
             <div
               key={c.label}
-              className="rounded-2xl border border-[#E5E0D5] bg-white p-5 shadow-card space-y-2"
+              className="rounded-2xl border border-[#E5E7EB] bg-white p-5 shadow-card space-y-2"
             >
-              <div className="flex items-center justify-between text-[#4A5950]">
+              <div className="flex items-center justify-between text-[#64748B]">
                 <span className="text-xs font-semibold">{c.label}</span>
-                <Icon className="h-4 w-4 text-[#0F291E]" />
+                <Icon className="h-4 w-4 text-[#101820]" />
               </div>
-              <p className="font-mono text-xl font-bold text-[#0F291E]">
+              <p className="font-mono text-xl font-bold text-[#101820]">
                 {c.value}
               </p>
             </div>
