@@ -1,0 +1,25 @@
+{
+  "name": "dinepilot",
+  "version": "1.0.0",
+  "private": true,
+  "description": "DinePilot — AI-Assisted Multi-Tenant Restaurant Operations, Profitability & QR Ordering SaaS",
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "scripts": {
+    "dev:api": "npm --workspace=@dinepilot/api run dev",
+    "dev:web": "npm --workspace=@dinepilot/web run dev",
+    "build": "npm --workspace=@dinepilot/shared run build && npm --workspace=@dinepilot/api run build && npm --workspace=@dinepilot/web run build",
+    "build:shared": "npm --workspace=@dinepilot/shared run build",
+    "build:api": "npm --workspace=@dinepilot/api run build",
+    "build:web": "npm --workspace=@dinepilot/web run build",
+    "test": "npm --workspace=@dinepilot/shared run test && npm --workspace=@dinepilot/api run test",
+    "test:api": "npm --workspace=@dinepilot/api run test",
+    "seed": "npm --workspace=@dinepilot/api run seed",
+    "typecheck": "npm --workspace=@dinepilot/shared run typecheck && npm --workspace=@dinepilot/api run typecheck && npm --workspace=@dinepilot/web run typecheck"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}
