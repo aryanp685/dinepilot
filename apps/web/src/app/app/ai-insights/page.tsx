@@ -72,16 +72,16 @@ export default function AiInsightsPage() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2">
-            <h2 className="font-display text-2xl font-bold text-[#0F291E]">
+            <h2 className="font-display text-2xl font-bold text-[#101820]">
               AI Business Copilot
             </h2>
-            <span className="rounded-full bg-[#E6ECE8] border border-[#0F291E]/15 px-3 py-0.5 text-[11px] font-bold text-[#0F291E]">
+            <span className="rounded-full bg-[#E8F3EF] border border-[#176B52]/15 px-3 py-0.5 text-[11px] font-bold text-[#101820]">
               {activeInsight?.providerMode === "LLM_ENHANCED"
                 ? "LLM Provider Adapter"
                 : "Rule-Based Deterministic Engine"}
             </span>
           </div>
-          <p className="text-xs text-[#4A5950] mt-0.5">
+          <p className="text-xs text-[#64748B] mt-0.5">
             Metrics are calculated deterministically on the backend first.
             Measured facts and forecasts are explicitly separated.
           </p>
@@ -97,8 +97,8 @@ export default function AiInsightsPage() {
               }}
               className={`rounded-lg px-3 py-1.5 text-xs font-semibold ${
                 dateRangeDays === d
-                  ? "bg-[#0F291E] text-white"
-                  : "bg-white border border-[#E5E0D5] text-[#4A5950]"
+                  ? "bg-[#176B52] text-white"
+                  : "bg-white border border-[#E5E7EB] text-[#64748B]"
               }`}
             >
               {d}d Window
@@ -108,10 +108,10 @@ export default function AiInsightsPage() {
             type="button"
             disabled={loading}
             onClick={() => runCopilotAnalysis(question)}
-            className="inline-flex items-center gap-1.5 rounded-xl bg-[#0F291E] px-3.5 py-2 text-xs font-semibold text-white hover:bg-[#163829] disabled:opacity-50"
+            className="inline-flex items-center gap-1.5 rounded-xl bg-[#176B52] px-3.5 py-2 text-xs font-semibold text-white hover:bg-[#125541] disabled:opacity-50"
           >
             <RefreshCw
-              className={`h-3.5 w-3.5 text-[#84CC16] ${
+              className={`h-3.5 w-3.5 text-[#20A67A] ${
                 loading ? "animate-spin" : ""
               }`}
             />
@@ -120,8 +120,8 @@ export default function AiInsightsPage() {
         </div>
       </div>
 
-      <div className="rounded-2xl border border-[#0F291E]/20 bg-[#0F291E] text-white p-6 shadow-editorial space-y-4">
-        <div className="flex items-center gap-2 text-xs font-semibold text-[#84CC16]">
+      <div className="rounded-2xl border border-[#176B52]/20 bg-[#176B52] text-white p-6 shadow-editorial space-y-4">
+        <div className="flex items-center gap-2 text-xs font-semibold text-[#20A67A]">
           <Sparkles className="h-4 w-4" />
           <span>Ask Copilot About Your Restaurant Metrics</span>
         </div>
@@ -137,12 +137,12 @@ export default function AiInsightsPage() {
             value={question}
             onChange={(e) => setQuestion(e.target.value)}
             placeholder="e.g., Which five dishes generated the highest gross profit this month?"
-            className="flex-1 rounded-xl bg-white/10 border border-white/20 px-4 py-3 text-sm text-white placeholder:text-white/50 focus:outline-none focus:border-[#84CC16]"
+            className="flex-1 rounded-xl bg-white/10 border border-white/20 px-4 py-3 text-sm text-white placeholder:text-white/50 focus:outline-none focus:border-[#20A67A]"
           />
           <button
             type="submit"
             disabled={loading}
-            className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#84CC16] px-6 py-3 text-xs font-bold text-[#0F291E] hover:bg-[#9BE028] disabled:opacity-60 shrink-0"
+            className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#20A67A] px-6 py-3 text-xs font-bold text-[#101820] hover:bg-[#198763] disabled:opacity-60 shrink-0"
           >
             <Send className="h-3.5 w-3.5" />
             {loading ? "Analyzing..." : "Ask Copilot"}
@@ -166,7 +166,7 @@ export default function AiInsightsPage() {
         </div>
 
         {activeInsight?.directAnswer && (
-          <div className="rounded-xl bg-white text-[#111C16] p-4 border-l-4 border-[#84CC16] space-y-1">
+          <div className="rounded-xl bg-white text-[#101820] p-4 border-l-4 border-[#20A67A] space-y-1">
             <span className="text-[10px] font-bold uppercase tracking-wider text-[#286249]">
               Grounded Answer from Stored Ledger
             </span>
@@ -179,11 +179,11 @@ export default function AiInsightsPage() {
 
       {activeInsight && (
         <>
-          <div className="rounded-2xl border border-[#E5E0D5] bg-white p-5">
-            <span className="text-[10px] font-bold uppercase tracking-wider text-[#D97706]">
+          <div className="rounded-2xl border border-[#E5E7EB] bg-white p-5">
+            <span className="text-[10px] font-bold uppercase tracking-wider text-[#C6A15B]">
               Executive Telemetry Summary
             </span>
-            <p className="text-sm font-semibold text-[#0F291E] mt-1">
+            <p className="text-sm font-semibold text-[#101820] mt-1">
               {activeInsight.executiveSummary}
             </p>
           </div>
@@ -192,7 +192,7 @@ export default function AiInsightsPage() {
             {(activeInsight.measuredHighlights || []).map((hl: any) => (
               <div
                 key={hl.id}
-                className="rounded-2xl border border-[#E5E0D5] bg-white p-6 shadow-card flex flex-col justify-between space-y-4"
+                className="rounded-2xl border border-[#E5E7EB] bg-white p-6 shadow-card flex flex-col justify-between space-y-4"
               >
                 <div className="space-y-2.5">
                   <div className="flex items-center justify-between gap-2">
@@ -201,7 +201,7 @@ export default function AiInsightsPage() {
                         className={`rounded px-2 py-0.5 text-[10px] font-bold ${
                           hl.isForecast
                             ? "bg-purple-100 text-purple-900"
-                            : "bg-[#E6ECE8] text-[#0F291E]"
+                            : "bg-[#E8F3EF] text-[#101820]"
                         }`}
                       >
                         {hl.isForecast
@@ -220,21 +220,21 @@ export default function AiInsightsPage() {
                         {hl.severity}
                       </span>
                     </div>
-                    <span className="font-mono text-xs font-bold text-[#0F291E]">
+                    <span className="font-mono text-xs font-bold text-[#101820]">
                       {hl.supportingMetricLabel}: {hl.supportingMetricValue}
                     </span>
                   </div>
 
-                  <h3 className="font-display font-bold text-base text-[#0F291E]">
+                  <h3 className="font-display font-bold text-base text-[#101820]">
                     {hl.title}
                   </h3>
-                  <p className="text-xs text-[#4A5950] leading-relaxed">
+                  <p className="text-xs text-[#64748B] leading-relaxed">
                     <strong>Measured Evidence:</strong> {hl.measuredFact}
                   </p>
                 </div>
 
-                <div className="rounded-xl bg-[#FBF9F5] border border-[#E5E0D5] p-3 text-xs text-[#111C16]">
-                  <strong className="text-[#0F291E]">
+                <div className="rounded-xl bg-[#F8F7F3] border border-[#E5E7EB] p-3 text-xs text-[#101820]">
+                  <strong className="text-[#101820]">
                     Recommended Action:
                   </strong>{" "}
                   {hl.recommendation}
@@ -243,16 +243,16 @@ export default function AiInsightsPage() {
             ))}
           </div>
 
-          <div className="rounded-2xl border border-[#E5E0D5] bg-white p-6 shadow-card space-y-4">
+          <div className="rounded-2xl border border-[#E5E7EB] bg-white p-6 shadow-card space-y-4">
             <div className="flex items-center justify-between">
               <div>
                 <span className="rounded bg-purple-100 px-2 py-0.5 text-[10px] font-bold text-purple-900">
                   FORECAST MODEL
                 </span>
-                <h3 className="font-display font-bold text-base text-[#0F291E] mt-1">
+                <h3 className="font-display font-bold text-base text-[#101820] mt-1">
                   7-Day Ingredient Replenishment Forecast
                 </h3>
-                <p className="text-xs text-[#718077]">
+                <p className="text-xs text-[#64748B]">
                   Projected from historical recipe consumption velocity and
                   current stock on hand
                 </p>
@@ -262,7 +262,7 @@ export default function AiInsightsPage() {
             <div className="overflow-x-auto">
               <table className="w-full text-left border-collapse text-xs">
                 <thead>
-                  <tr className="border-b border-[#E5E0D5] bg-[#FBF9F5] text-[#4A5950]">
+                  <tr className="border-b border-[#E5E7EB] bg-[#F8F7F3] text-[#64748B]">
                     <th className="py-3 px-4 font-semibold">Ingredient</th>
                     <th className="py-3 px-4 font-semibold">Current Stock</th>
                     <th className="py-3 px-4 font-semibold">
@@ -279,11 +279,11 @@ export default function AiInsightsPage() {
                     </th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-[#E5E0D5]">
+                <tbody className="divide-y divide-[#E5E7EB]">
                   {(activeInsight.replenishmentForecasts || []).map(
                     (f: any) => (
                       <tr key={f.ingredientId}>
-                        <td className="py-3 px-4 font-bold text-[#0F291E]">
+                        <td className="py-3 px-4 font-bold text-[#101820]">
                           {f.ingredientName}
                         </td>
                         <td className="py-3 px-4 font-mono">
@@ -296,7 +296,7 @@ export default function AiInsightsPage() {
                         <td className="py-3 px-4 font-mono font-bold text-amber-800">
                           ~{f.estimatedDaysRemaining} days
                         </td>
-                        <td className="py-3 px-4 font-mono font-bold text-[#0F291E]">
+                        <td className="py-3 px-4 font-mono font-bold text-[#101820]">
                           +{f.suggestedOrderQty} {f.unit}
                         </td>
                         <td className="py-3 px-4 font-mono">

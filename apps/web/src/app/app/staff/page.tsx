@@ -77,10 +77,10 @@ export default function StaffManagementPage() {
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h2 className="font-display text-2xl font-bold text-[#0F291E]">
+          <h2 className="font-display text-2xl font-bold text-[#101820]">
             Staff Access & Role Permission Matrix
           </h2>
-          <p className="text-xs text-[#4A5950]">
+          <p className="text-xs text-[#64748B]">
             Roles (Owner, Manager, Cashier, Kitchen, Waiter) are enforced on the
             backend API for every request
           </p>
@@ -89,17 +89,17 @@ export default function StaffManagementPage() {
         <button
           type="button"
           onClick={() => setModalOpen(true)}
-          className="inline-flex items-center gap-1.5 rounded-xl bg-[#0F291E] px-4 py-2.5 text-xs font-semibold text-white hover:bg-[#163829]"
+          className="inline-flex items-center gap-1.5 rounded-xl bg-[#176B52] px-4 py-2.5 text-xs font-semibold text-white hover:bg-[#125541]"
         >
-          <Plus className="h-4 w-4 text-[#84CC16]" />
+          <Plus className="h-4 w-4 text-[#20A67A]" />
           Invite / Add Staff Member
         </button>
       </div>
 
-      <div className="rounded-2xl border border-[#E5E0D5] bg-white overflow-x-auto shadow-card">
+      <div className="rounded-2xl border border-[#E5E7EB] bg-white overflow-x-auto shadow-card">
         <table className="w-full text-left border-collapse text-xs">
           <thead>
-            <tr className="border-b border-[#E5E0D5] bg-[#FBF9F5] text-[#4A5950]">
+            <tr className="border-b border-[#E5E7EB] bg-[#F8F7F3] text-[#64748B]">
               <th className="py-3.5 px-4 font-semibold">Team Member</th>
               <th className="py-3.5 px-4 font-semibold">Email & Phone</th>
               <th className="py-3.5 px-4 font-semibold">Assigned Role</th>
@@ -109,20 +109,20 @@ export default function StaffManagementPage() {
               <th className="py-3.5 px-4 font-semibold">Status</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-[#E5E0D5]">
+          <tbody className="divide-y divide-[#E5E7EB]">
             {isLoading ? (
               <tr>
-                <td colSpan={5} className="p-8 text-center text-[#718077]">
+                <td colSpan={5} className="p-8 text-center text-[#64748B]">
                   Loading staff directory...
                 </td>
               </tr>
             ) : (
               staffMembers.map((member: any) => (
-                <tr key={member.membershipId} className="hover:bg-[#FBF9F5]/60">
-                  <td className="py-3.5 px-4 font-bold text-[#0F291E]">
+                <tr key={member.membershipId} className="hover:bg-[#F8F7F3]/60">
+                  <td className="py-3.5 px-4 font-bold text-[#101820]">
                     {member.name}
                   </td>
-                  <td className="py-3.5 px-4 font-mono text-[11px] text-[#4A5950]">
+                  <td className="py-3.5 px-4 font-mono text-[11px] text-[#64748B]">
                     {member.email}
                     {member.phone ? ` • ${member.phone}` : ""}
                   </td>
@@ -135,7 +135,7 @@ export default function StaffManagementPage() {
                           e.target.value as StaffRole
                         )
                       }
-                      className="rounded-lg border border-[#E5E0D5] bg-[#FBF9F5] px-2.5 py-1 text-xs font-bold text-[#0F291E]"
+                      className="rounded-lg border border-[#E5E7EB] bg-[#F8F7F3] px-2.5 py-1 text-xs font-bold text-[#101820]"
                     >
                       {STAFF_ROLES.map((r) => (
                         <option key={r} value={r}>
@@ -144,8 +144,8 @@ export default function StaffManagementPage() {
                       ))}
                     </select>
                   </td>
-                  <td className="py-3.5 px-4 text-[#4A5950]">
-                    <span className="font-mono font-semibold text-[#0F291E]">
+                  <td className="py-3.5 px-4 text-[#64748B]">
+                    <span className="font-mono font-semibold text-[#101820]">
                       {member.permissions?.length || 0}
                     </span>{" "}
                     scopes ({(member.permissions || []).slice(0, 4).join(", ")}
@@ -163,10 +163,10 @@ export default function StaffManagementPage() {
         </table>
       </div>
 
-      <div className="rounded-2xl border border-[#E5E0D5] bg-white p-6 shadow-card space-y-4">
+      <div className="rounded-2xl border border-[#E5E7EB] bg-white p-6 shadow-card space-y-4">
         <div className="flex items-center gap-2">
-          <Shield className="h-4 w-4 text-[#0F291E]" />
-          <h3 className="font-display font-bold text-base text-[#0F291E]">
+          <Shield className="h-4 w-4 text-[#101820]" />
+          <h3 className="font-display font-bold text-base text-[#101820]">
             Documented RBAC Permission Matrix
           </h3>
         </div>
@@ -174,15 +174,15 @@ export default function StaffManagementPage() {
           {STAFF_ROLES.map((r) => (
             <div
               key={r}
-              className="rounded-xl border border-[#E5E0D5] bg-[#FBF9F5] p-3.5 space-y-2"
+              className="rounded-xl border border-[#E5E7EB] bg-[#F8F7F3] p-3.5 space-y-2"
             >
-              <span className="rounded bg-[#0F291E] px-2 py-0.5 text-[10px] font-bold text-white">
+              <span className="rounded bg-[#176B52] px-2 py-0.5 text-[10px] font-bold text-white">
                 {r}
               </span>
-              <p className="text-[11px] text-[#718077]">
+              <p className="text-[11px] text-[#64748B]">
                 {(matrix[r] || []).length} authorized scopes
               </p>
-              <ul className="space-y-1 font-mono text-[10px] text-[#4A5950] max-h-40 overflow-y-auto">
+              <ul className="space-y-1 font-mono text-[10px] text-[#64748B] max-h-40 overflow-y-auto">
                 {(matrix[r] || []).map((perm: string) => (
                   <li key={perm}>• {perm}</li>
                 ))}
@@ -194,8 +194,8 @@ export default function StaffManagementPage() {
 
       {modalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
-          <div className="w-full max-w-md rounded-2xl bg-white border border-[#E5E0D5] p-6 shadow-editorial space-y-4">
-            <h3 className="font-display font-bold text-lg text-[#0F291E]">
+          <div className="w-full max-w-md rounded-2xl bg-white border border-[#E5E7EB] p-6 shadow-editorial space-y-4">
+            <h3 className="font-display font-bold text-lg text-[#101820]">
               Invite / Provision Staff Member
             </h3>
             <form onSubmit={handleAddStaff} className="space-y-3">
@@ -207,7 +207,7 @@ export default function StaffManagementPage() {
                   required
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="w-full rounded-lg border border-[#E5E0D5] px-3 py-2 text-xs"
+                  className="w-full rounded-lg border border-[#E5E7EB] px-3 py-2 text-xs"
                 />
               </div>
               <div>
@@ -219,7 +219,7 @@ export default function StaffManagementPage() {
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full rounded-lg border border-[#E5E0D5] px-3 py-2 text-xs"
+                  className="w-full rounded-lg border border-[#E5E7EB] px-3 py-2 text-xs"
                 />
               </div>
               <div className="grid grid-cols-2 gap-3">
@@ -230,7 +230,7 @@ export default function StaffManagementPage() {
                   <select
                     value={role}
                     onChange={(e) => setRole(e.target.value as StaffRole)}
-                    className="w-full rounded-lg border border-[#E5E0D5] px-3 py-2 text-xs font-semibold"
+                    className="w-full rounded-lg border border-[#E5E7EB] px-3 py-2 text-xs font-semibold"
                   >
                     {STAFF_ROLES.map((r) => (
                       <option key={r} value={r}>
@@ -247,7 +247,7 @@ export default function StaffManagementPage() {
                     type="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="w-full rounded-lg border border-[#E5E0D5] px-3 py-2 text-xs"
+                    className="w-full rounded-lg border border-[#E5E7EB] px-3 py-2 text-xs"
                   />
                 </div>
               </div>
@@ -255,13 +255,13 @@ export default function StaffManagementPage() {
                 <button
                   type="button"
                   onClick={() => setModalOpen(false)}
-                  className="rounded-xl border border-[#E5E0D5] px-4 py-2 text-xs font-semibold"
+                  className="rounded-xl border border-[#E5E7EB] px-4 py-2 text-xs font-semibold"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="rounded-xl bg-[#0F291E] px-4 py-2 text-xs font-semibold text-white"
+                  className="rounded-xl bg-[#176B52] px-4 py-2 text-xs font-semibold text-white"
                 >
                   Add Staff Member
                 </button>

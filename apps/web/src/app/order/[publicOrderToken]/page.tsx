@@ -89,8 +89,8 @@ export default function PublicOrderTrackerPage() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-[#FBF9F5] flex items-center justify-center p-6">
-        <p className="text-xs font-medium text-[#4A5950]">
+      <div className="min-h-screen bg-[#F8F7F3] flex items-center justify-center p-6">
+        <p className="text-xs font-medium text-[#64748B]">
           Connecting to live kitchen order tracker...
         </p>
       </div>
@@ -99,17 +99,17 @@ export default function PublicOrderTrackerPage() {
 
   if (error || !data?.order) {
     return (
-      <div className="min-h-screen bg-[#FBF9F5] flex items-center justify-center p-6">
-        <div className="max-w-md rounded-2xl border border-[#E5E0D5] bg-white p-8 text-center space-y-4">
-          <h1 className="font-display text-xl font-bold text-[#0F291E]">
+      <div className="min-h-screen bg-[#F8F7F3] flex items-center justify-center p-6">
+        <div className="max-w-md rounded-2xl border border-[#E5E7EB] bg-white p-8 text-center space-y-4">
+          <h1 className="font-display text-xl font-bold text-[#101820]">
             Order Token Not Found
           </h1>
-          <p className="text-xs text-[#4A5950]">
+          <p className="text-xs text-[#64748B]">
             Could not locate order token <code>{publicOrderToken}</code>.
           </p>
           <Link
             href="/order/ord_demo_preparing_1010"
-            className="inline-flex items-center gap-2 rounded-xl bg-[#0F291E] px-4 py-2.5 text-xs font-semibold text-white"
+            className="inline-flex items-center gap-2 rounded-xl bg-[#176B52] px-4 py-2.5 text-xs font-semibold text-white"
           >
             View Live Sample Order #DP-1010
           </Link>
@@ -129,12 +129,12 @@ export default function PublicOrderTrackerPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#FBF9F5] text-[#111C16] pb-16">
-      <header className="border-b border-[#E5E0D5] bg-[#0F291E] text-white">
+    <div className="min-h-screen bg-[#F8F7F3] text-[#101820] pb-16">
+      <header className="border-b border-[#E5E7EB] bg-[#176B52] text-white">
         <div className="mx-auto max-w-2xl px-4 py-5 flex items-center justify-between gap-4">
           <div>
-            <span className="inline-flex items-center gap-1.5 rounded bg-[#163829] border border-[#84CC16]/30 px-2.5 py-0.5 text-[10px] font-bold text-[#84CC16] uppercase tracking-wider">
-              <span className="h-1.5 w-1.5 rounded-full bg-[#84CC16] animate-pulse" />
+            <span className="inline-flex items-center gap-1.5 rounded bg-[#163829] border border-[#20A67A]/30 px-2.5 py-0.5 text-[10px] font-bold text-[#20A67A] uppercase tracking-wider">
+              <span className="h-1.5 w-1.5 rounded-full bg-[#20A67A] animate-pulse" />
               Live Kitchen Tracker • {order.orderType.replace("_", "-")}
             </span>
             <h1 className="font-display text-2xl font-bold mt-1">
@@ -151,7 +151,7 @@ export default function PublicOrderTrackerPage() {
             order.status !== "CANCELLED" && (
               <Link
                 href={`/menu/${restaurant.slug}?table=tbl_saoji_t01&appendOrder=${order.publicOrderToken}`}
-                className="inline-flex items-center gap-1.5 rounded-xl bg-[#84CC16] px-3.5 py-2.5 text-xs font-bold text-[#0F291E] hover:bg-[#9BE32B]"
+                className="inline-flex items-center gap-1.5 rounded-xl bg-[#20A67A] px-3.5 py-2.5 text-xs font-bold text-[#101820] hover:bg-[#198763]"
               >
                 <PlusCircle className="h-4 w-4" />
                 Order More (Next KOT)
@@ -161,12 +161,12 @@ export default function PublicOrderTrackerPage() {
       </header>
 
       <main className="mx-auto max-w-2xl px-4 py-6 space-y-6">
-        <div className="rounded-2xl border border-[#E5E0D5] bg-white p-6 shadow-card space-y-4">
+        <div className="rounded-2xl border border-[#E5E7EB] bg-white p-6 shadow-card space-y-4">
           <div className="flex items-center justify-between">
-            <h2 className="font-display font-bold text-base text-[#0F291E]">
+            <h2 className="font-display font-bold text-base text-[#101820]">
               Real-Time Kitchen Status
             </h2>
-            <span className="rounded-full bg-[#E6ECE8] px-3 py-1 font-mono text-xs font-bold text-[#0F291E]">
+            <span className="rounded-full bg-[#E8F3EF] px-3 py-1 font-mono text-xs font-bold text-[#101820]">
               {order.status}
             </span>
           </div>
@@ -179,15 +179,15 @@ export default function PublicOrderTrackerPage() {
                   key={step.id}
                   className={`rounded-xl border p-2.5 text-center space-y-1 ${
                     reached
-                      ? "border-[#0F291E] bg-[#E6ECE8]/60 text-[#0F291E]"
-                      : "border-[#E5E0D5] bg-[#FBF9F5] text-[#718077]"
+                      ? "border-[#176B52] bg-[#E8F3EF]/60 text-[#101820]"
+                      : "border-[#E5E7EB] bg-[#F8F7F3] text-[#64748B]"
                   }`}
                 >
                   <div className="flex justify-center">
                     {reached ? (
-                      <CheckCircle2 className="h-4 w-4 text-[#0F291E]" />
+                      <CheckCircle2 className="h-4 w-4 text-[#101820]" />
                     ) : (
-                      <Clock className="h-4 w-4 text-[#718077]" />
+                      <Clock className="h-4 w-4 text-[#64748B]" />
                     )}
                   </div>
                   <p className="text-[11px] font-bold">{step.label}</p>
@@ -197,13 +197,13 @@ export default function PublicOrderTrackerPage() {
           </div>
         </div>
 
-        <div className="rounded-2xl border border-[#E5E0D5] bg-white p-6 shadow-card space-y-4">
-          <div className="flex items-center justify-between border-b border-[#E5E0D5] pb-3">
-            <h2 className="font-display font-bold text-base text-[#0F291E] flex items-center gap-2">
-              <Utensils className="h-4 w-4 text-[#0F291E]" />
+        <div className="rounded-2xl border border-[#E5E7EB] bg-white p-6 shadow-card space-y-4">
+          <div className="flex items-center justify-between border-b border-[#E5E7EB] pb-3">
+            <h2 className="font-display font-bold text-base text-[#101820] flex items-center gap-2">
+              <Utensils className="h-4 w-4 text-[#101820]" />
               Kitchen Order Tickets (KOT Batches)
             </h2>
-            <span className="text-xs text-[#4A5950]">
+            <span className="text-xs text-[#64748B]">
               Running Table Session
             </span>
           </div>
@@ -212,37 +212,37 @@ export default function PublicOrderTrackerPage() {
             {Object.entries(kotBatches).map(([batchNum, batchItems]) => (
               <div
                 key={batchNum}
-                className="rounded-xl border border-[#E5E0D5] bg-[#FBF9F5] p-4 space-y-2.5"
+                className="rounded-xl border border-[#E5E7EB] bg-[#F8F7F3] p-4 space-y-2.5"
               >
                 <div className="flex items-center justify-between">
-                  <span className="rounded bg-[#0F291E] px-2.5 py-0.5 font-mono text-[11px] font-bold text-white">
+                  <span className="rounded bg-[#176B52] px-2.5 py-0.5 font-mono text-[11px] font-bold text-white">
                     KOT Batch #{batchNum}
                   </span>
-                  <span className="text-[11px] text-[#718077]">
+                  <span className="text-[11px] text-[#64748B]">
                     {batchItems.length} Dish Line(s)
                   </span>
                 </div>
-                <div className="divide-y divide-[#E5E0D5] text-xs">
+                <div className="divide-y divide-[#E5E7EB] text-xs">
                   {batchItems.map((item: any, idx: number) => (
                     <div
                       key={idx}
                       className="py-2 flex items-center justify-between gap-3"
                     >
                       <div>
-                        <span className="font-mono font-bold text-[#0F291E]">
+                        <span className="font-mono font-bold text-[#101820]">
                           {item.quantity}×
                         </span>{" "}
-                        <span className="font-semibold text-[#111C16]">
+                        <span className="font-semibold text-[#101820]">
                           {item.name}
                         </span>
                         {item.variantName && (
-                          <span className="text-[#718077]">
+                          <span className="text-[#64748B]">
                             {" "}
                             ({item.variantName})
                           </span>
                         )}
                       </div>
-                      <span className="font-mono font-semibold text-[#0F291E]">
+                      <span className="font-mono font-semibold text-[#101820]">
                         {formatINR(item.lineTotalPaise)}
                       </span>
                     </div>
@@ -252,26 +252,26 @@ export default function PublicOrderTrackerPage() {
             ))}
           </div>
 
-          <div className="border-t border-[#E5E0D5] pt-4 space-y-1.5 text-xs">
-            <div className="flex justify-between text-[#4A5950]">
+          <div className="border-t border-[#E5E7EB] pt-4 space-y-1.5 text-xs">
+            <div className="flex justify-between text-[#64748B]">
               <span>Subtotal</span>
               <span className="font-mono">{formatINR(order.subtotalPaise)}</span>
             </div>
-            <div className="flex justify-between text-[#4A5950]">
+            <div className="flex justify-between text-[#64748B]">
               <span>CGST + SGST</span>
               <span className="font-mono">
                 {formatINR(order.cgstPaise + order.sgstPaise)}
               </span>
             </div>
             {order.packagingFeePaise > 0 && (
-              <div className="flex justify-between text-[#4A5950]">
+              <div className="flex justify-between text-[#64748B]">
                 <span>Packaging Fee</span>
                 <span className="font-mono">
                   {formatINR(order.packagingFeePaise)}
                 </span>
               </div>
             )}
-            <div className="flex justify-between font-bold text-base text-[#0F291E] pt-2 border-t border-[#E5E0D5]">
+            <div className="flex justify-between font-bold text-base text-[#101820] pt-2 border-t border-[#E5E7EB]">
               <span>Grand Total</span>
               <span className="font-mono">
                 {formatINR(order.totalAmountPaise)}
@@ -280,10 +280,10 @@ export default function PublicOrderTrackerPage() {
           </div>
         </div>
 
-        <div className="rounded-2xl border border-[#E5E0D5] bg-white p-6 shadow-card space-y-4">
+        <div className="rounded-2xl border border-[#E5E7EB] bg-white p-6 shadow-card space-y-4">
           <div className="flex items-center justify-between">
-            <h2 className="font-display font-bold text-base text-[#0F291E] flex items-center gap-2">
-              <Smartphone className="h-4 w-4 text-[#D97706]" />
+            <h2 className="font-display font-bold text-base text-[#101820] flex items-center gap-2">
+              <Smartphone className="h-4 w-4 text-[#C6A15B]" />
               Payment & Verification Status
             </h2>
             <span
@@ -298,12 +298,12 @@ export default function PublicOrderTrackerPage() {
           </div>
 
           {order.paymentStatus !== "PAID" && upiDeepLink && (
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 items-center rounded-xl border border-[#E5E0D5] bg-[#FBF9F5] p-4">
-              <div className="flex justify-center bg-white p-3 rounded-xl border border-[#E5E0D5]">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 items-center rounded-xl border border-[#E5E7EB] bg-[#F8F7F3] p-4">
+              <div className="flex justify-center bg-white p-3 rounded-xl border border-[#E5E7EB]">
                 <QRCodeSVG value={upiDeepLink} size={120} />
               </div>
               <div className="sm:col-span-2 space-y-2 text-xs">
-                <p className="font-bold text-[#0F291E]">
+                <p className="font-bold text-[#101820]">
                   Scan with GPay, PhonePe, or Paytm ({restaurant?.upiVpa})
                 </p>
                 <div className="flex items-start gap-2 rounded-lg bg-amber-50 border border-amber-200 p-2.5 text-amber-900 text-[11px]">
@@ -317,7 +317,7 @@ export default function PublicOrderTrackerPage() {
                 </div>
                 <a
                   href={upiDeepLink}
-                  className="inline-flex items-center gap-2 rounded-xl bg-[#0F291E] px-4 py-2 text-xs font-semibold text-white"
+                  className="inline-flex items-center gap-2 rounded-xl bg-[#176B52] px-4 py-2 text-xs font-semibold text-white"
                 >
                   Open UPI App ({formatINR(order.totalAmountPaise)})
                 </a>
@@ -329,9 +329,9 @@ export default function PublicOrderTrackerPage() {
         {!feedbackSent ? (
           <form
             onSubmit={handleSubmitFeedback}
-            className="rounded-2xl border border-[#E5E0D5] bg-white p-6 shadow-card space-y-4"
+            className="rounded-2xl border border-[#E5E7EB] bg-white p-6 shadow-card space-y-4"
           >
-            <h2 className="font-display font-bold text-base text-[#0F291E]">
+            <h2 className="font-display font-bold text-base text-[#101820]">
               Rate Your Dining Experience
             </h2>
             <div className="flex items-center gap-2">
@@ -356,11 +356,11 @@ export default function PublicOrderTrackerPage() {
               value={comment}
               onChange={(e) => setComment(e.target.value)}
               placeholder="Tell the chef what you loved..."
-              className="w-full rounded-xl border border-[#E5E0D5] px-3.5 py-2.5 text-xs"
+              className="w-full rounded-xl border border-[#E5E7EB] px-3.5 py-2.5 text-xs"
             />
             <button
               type="submit"
-              className="rounded-xl bg-[#0F291E] px-4 py-2.5 text-xs font-semibold text-white"
+              className="rounded-xl bg-[#176B52] px-4 py-2.5 text-xs font-semibold text-white"
             >
               Submit Guest Review
             </button>

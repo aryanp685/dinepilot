@@ -100,10 +100,10 @@ export default function KitchenDisplaySystemPage() {
   });
 
   return (
-    <div className="min-h-screen bg-[#0C120E] text-[#F3F6F4] flex flex-col">
-      <header className="border-b border-[#233529] bg-[#141F18] px-6 py-4 flex flex-wrap items-center justify-between gap-4">
+    <div className="min-h-screen bg-[#101820] text-[#F8F7F3] flex flex-col">
+      <header className="border-b border-white/10 bg-[#0B1117] px-6 py-4 flex flex-wrap items-center justify-between gap-4">
         <div className="flex items-center gap-4">
-          <div className="h-10 w-10 rounded-xl bg-[#84CC16] text-[#0F291E] flex items-center justify-center font-bold">
+          <div className="h-10 w-10 rounded-xl bg-[#176B52] text-white flex items-center justify-center font-bold shadow-sm">
             <ChefHat className="h-6 w-6" />
           </div>
           <div>
@@ -111,11 +111,11 @@ export default function KitchenDisplaySystemPage() {
               <h1 className="font-display text-lg font-bold text-white">
                 Kitchen Display System (KDS)
               </h1>
-              <span className="rounded bg-[#0F291E] border border-[#84CC16]/40 px-2 py-0.5 font-mono text-[10px] font-bold text-[#84CC16]">
+              <span className="rounded bg-[#176B52]/30 border border-[#20A67A]/40 px-2 py-0.5 font-mono text-[10px] font-bold text-[#20A67A]">
                 LIVE SOCKET.IO SYNC
               </span>
             </div>
-            <p className="text-xs text-[#9AB0A2]">
+            <p className="text-xs text-[#94A3B8]">
               {restaurant?.name || "Saoji Spice Kitchen"} • SLA Thresholds:
               &lt;10m On-Time • 10–20m Warning • &gt;20m Delayed
             </p>
@@ -130,8 +130,8 @@ export default function KitchenDisplaySystemPage() {
               onClick={() => setFilterStatus(st)}
               className={`rounded-xl px-3.5 py-2 text-xs font-bold transition-colors ${
                 filterStatus === st
-                  ? "bg-[#84CC16] text-[#0F291E]"
-                  : "bg-[#0C120E] border border-[#233529] text-[#9AB0A2] hover:text-white"
+                  ? "bg-[#176B52] text-white"
+                  : "bg-[#182430] border border-white/10 text-[#94A3B8] hover:text-white"
               }`}
             >
               {st === "ALL_ACTIVE" ? "All Active Tickets" : st}
@@ -140,7 +140,7 @@ export default function KitchenDisplaySystemPage() {
 
           <Link
             href="/app/orders"
-            className="inline-flex items-center gap-1.5 rounded-xl border border-[#233529] bg-[#0C120E] px-3.5 py-2 text-xs font-semibold text-[#E6ECE8] hover:bg-[#1A2920]"
+            className="inline-flex items-center gap-1.5 rounded-xl border border-white/15 bg-[#182430] px-3.5 py-2 text-xs font-semibold text-[#F8F7F3] hover:bg-[#223242]"
           >
             <ArrowLeft className="h-3.5 w-3.5" />
             Order Desk
@@ -160,7 +160,7 @@ export default function KitchenDisplaySystemPage() {
           </div>
         ) : filtered.length === 0 ? (
           <div className="rounded-2xl border border-[#233529] bg-[#141F18] p-16 text-center space-y-3 max-w-lg mx-auto my-12">
-            <CheckCircle2 className="h-10 w-10 text-[#84CC16] mx-auto" />
+            <CheckCircle2 className="h-10 w-10 text-[#20A67A] mx-auto" />
             <h2 className="font-display text-xl font-bold text-white">
               All Kitchen Tickets Cleared!
             </h2>
@@ -205,7 +205,7 @@ export default function KitchenDisplaySystemPage() {
                           <span className="font-mono text-lg font-bold text-white">
                             {ord.orderNumber}
                           </span>
-                          <span className="rounded bg-[#84CC16] px-2.5 py-0.5 text-xs font-extrabold text-[#0F291E]">
+                          <span className="rounded bg-[#20A67A] px-2.5 py-0.5 text-xs font-extrabold text-[#101820]">
                             {ord.tableLabel
                               ? `TABLE ${ord.tableLabel}`
                               : ord.orderType}
@@ -242,7 +242,7 @@ export default function KitchenDisplaySystemPage() {
                         >
                           <div className="flex items-start justify-between gap-2">
                             <div className="flex items-center gap-2">
-                              <span className="h-6 w-6 rounded bg-[#233529] text-[#84CC16] font-mono font-bold text-xs flex items-center justify-center">
+                              <span className="h-6 w-6 rounded bg-[#233529] text-[#20A67A] font-mono font-bold text-xs flex items-center justify-center">
                                 {item.quantity}×
                               </span>
                               <span className="font-bold text-sm text-white">
@@ -322,7 +322,7 @@ export default function KitchenDisplaySystemPage() {
                       <button
                         type="button"
                         onClick={() => handleAdvanceStatus(ord._id, "READY")}
-                        className="w-full rounded-xl bg-[#84CC16] hover:bg-[#9BE32B] py-3.5 text-sm font-extrabold text-[#0F291E] shadow-lg"
+                        className="w-full rounded-xl bg-[#20A67A] hover:bg-[#198763] py-3.5 text-sm font-extrabold text-[#101820] shadow-lg"
                       >
                         Mark Dish Ready for Pickup (READY) →
                       </button>

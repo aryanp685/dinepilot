@@ -7,14 +7,14 @@ export default function TermsPage() {
   return (
     <MarketingLayout>
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-6">
-        <h1 className="font-display text-3xl font-bold text-[#0F291E]">
+        <h1 className="font-display text-3xl font-bold text-[#101820]">
           Terms of Service
         </h1>
-        <p className="text-sm text-[#4A5950] leading-relaxed">
+        <p className="text-sm text-[#64748B] leading-relaxed">
           Effective Date: October 18, 2026 • Jurisdiction: Nagpur, Maharashtra,
           India
         </p>
-        <div className="space-y-4 text-sm text-[#4A5950] leading-relaxed">
+        <div className="space-y-4 text-sm text-[#64748B] leading-relaxed">
           <p>
             <strong>1. Service Scope:</strong> DinePilot provides restaurant
             operations, QR menu ordering, inventory ledger management, recipe

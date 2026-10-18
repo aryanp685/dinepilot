@@ -53,13 +53,13 @@ export default function PricingPage() {
     <MarketingLayout>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-12">
         <div className="max-w-2xl space-y-3">
-          <span className="rounded-full bg-[#E6ECE8] px-3 py-1 text-xs font-semibold text-[#0F291E]">
+          <span className="rounded-full bg-[#E8F3EF] px-3 py-1 text-xs font-semibold text-[#101820]">
             Simple INR Pricing
           </span>
-          <h1 className="font-display text-4xl font-bold text-[#0F291E]">
+          <h1 className="font-display text-4xl font-bold text-[#101820]">
             Predictable monthly SaaS pricing. Zero commission on your tables.
           </h1>
-          <p className="text-base text-[#4A5950]">
+          <p className="text-base text-[#64748B]">
             All plans support Indian number formatting, configurable CGST/SGST
             splits, and rupee round-off out of the box.
           </p>
@@ -71,15 +71,15 @@ export default function PricingPage() {
               key={p.name}
               className={`rounded-2xl border p-8 flex flex-col justify-between ${
                 p.highlight
-                  ? "border-[#0F291E] bg-[#0F291E] text-white shadow-editorial"
-                  : "border-[#E5E0D5] bg-white text-[#111C16]"
+                  ? "border-[#176B52] bg-[#176B52] text-white shadow-editorial"
+                  : "border-[#E5E7EB] bg-white text-[#101820]"
               }`}
             >
               <div className="space-y-5">
                 <div className="flex items-center justify-between">
                   <h2 className="font-display text-2xl font-bold">{p.name}</h2>
                   {p.highlight && (
-                    <span className="rounded-full bg-[#84CC16] px-3 py-0.5 text-xs font-bold text-[#0F291E]">
+                    <span className="rounded-full bg-[#20A67A] px-3 py-0.5 text-xs font-bold text-[#101820]">
                       Recommended
                     </span>
                   )}
@@ -88,7 +88,7 @@ export default function PricingPage() {
                   <span className="font-mono text-4xl font-bold">{p.price}</span>
                   <span
                     className={`text-xs ${
-                      p.highlight ? "text-[#E6ECE8]/75" : "text-[#4A5950]"
+                      p.highlight ? "text-[#E6ECE8]/75" : "text-[#64748B]"
                     }`}
                   >
                     / month + 18% GST
@@ -96,7 +96,7 @@ export default function PricingPage() {
                 </div>
                 <p
                   className={`text-sm ${
-                    p.highlight ? "text-[#E6ECE8]/85" : "text-[#4A5950]"
+                    p.highlight ? "text-[#E6ECE8]/85" : "text-[#64748B]"
                   }`}
                 >
                   {p.desc}
@@ -106,7 +106,7 @@ export default function PricingPage() {
                     <li key={f} className="flex items-start gap-2.5">
                       <Check
                         className={`h-4 w-4 shrink-0 mt-0.5 ${
-                          p.highlight ? "text-[#84CC16]" : "text-[#0F291E]"
+                          p.highlight ? "text-[#20A67A]" : "text-[#101820]"
                         }`}
                       />
                       <span>{f}</span>
@@ -120,8 +120,8 @@ export default function PricingPage() {
                   href="/register"
                   className={`w-full inline-flex items-center justify-center gap-2 rounded-xl py-3 px-4 text-sm font-semibold ${
                     p.highlight
-                      ? "bg-[#84CC16] text-[#0F291E] hover:bg-[#9BE028]"
-                      : "bg-[#0F291E] text-white hover:bg-[#163829]"
+                      ? "bg-[#20A67A] text-[#101820] hover:bg-[#198763]"
+                      : "bg-[#176B52] text-white hover:bg-[#125541]"
                   }`}
                 >
                   Create {p.name} Workspace

@@ -189,10 +189,10 @@ export default function MenuManagementPage() {
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h2 className="font-display text-2xl font-bold text-[#0F291E]">
+          <h2 className="font-display text-2xl font-bold text-[#101820]">
             Menu Catalog & Dietary Engineering
           </h2>
-          <p className="text-xs text-[#4A5950]">
+          <p className="text-xs text-[#64748B]">
             Manage dishes, integer paise pricing, packaging fees, and QR
             availability
           </p>
@@ -202,17 +202,17 @@ export default function MenuManagementPage() {
           <button
             type="button"
             onClick={() => setCatModalOpen(true)}
-            className="inline-flex items-center gap-1.5 rounded-xl border border-[#E5E0D5] bg-white px-3.5 py-2.5 text-xs font-semibold text-[#0F291E] hover:bg-[#F2EFE9]"
+            className="inline-flex items-center gap-1.5 rounded-xl border border-[#E5E7EB] bg-white px-3.5 py-2.5 text-xs font-semibold text-[#101820] hover:bg-[#F1EFE9]"
           >
-            <FolderPlus className="h-4 w-4 text-[#D97706]" />
+            <FolderPlus className="h-4 w-4 text-[#C6A15B]" />
             Add Category
           </button>
           <button
             type="button"
             onClick={openAddItemModal}
-            className="inline-flex items-center gap-1.5 rounded-xl bg-[#0F291E] px-4 py-2.5 text-xs font-semibold text-white hover:bg-[#163829]"
+            className="inline-flex items-center gap-1.5 rounded-xl bg-[#176B52] px-4 py-2.5 text-xs font-semibold text-white hover:bg-[#125541]"
           >
-            <Plus className="h-4 w-4 text-[#84CC16]" />
+            <Plus className="h-4 w-4 text-[#20A67A]" />
             Add Menu Item
           </button>
         </div>
@@ -224,8 +224,8 @@ export default function MenuManagementPage() {
           onClick={() => setSelectedCategory("ALL")}
           className={`rounded-xl px-3.5 py-2 text-xs font-semibold transition-colors ${
             selectedCategory === "ALL"
-              ? "bg-[#0F291E] text-white"
-              : "bg-white border border-[#E5E0D5] text-[#4A5950]"
+              ? "bg-[#176B52] text-white"
+              : "bg-white border border-[#E5E7EB] text-[#64748B]"
           }`}
         >
           All Dishes ({items.length})
@@ -237,8 +237,8 @@ export default function MenuManagementPage() {
             onClick={() => setSelectedCategory(String(cat._id))}
             className={`rounded-xl px-3.5 py-2 text-xs font-semibold transition-colors ${
               selectedCategory === String(cat._id)
-                ? "bg-[#0F291E] text-white"
-                : "bg-white border border-[#E5E0D5] text-[#4A5950]"
+                ? "bg-[#176B52] text-white"
+                : "bg-white border border-[#E5E7EB] text-[#64748B]"
             }`}
           >
             {cat.name}
@@ -251,16 +251,16 @@ export default function MenuManagementPage() {
           {[1, 2, 3].map((i) => (
             <div
               key={i}
-              className="h-48 rounded-2xl bg-white border border-[#E5E0D5] animate-pulse"
+              className="h-48 rounded-2xl bg-white border border-[#E5E7EB] animate-pulse"
             />
           ))}
         </div>
       ) : filteredItems.length === 0 ? (
-        <div className="rounded-2xl border border-[#E5E0D5] bg-white p-12 text-center space-y-2">
-          <p className="font-display font-bold text-base text-[#0F291E]">
+        <div className="rounded-2xl border border-[#E5E7EB] bg-white p-12 text-center space-y-2">
+          <p className="font-display font-bold text-base text-[#101820]">
             No menu items in this category yet
           </p>
-          <p className="text-xs text-[#718077]">
+          <p className="text-xs text-[#64748B]">
             Click “Add Menu Item” above to create your first dish.
           </p>
         </div>
@@ -271,7 +271,7 @@ export default function MenuManagementPage() {
               key={item._id}
               className={`rounded-2xl border bg-white p-5 shadow-card flex flex-col justify-between space-y-4 ${
                 item.isAvailable
-                  ? "border-[#E5E0D5]"
+                  ? "border-[#E5E7EB]"
                   : "border-stone-300 opacity-70"
               }`}
             >
@@ -289,11 +289,11 @@ export default function MenuManagementPage() {
                     >
                       {item.dietaryType}
                     </span>
-                    <span className="rounded bg-[#F2EFE9] px-2 py-0.5 text-[10px] font-semibold text-[#4A5950]">
+                    <span className="rounded bg-[#F1EFE9] px-2 py-0.5 text-[10px] font-semibold text-[#64748B]">
                       {item.spiceLevel}
                     </span>
                     {item.hasRecipe ? (
-                      <span className="inline-flex items-center gap-1 rounded bg-[#E6ECE8] px-2 py-0.5 text-[10px] font-semibold text-[#0F291E]">
+                      <span className="inline-flex items-center gap-1 rounded bg-[#E8F3EF] px-2 py-0.5 text-[10px] font-semibold text-[#101820]">
                         <Scale className="h-3 w-3" />
                         Recipe Costed
                       </span>
@@ -303,20 +303,20 @@ export default function MenuManagementPage() {
                       </span>
                     )}
                   </div>
-                  <span className="font-mono font-bold text-base text-[#0F291E]">
+                  <span className="font-mono font-bold text-base text-[#101820]">
                     {formatINR(item.pricePaise)}
                   </span>
                 </div>
 
-                <h3 className="font-display font-bold text-base text-[#111C16]">
+                <h3 className="font-display font-bold text-base text-[#101820]">
                   {item.name}
                 </h3>
-                <p className="text-xs text-[#4A5950] line-clamp-2 leading-relaxed">
+                <p className="text-xs text-[#64748B] line-clamp-2 leading-relaxed">
                   {item.description || "No description provided."}
                 </p>
               </div>
 
-              <div className="pt-3 border-t border-[#E5E0D5] flex items-center justify-between">
+              <div className="pt-3 border-t border-[#E5E7EB] flex items-center justify-between">
                 <button
                   type="button"
                   onClick={() => handleToggleAvailability(item)}
@@ -343,7 +343,7 @@ export default function MenuManagementPage() {
                   <button
                     type="button"
                     onClick={() => openEditItemModal(item)}
-                    className="rounded-lg border border-[#E5E0D5] p-1.5 text-[#0F291E] hover:bg-[#F2EFE9]"
+                    className="rounded-lg border border-[#E5E7EB] p-1.5 text-[#101820] hover:bg-[#F1EFE9]"
                     title="Edit Dish"
                   >
                     <Edit3 className="h-3.5 w-3.5" />
@@ -365,8 +365,8 @@ export default function MenuManagementPage() {
 
       {itemModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
-          <div className="w-full max-w-lg rounded-2xl bg-white border border-[#E5E0D5] p-6 shadow-editorial space-y-4">
-            <h3 className="font-display font-bold text-lg text-[#0F291E]">
+          <div className="w-full max-w-lg rounded-2xl bg-white border border-[#E5E7EB] p-6 shadow-editorial space-y-4">
+            <h3 className="font-display font-bold text-lg text-[#101820]">
               {editingItem ? `Edit ${editingItem.name}` : "Add New Menu Item"}
             </h3>
 
@@ -379,7 +379,7 @@ export default function MenuManagementPage() {
                   required
                   value={itemName}
                   onChange={(e) => setItemName(e.target.value)}
-                  className="w-full rounded-lg border border-[#E5E0D5] px-3 py-2 text-xs"
+                  className="w-full rounded-lg border border-[#E5E7EB] px-3 py-2 text-xs"
                   placeholder="Nagpuri Saoji Chicken Curry"
                 />
               </div>
@@ -393,7 +393,7 @@ export default function MenuManagementPage() {
                     required
                     value={itemCategoryId}
                     onChange={(e) => setItemCategoryId(e.target.value)}
-                    className="w-full rounded-lg border border-[#E5E0D5] px-3 py-2 text-xs"
+                    className="w-full rounded-lg border border-[#E5E7EB] px-3 py-2 text-xs"
                   >
                     {categories.map((c: any) => (
                       <option key={c._id} value={c._id}>
@@ -413,7 +413,7 @@ export default function MenuManagementPage() {
                     step="0.5"
                     value={itemPriceRupees}
                     onChange={(e) => setItemPriceRupees(e.target.value)}
-                    className="w-full rounded-lg border border-[#E5E0D5] px-3 py-2 text-xs font-mono"
+                    className="w-full rounded-lg border border-[#E5E7EB] px-3 py-2 text-xs font-mono"
                   />
                 </div>
               </div>
@@ -428,7 +428,7 @@ export default function MenuManagementPage() {
                     onChange={(e) =>
                       setItemDietary(e.target.value as DietaryType)
                     }
-                    className="w-full rounded-lg border border-[#E5E0D5] px-2.5 py-2 text-xs"
+                    className="w-full rounded-lg border border-[#E5E7EB] px-2.5 py-2 text-xs"
                   >
                     <option value="VEG">VEG</option>
                     <option value="NON_VEG">NON_VEG</option>
@@ -444,7 +444,7 @@ export default function MenuManagementPage() {
                   <select
                     value={itemSpice}
                     onChange={(e) => setItemSpice(e.target.value as SpiceLevel)}
-                    className="w-full rounded-lg border border-[#E5E0D5] px-2.5 py-2 text-xs"
+                    className="w-full rounded-lg border border-[#E5E7EB] px-2.5 py-2 text-xs"
                   >
                     <option value="MILD">MILD</option>
                     <option value="MEDIUM">MEDIUM</option>
@@ -461,7 +461,7 @@ export default function MenuManagementPage() {
                     min="0"
                     value={itemPackagingRupees}
                     onChange={(e) => setItemPackagingRupees(e.target.value)}
-                    className="w-full rounded-lg border border-[#E5E0D5] px-2.5 py-2 text-xs font-mono"
+                    className="w-full rounded-lg border border-[#E5E7EB] px-2.5 py-2 text-xs font-mono"
                   />
                 </div>
               </div>
@@ -474,7 +474,7 @@ export default function MenuManagementPage() {
                   rows={2}
                   value={itemDesc}
                   onChange={(e) => setItemDesc(e.target.value)}
-                  className="w-full rounded-lg border border-[#E5E0D5] px-3 py-2 text-xs"
+                  className="w-full rounded-lg border border-[#E5E7EB] px-3 py-2 text-xs"
                 />
               </div>
 
@@ -482,13 +482,13 @@ export default function MenuManagementPage() {
                 <button
                   type="button"
                   onClick={() => setItemModalOpen(false)}
-                  className="rounded-xl border border-[#E5E0D5] px-4 py-2 text-xs font-semibold"
+                  className="rounded-xl border border-[#E5E7EB] px-4 py-2 text-xs font-semibold"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="rounded-xl bg-[#0F291E] px-5 py-2 text-xs font-semibold text-white"
+                  className="rounded-xl bg-[#176B52] px-5 py-2 text-xs font-semibold text-white"
                 >
                   {editingItem ? "Save Changes" : "Create Dish"}
                 </button>
@@ -500,8 +500,8 @@ export default function MenuManagementPage() {
 
       {catModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
-          <div className="w-full max-w-md rounded-2xl bg-white border border-[#E5E0D5] p-6 shadow-editorial space-y-4">
-            <h3 className="font-display font-bold text-lg text-[#0F291E]">
+          <div className="w-full max-w-md rounded-2xl bg-white border border-[#E5E7EB] p-6 shadow-editorial space-y-4">
+            <h3 className="font-display font-bold text-lg text-[#101820]">
               Create Menu Category
             </h3>
             <form onSubmit={handleCreateCategory} className="space-y-3">
@@ -513,7 +513,7 @@ export default function MenuManagementPage() {
                   required
                   value={catName}
                   onChange={(e) => setCatName(e.target.value)}
-                  className="w-full rounded-lg border border-[#E5E0D5] px-3 py-2 text-xs"
+                  className="w-full rounded-lg border border-[#E5E7EB] px-3 py-2 text-xs"
                   placeholder="Vidarbha Thalis"
                 />
               </div>
@@ -524,20 +524,20 @@ export default function MenuManagementPage() {
                 <input
                   value={catDesc}
                   onChange={(e) => setCatDesc(e.target.value)}
-                  className="w-full rounded-lg border border-[#E5E0D5] px-3 py-2 text-xs"
+                  className="w-full rounded-lg border border-[#E5E7EB] px-3 py-2 text-xs"
                 />
               </div>
               <div className="flex justify-end gap-2 pt-2">
                 <button
                   type="button"
                   onClick={() => setCatModalOpen(false)}
-                  className="rounded-xl border border-[#E5E0D5] px-4 py-2 text-xs font-semibold"
+                  className="rounded-xl border border-[#E5E7EB] px-4 py-2 text-xs font-semibold"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="rounded-xl bg-[#0F291E] px-4 py-2 text-xs font-semibold text-white"
+                  className="rounded-xl bg-[#176B52] px-4 py-2 text-xs font-semibold text-white"
                 >
                   Create Category
                 </button>

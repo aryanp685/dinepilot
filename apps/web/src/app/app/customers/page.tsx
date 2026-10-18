@@ -84,10 +84,10 @@ export default function CustomersPage() {
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h2 className="font-display text-2xl font-bold text-[#0F291E]">
+          <h2 className="font-display text-2xl font-bold text-[#101820]">
             Customer Directory & Privacy Controls
           </h2>
-          <p className="text-xs text-[#4A5950]">
+          <p className="text-xs text-[#64748B]">
             Track visit frequency, dining notes, feedback ratings, and explicit
             promotional consent
           </p>
@@ -96,24 +96,24 @@ export default function CustomersPage() {
         <button
           type="button"
           onClick={() => setModalOpen(true)}
-          className="inline-flex items-center gap-1.5 rounded-xl bg-[#0F291E] px-4 py-2.5 text-xs font-semibold text-white hover:bg-[#163829]"
+          className="inline-flex items-center gap-1.5 rounded-xl bg-[#176B52] px-4 py-2.5 text-xs font-semibold text-white hover:bg-[#125541]"
         >
-          <Plus className="h-4 w-4 text-[#84CC16]" />
+          <Plus className="h-4 w-4 text-[#20A67A]" />
           Add Customer Profile
         </button>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <div className="rounded-2xl border border-[#E5E0D5] bg-white p-5">
-          <span className="text-xs font-semibold text-[#4A5950]">
+        <div className="rounded-2xl border border-[#E5E7EB] bg-white p-5">
+          <span className="text-xs font-semibold text-[#64748B]">
             Total Registered Guests
           </span>
-          <p className="font-mono text-2xl font-bold text-[#0F291E] mt-1">
+          <p className="font-mono text-2xl font-bold text-[#101820] mt-1">
             {customers.length}
           </p>
         </div>
-        <div className="rounded-2xl border border-[#E5E0D5] bg-white p-5">
-          <span className="text-xs font-semibold text-[#4A5950]">
+        <div className="rounded-2xl border border-[#E5E7EB] bg-white p-5">
+          <span className="text-xs font-semibold text-[#64748B]">
             Repeat Customers (2+ Visits)
           </span>
           <p className="font-mono text-2xl font-bold text-emerald-700 mt-1">
@@ -124,20 +124,20 @@ export default function CustomersPage() {
             %)
           </p>
         </div>
-        <div className="rounded-2xl border border-[#E5E0D5] bg-white p-5">
-          <span className="text-xs font-semibold text-[#4A5950]">
+        <div className="rounded-2xl border border-[#E5E7EB] bg-white p-5">
+          <span className="text-xs font-semibold text-[#64748B]">
             Opted-In for Promotions
           </span>
-          <p className="font-mono text-2xl font-bold text-[#0F291E] mt-1">
+          <p className="font-mono text-2xl font-bold text-[#101820] mt-1">
             {customers.filter((c: any) => c.marketingConsent).length} Guests
           </p>
         </div>
       </div>
 
-      <div className="rounded-2xl border border-[#E5E0D5] bg-white overflow-x-auto shadow-card">
+      <div className="rounded-2xl border border-[#E5E7EB] bg-white overflow-x-auto shadow-card">
         <table className="w-full text-left border-collapse text-xs">
           <thead>
-            <tr className="border-b border-[#E5E0D5] bg-[#FBF9F5] text-[#4A5950]">
+            <tr className="border-b border-[#E5E7EB] bg-[#F8F7F3] text-[#64748B]">
               <th className="py-3.5 px-4 font-semibold">Guest Profile</th>
               <th className="py-3.5 px-4 font-semibold">Loyalty Tier & Pts</th>
               <th className="py-3.5 px-4 font-semibold">Visits</th>
@@ -146,37 +146,37 @@ export default function CustomersPage() {
               <th className="py-3.5 px-4 font-semibold">Marketing Consent</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-[#E5E0D5]">
+          <tbody className="divide-y divide-[#E5E7EB]">
             {isLoading ? (
               <tr>
-                <td colSpan={6} className="p-8 text-center text-[#718077]">
+                <td colSpan={6} className="p-8 text-center text-[#64748B]">
                   Loading customer directory...
                 </td>
               </tr>
             ) : (
               customers.map((c: any) => (
-                <tr key={c._id} className="hover:bg-[#FBF9F5]/60">
+                <tr key={c._id} className="hover:bg-[#F8F7F3]/60">
                   <td className="py-3.5 px-4">
-                    <p className="font-bold text-[#0F291E]">{c.name}</p>
-                    <p className="font-mono text-[11px] text-[#718077]">
+                    <p className="font-bold text-[#101820]">{c.name}</p>
+                    <p className="font-mono text-[11px] text-[#64748B]">
                       {c.phone} {c.email ? `• ${c.email}` : ""}
                     </p>
                   </td>
                   <td className="py-3.5 px-4">
-                    <span className="rounded bg-[#E6ECE8] px-2 py-0.5 text-[10px] font-bold text-[#0F291E]">
+                    <span className="rounded bg-[#E8F3EF] px-2 py-0.5 text-[10px] font-bold text-[#101820]">
                       {c.tier}
                     </span>
-                    <span className="ml-2 font-mono font-bold text-[#0F291E]">
+                    <span className="ml-2 font-mono font-bold text-[#101820]">
                       {c.pointsBalance} pts
                     </span>
                   </td>
                   <td className="py-3.5 px-4 font-mono font-bold">
                     {c.visitCount}
                   </td>
-                  <td className="py-3.5 px-4 font-mono font-semibold text-[#0F291E]">
+                  <td className="py-3.5 px-4 font-mono font-semibold text-[#101820]">
                     {formatINR(c.totalSpentPaise)}
                   </td>
-                  <td className="py-3.5 px-4 text-[#4A5950] max-w-xs">
+                  <td className="py-3.5 px-4 text-[#64748B] max-w-xs">
                     {c.notes && <p className="text-[11px]">{c.notes}</p>}
                     {c.feedbacks?.length > 0 && (
                       <p className="text-[11px] text-amber-800 inline-flex items-center gap-1 mt-0.5">
@@ -218,8 +218,8 @@ export default function CustomersPage() {
 
       {modalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
-          <div className="w-full max-w-md rounded-2xl bg-white border border-[#E5E0D5] p-6 shadow-editorial space-y-4">
-            <h3 className="font-display font-bold text-lg text-[#0F291E]">
+          <div className="w-full max-w-md rounded-2xl bg-white border border-[#E5E7EB] p-6 shadow-editorial space-y-4">
+            <h3 className="font-display font-bold text-lg text-[#101820]">
               Create Customer Profile
             </h3>
             <form onSubmit={handleSaveCustomer} className="space-y-3">
@@ -231,7 +231,7 @@ export default function CustomersPage() {
                   required
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="w-full rounded-lg border border-[#E5E0D5] px-3 py-2 text-xs"
+                  className="w-full rounded-lg border border-[#E5E7EB] px-3 py-2 text-xs"
                 />
               </div>
               <div>
@@ -242,7 +242,7 @@ export default function CustomersPage() {
                   required
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
-                  className="w-full rounded-lg border border-[#E5E0D5] px-3 py-2 text-xs"
+                  className="w-full rounded-lg border border-[#E5E7EB] px-3 py-2 text-xs"
                 />
               </div>
               <div>
@@ -252,10 +252,10 @@ export default function CustomersPage() {
                 <input
                   value={notes}
                   onChange={(e) => setNotes(e.target.value)}
-                  className="w-full rounded-lg border border-[#E5E0D5] px-3 py-2 text-xs"
+                  className="w-full rounded-lg border border-[#E5E7EB] px-3 py-2 text-xs"
                 />
               </div>
-              <label className="flex items-center gap-2 text-xs text-[#4A5950] pt-1">
+              <label className="flex items-center gap-2 text-xs text-[#64748B] pt-1">
                 <input
                   type="checkbox"
                   checked={marketingConsent}
@@ -270,13 +270,13 @@ export default function CustomersPage() {
                 <button
                   type="button"
                   onClick={() => setModalOpen(false)}
-                  className="rounded-xl border border-[#E5E0D5] px-4 py-2 text-xs font-semibold"
+                  className="rounded-xl border border-[#E5E7EB] px-4 py-2 text-xs font-semibold"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="rounded-xl bg-[#0F291E] px-4 py-2 text-xs font-semibold text-white"
+                  className="rounded-xl bg-[#176B52] px-4 py-2 text-xs font-semibold text-white"
                 >
                   Save Profile
                 </button>

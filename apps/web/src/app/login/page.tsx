@@ -100,16 +100,16 @@ export default function LoginPage() {
     <MarketingLayout>
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
-          <div className="lg:col-span-7 rounded-2xl border border-[#E5E0D5] bg-white p-8 shadow-editorial space-y-6">
+          <div className="lg:col-span-7 rounded-2xl border border-[#E5E7EB] bg-white p-8 shadow-editorial space-y-6">
             <div className="space-y-1.5">
               <div className="inline-flex items-center gap-2 text-xs font-semibold text-[#286249]">
                 <Compass className="h-4 w-4" />
                 <span>DinePilot Workspace Authentication</span>
               </div>
-              <h1 className="font-display text-2xl font-bold text-[#0F291E]">
+              <h1 className="font-display text-2xl font-bold text-[#101820]">
                 Sign in to your restaurant workspace
               </h1>
-              <p className="text-sm text-[#4A5950]">
+              <p className="text-sm text-[#64748B]">
                 Access operations, menu profitability, recipe costing, and live
                 kitchen workflows.
               </p>
@@ -132,17 +132,17 @@ export default function LoginPage() {
 
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
-                <label className="block text-xs font-semibold text-[#111C16] mb-1.5">
+                <label className="block text-xs font-semibold text-[#101820] mb-1.5">
                   Work Email
                 </label>
                 <div className="relative">
-                  <Mail className="h-4 w-4 text-[#718077] absolute left-3.5 top-3" />
+                  <Mail className="h-4 w-4 text-[#64748B] absolute left-3.5 top-3" />
                   <input
                     required
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="w-full rounded-xl border border-[#E5E0D5] pl-10 pr-4 py-2.5 text-sm focus:border-[#0F291E]"
+                    className="w-full rounded-xl border border-[#E5E7EB] pl-10 pr-4 py-2.5 text-sm focus:border-[#176B52]"
                     placeholder="owner@dinepilot.in"
                   />
                 </div>
@@ -150,7 +150,7 @@ export default function LoginPage() {
 
               <div>
                 <div className="flex items-center justify-between mb-1.5">
-                  <label className="block text-xs font-semibold text-[#111C16]">
+                  <label className="block text-xs font-semibold text-[#101820]">
                     Password
                   </label>
                   <button
@@ -162,13 +162,13 @@ export default function LoginPage() {
                   </button>
                 </div>
                 <div className="relative">
-                  <Lock className="h-4 w-4 text-[#718077] absolute left-3.5 top-3" />
+                  <Lock className="h-4 w-4 text-[#64748B] absolute left-3.5 top-3" />
                   <input
                     required
                     type="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="w-full rounded-xl border border-[#E5E0D5] pl-10 pr-4 py-2.5 text-sm focus:border-[#0F291E]"
+                    className="w-full rounded-xl border border-[#E5E7EB] pl-10 pr-4 py-2.5 text-sm focus:border-[#176B52]"
                     placeholder="••••••••••••"
                   />
                 </div>
@@ -177,27 +177,27 @@ export default function LoginPage() {
               <button
                 type="submit"
                 disabled={submitting}
-                className="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-[#0F291E] py-3 px-4 text-sm font-semibold text-white hover:bg-[#163829] disabled:opacity-60 transition-colors"
+                className="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-[#176B52] py-3 px-4 text-sm font-semibold text-white hover:bg-[#125541] disabled:opacity-60 transition-colors"
               >
                 {submitting ? "Authenticating..." : "Sign In to DinePilot"}
-                <ArrowRight className="h-4 w-4 text-[#84CC16]" />
+                <ArrowRight className="h-4 w-4 text-[#20A67A]" />
               </button>
             </form>
 
-            <div className="pt-4 border-t border-[#E5E0D5] text-xs text-[#4A5950] flex items-center justify-between">
+            <div className="pt-4 border-t border-[#E5E7EB] text-xs text-[#64748B] flex items-center justify-between">
               <span>Setting up a new restaurant, café, or cloud kitchen?</span>
               <Link
                 href="/register"
-                className="font-semibold text-[#0F291E] hover:underline"
+                className="font-semibold text-[#101820] hover:underline"
               >
                 Create Restaurant Account →
               </Link>
             </div>
           </div>
 
-          <div className="lg:col-span-5 rounded-2xl border border-[#0F291E]/15 bg-[#0F291E] text-white p-7 space-y-5">
+          <div className="lg:col-span-5 rounded-2xl border border-[#176B52]/15 bg-[#176B52] text-white p-7 space-y-5">
             <div className="space-y-1">
-              <span className="inline-block rounded bg-[#84CC16] px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-[#0F291E]">
+              <span className="inline-block rounded bg-[#20A67A] px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-[#101820]">
                 Interactive Demo Sandbox
               </span>
               <h2 className="font-display text-xl font-bold pt-1">
@@ -223,7 +223,7 @@ export default function LoginPage() {
                 }
                 className="w-full text-left rounded-xl border border-white/15 bg-white/10 hover:bg-white/15 p-4 transition-colors flex items-start gap-3.5"
               >
-                <div className="h-9 w-9 rounded-lg bg-[#84CC16] text-[#0F291E] flex items-center justify-center shrink-0 mt-0.5">
+                <div className="h-9 w-9 rounded-lg bg-[#20A67A] text-[#101820] flex items-center justify-center shrink-0 mt-0.5">
                   <Store className="h-5 w-5" />
                 </div>
                 <div>

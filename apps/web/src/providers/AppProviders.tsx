@@ -8,6 +8,7 @@ import React, {
   useState,
 } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { CheckCircle2, AlertTriangle, XCircle, X } from "lucide-react";
 import {
   apiFetch,
@@ -94,7 +95,7 @@ export function useAuth() {
   return useContext(AuthContext);
 }
 
-interface ToastItem {
+export interface ToastItem {
   id: string;
   title: string;
   description?: string;
@@ -114,6 +115,8 @@ export function useToast() {
 }
 
 export function AppProviders({ children }: { children: React.ReactNode }) {
+  const prefersReducedMotion = useReducedMotion();
+
   const [queryClient] = useState(
     () =>
       new QueryClient({
@@ -218,39 +221,59 @@ export function AppProviders({ children }: { children: React.ReactNode }) {
             aria-live="polite"
             className="fixed bottom-5 right-5 z-50 flex flex-col gap-2.5 max-w-sm w-full pointer-events-none px-4 sm:px-0"
           >
-            {toasts.map((t) => (
-              <div
-                key={t.id}
-                className="pointer-events-auto flex items-start gap-3 rounded-xl border border-[#E5E0D5] bg-white p-4 shadow-editorial transition-all"
-              >
-                {t.variant === "error" ? (
-                  <XCircle className="h-5 w-5 text-red-600 shrink-0 mt-0.5" />
-                ) : t.variant === "warning" ? (
-                  <AlertTriangle className="h-5 w-5 text-amber-600 shrink-0 mt-0.5" />
-                ) : (
-                  <CheckCircle2 className="h-5 w-5 text-emerald-700 shrink-0 mt-0.5" />
-                )}
-                <div className="flex-1 min-w-0">
-                  <p className="text-sm font-semibold text-[#111C16]">
-                    {t.title}
-                  </p>
-                  {t.description && (
-                    <p className="text-xs text-[#4A5950] mt-0.5 leading-relaxed">
-                      {t.description}
-                    </p>
-                  )}
-                </div>
-                <button
-                  onClick={() =>
-                    setToasts((prev) => prev.filter((item) => item.id !== t.id))
+            <AnimatePresence initial={false}>
+              {toasts.map((t) => (
+                <motion.div
+                  key={t.id}
+                  initial={
+                    prefersReducedMotion
+                      ? { opacity: 0 }
+                      : { opacity: 0, y: 14, scale: 0.98 }
                   }
-                  className="text-stone-400 hover:text-stone-700"
-                  aria-label="Dismiss notification"
+                  animate={
+                    prefersReducedMotion
+                      ? { opacity: 1 }
+                      : { opacity: 1, y: 0, scale: 1 }
+                  }
+                  exit={
+                    prefersReducedMotion
+                      ? { opacity: 0 }
+                      : { opacity: 0, y: 8, scale: 0.98 }
+                  }
+                  transition={{ duration: 0.2, ease: "easeOut" }}
+                  className="pointer-events-auto flex items-start gap-3 rounded-xl border border-[#E5E7EB] bg-white p-4 shadow-elevated"
                 >
-                  <X className="h-4 w-4" />
-                </button>
-              </div>
-            ))}
+                  {t.variant === "error" ? (
+                    <XCircle className="h-5 w-5 text-red-600 shrink-0 mt-0.5" />
+                  ) : t.variant === "warning" ? (
+                    <AlertTriangle className="h-5 w-5 text-amber-600 shrink-0 mt-0.5" />
+                  ) : (
+                    <CheckCircle2 className="h-5 w-5 text-[#20A67A] shrink-0 mt-0.5" />
+                  )}
+                  <div className="flex-1 min-w-0">
+                    <p className="text-sm font-semibold text-[#101820]">
+                      {t.title}
+                    </p>
+                    {t.description && (
+                      <p className="text-xs text-[#64748B] mt-0.5 leading-relaxed">
+                        {t.description}
+                      </p>
+                    )}
+                  </div>
+                  <button
+                    onClick={() =>
+                      setToasts((prev) =>
+                        prev.filter((item) => item.id !== t.id)
+                      )
+                    }
+                    className="text-[#64748B] hover:text-[#101820] rounded p-0.5"
+                    aria-label="Dismiss notification"
+                  >
+                    <X className="h-4 w-4" />
+                  </button>
+                </motion.div>
+              ))}
+            </AnimatePresence>
           </div>
         </AuthContext.Provider>
       </ToastContext.Provider>

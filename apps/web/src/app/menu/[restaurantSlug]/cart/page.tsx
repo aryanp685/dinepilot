@@ -181,19 +181,19 @@ function GuestCartCheckoutContent() {
   }
 
   return (
-    <div className="min-h-screen bg-[#FBF9F5] text-[#111C16] pb-16">
-      <header className="border-b border-[#E5E0D5] bg-white sticky top-0 z-30">
+    <div className="min-h-screen bg-[#F8F7F3] text-[#101820] pb-16">
+      <header className="border-b border-[#E5E7EB] bg-white sticky top-0 z-30">
         <div className="mx-auto max-w-2xl px-4 py-4 flex items-center justify-between">
           <Link
             href={`/menu/${restaurantSlug}${
               tableQrToken ? `?table=${encodeURIComponent(tableQrToken)}` : ""
             }`}
-            className="inline-flex items-center gap-2 text-xs font-semibold text-[#0F291E] hover:underline"
+            className="inline-flex items-center gap-2 text-xs font-semibold text-[#101820] hover:underline"
           >
             <ArrowLeft className="h-4 w-4" />
             Back to {restaurant?.name || "Menu"}
           </Link>
-          <span className="font-display font-bold text-sm text-[#0F291E]">
+          <span className="font-display font-bold text-sm text-[#101820]">
             Review Cart & GST Bill
           </span>
         </div>
@@ -201,29 +201,29 @@ function GuestCartCheckoutContent() {
 
       <main className="mx-auto max-w-2xl px-4 py-6 space-y-6">
         {lines.length === 0 ? (
-          <div className="rounded-2xl border border-[#E5E0D5] bg-white p-10 text-center space-y-3">
-            <h1 className="font-display font-bold text-lg text-[#0F291E]">
+          <div className="rounded-2xl border border-[#E5E7EB] bg-white p-10 text-center space-y-3">
+            <h1 className="font-display font-bold text-lg text-[#101820]">
               Your cart is empty
             </h1>
-            <p className="text-xs text-[#4A5950]">
+            <p className="text-xs text-[#64748B]">
               Add authentic dishes from the digital QR menu to get started.
             </p>
             <Link
               href={`/menu/${restaurantSlug}${
                 tableQrToken ? `?table=${encodeURIComponent(tableQrToken)}` : ""
               }`}
-              className="inline-flex items-center gap-2 rounded-xl bg-[#0F291E] px-4 py-2.5 text-xs font-semibold text-white"
+              className="inline-flex items-center gap-2 rounded-xl bg-[#176B52] px-4 py-2.5 text-xs font-semibold text-white"
             >
               Browse Digital Menu
             </Link>
           </div>
         ) : (
           <form onSubmit={handlePlaceOrder} className="space-y-6">
-            <div className="rounded-2xl border border-[#E5E0D5] bg-white p-5 shadow-card space-y-4">
-              <h2 className="font-display font-bold text-base text-[#0F291E]">
+            <div className="rounded-2xl border border-[#E5E7EB] bg-white p-5 shadow-card space-y-4">
+              <h2 className="font-display font-bold text-base text-[#101820]">
                 Selected Dishes ({lines.reduce((s, l) => s + l.quantity, 0)})
               </h2>
-              <div className="divide-y divide-[#E5E0D5]">
+              <div className="divide-y divide-[#E5E7EB]">
                 {lines.map((line) => {
                   const unitPrice =
                     line.basePricePaise +
@@ -235,16 +235,16 @@ function GuestCartCheckoutContent() {
                       className="py-3 flex items-center justify-between gap-4"
                     >
                       <div className="space-y-0.5">
-                        <p className="font-semibold text-sm text-[#0F291E]">
+                        <p className="font-semibold text-sm text-[#101820]">
                           {line.name}
                         </p>
                         {line.variantName && (
-                          <p className="text-[11px] text-[#4A5950]">
+                          <p className="text-[11px] text-[#64748B]">
                             Portion: {line.variantName}
                           </p>
                         )}
                         {line.selectedAddons.length > 0 && (
-                          <p className="text-[11px] text-[#4A5950]">
+                          <p className="text-[11px] text-[#64748B]">
                             Add-ons:{" "}
                             {line.selectedAddons.map((a) => a.name).join(", ")}
                           </p>
@@ -254,12 +254,12 @@ function GuestCartCheckoutContent() {
                             Note: {line.notes}
                           </p>
                         )}
-                        <p className="font-mono text-xs font-bold text-[#0F291E]">
+                        <p className="font-mono text-xs font-bold text-[#101820]">
                           {formatINR(unitPrice * line.quantity)}
                         </p>
                       </div>
 
-                      <div className="inline-flex items-center gap-2.5 rounded-xl border border-[#E5E0D5] px-2.5 py-1.5">
+                      <div className="inline-flex items-center gap-2.5 rounded-xl border border-[#E5E7EB] px-2.5 py-1.5">
                         <button
                           type="button"
                           onClick={() => updateQuantity(line.cartLineId, -1)}
@@ -286,8 +286,8 @@ function GuestCartCheckoutContent() {
               </div>
             </div>
 
-            <div className="rounded-2xl border border-[#E5E0D5] bg-white p-5 shadow-card space-y-4">
-              <h2 className="font-display font-bold text-base text-[#0F291E]">
+            <div className="rounded-2xl border border-[#E5E7EB] bg-white p-5 shadow-card space-y-4">
+              <h2 className="font-display font-bold text-base text-[#101820]">
                 Dining Mode & Table Verification
               </h2>
 
@@ -300,8 +300,8 @@ function GuestCartCheckoutContent() {
                       onClick={() => setOrderType(t)}
                       className={`rounded-xl py-2.5 text-xs font-bold border transition-all ${
                         orderType === t
-                          ? "bg-[#0F291E] text-white border-[#0F291E]"
-                          : "bg-[#FBF9F5] border-[#E5E0D5] text-[#4A5950]"
+                          ? "bg-[#176B52] text-white border-[#176B52]"
+                          : "bg-[#F8F7F3] border-[#E5E7EB] text-[#64748B]"
                       }`}
                     >
                       {t.replace("_", "-")}
@@ -321,7 +321,7 @@ function GuestCartCheckoutContent() {
                       value={tableQrToken}
                       onChange={(e) => setTableQrToken(e.target.value)}
                       placeholder="tbl_saoji_t01"
-                      className="w-full rounded-lg border border-[#E5E0D5] px-3 py-2 font-mono"
+                      className="w-full rounded-lg border border-[#E5E7EB] px-3 py-2 font-mono"
                     />
                   </div>
                   <div>
@@ -332,7 +332,7 @@ function GuestCartCheckoutContent() {
                       value={appendToOrderToken}
                       onChange={(e) => setAppendToOrderToken(e.target.value)}
                       placeholder="Leave blank or auto-links active table session"
-                      className="w-full rounded-lg border border-[#E5E0D5] px-3 py-2 font-mono"
+                      className="w-full rounded-lg border border-[#E5E7EB] px-3 py-2 font-mono"
                     />
                   </div>
                 </div>
@@ -348,7 +348,7 @@ function GuestCartCheckoutContent() {
                     value={deliveryAddress}
                     onChange={(e) => setDeliveryAddress(e.target.value)}
                     placeholder="Flat 402, Dharampeth Extension, Nagpur"
-                    className="w-full rounded-lg border border-[#E5E0D5] px-3 py-2"
+                    className="w-full rounded-lg border border-[#E5E7EB] px-3 py-2"
                   />
                 </div>
               )}
@@ -362,7 +362,7 @@ function GuestCartCheckoutContent() {
                     required
                     value={customerName}
                     onChange={(e) => setCustomerName(e.target.value)}
-                    className="w-full rounded-lg border border-[#E5E0D5] px-3 py-2"
+                    className="w-full rounded-lg border border-[#E5E7EB] px-3 py-2"
                   />
                 </div>
                 <div>
@@ -373,7 +373,7 @@ function GuestCartCheckoutContent() {
                     required
                     value={customerPhone}
                     onChange={(e) => setCustomerPhone(e.target.value)}
-                    className="w-full rounded-lg border border-[#E5E0D5] px-3 py-2 font-mono"
+                    className="w-full rounded-lg border border-[#E5E7EB] px-3 py-2 font-mono"
                   />
                 </div>
               </div>
@@ -386,14 +386,14 @@ function GuestCartCheckoutContent() {
                   value={specialInstructions}
                   onChange={(e) => setSpecialInstructions(e.target.value)}
                   placeholder="Serve starters first, extra lemon wedges..."
-                  className="w-full rounded-lg border border-[#E5E0D5] px-3 py-2"
+                  className="w-full rounded-lg border border-[#E5E7EB] px-3 py-2"
                 />
               </div>
             </div>
 
-            <div className="rounded-2xl border border-[#E5E0D5] bg-white p-5 shadow-card space-y-3">
-              <h2 className="font-display font-bold text-base text-[#0F291E] flex items-center gap-2">
-                <Smartphone className="h-4 w-4 text-[#D97706]" />
+            <div className="rounded-2xl border border-[#E5E7EB] bg-white p-5 shadow-card space-y-3">
+              <h2 className="font-display font-bold text-base text-[#101820] flex items-center gap-2">
+                <Smartphone className="h-4 w-4 text-[#C6A15B]" />
                 Payment Preference
               </h2>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 text-xs">
@@ -420,12 +420,12 @@ function GuestCartCheckoutContent() {
                     onClick={() => setPaymentMethod(pm.id)}
                     className={`text-left rounded-xl border p-3 transition-all ${
                       paymentMethod === pm.id
-                        ? "border-[#0F291E] ring-2 ring-[#0F291E] bg-[#FBF9F5]"
-                        : "border-[#E5E0D5] bg-white"
+                        ? "border-[#176B52] ring-2 ring-[#176B52] bg-[#F8F7F3]"
+                        : "border-[#E5E7EB] bg-white"
                     }`}
                   >
-                    <p className="font-bold text-[#0F291E]">{pm.label}</p>
-                    <p className="text-[11px] text-[#4A5950] mt-0.5">
+                    <p className="font-bold text-[#101820]">{pm.label}</p>
+                    <p className="text-[11px] text-[#64748B] mt-0.5">
                       {pm.desc}
                     </p>
                   </button>
@@ -433,25 +433,25 @@ function GuestCartCheckoutContent() {
               </div>
             </div>
 
-            <div className="rounded-2xl border border-[#E5E0D5] bg-white p-5 shadow-card space-y-2.5 text-xs">
-              <div className="flex items-center justify-between border-b border-[#E5E0D5] pb-2">
-                <span className="font-display font-bold text-sm text-[#0F291E] flex items-center gap-1.5">
-                  <ReceiptIndianRupee className="h-4 w-4 text-[#0F291E]" />
+            <div className="rounded-2xl border border-[#E5E7EB] bg-white p-5 shadow-card space-y-2.5 text-xs">
+              <div className="flex items-center justify-between border-b border-[#E5E7EB] pb-2">
+                <span className="font-display font-bold text-sm text-[#101820] flex items-center gap-1.5">
+                  <ReceiptIndianRupee className="h-4 w-4 text-[#101820]" />
                   Itemized GST Bill Breakdown ({settings.taxMode})
                 </span>
-                <span className="font-mono text-[11px] text-[#718077]">
+                <span className="font-mono text-[11px] text-[#64748B]">
                   Integer Paise Engine
                 </span>
               </div>
 
-              <div className="flex justify-between text-[#4A5950]">
+              <div className="flex justify-between text-[#64748B]">
                 <span>Item Subtotal</span>
                 <span className="font-mono font-semibold">
                   {formatINR(billPreview.subtotalPaise)}
                 </span>
               </div>
               {billPreview.packagingTotalPaise > 0 && (
-                <div className="flex justify-between text-[#4A5950]">
+                <div className="flex justify-between text-[#64748B]">
                   <span>Container / Packaging Fee</span>
                   <span className="font-mono">
                     {formatINR(billPreview.packagingTotalPaise)}
@@ -459,27 +459,27 @@ function GuestCartCheckoutContent() {
                 </div>
               )}
               {billPreview.serviceChargePaise > 0 && (
-                <div className="flex justify-between text-[#4A5950]">
+                <div className="flex justify-between text-[#64748B]">
                   <span>Service Charge</span>
                   <span className="font-mono">
                     {formatINR(billPreview.serviceChargePaise)}
                   </span>
                 </div>
               )}
-              <div className="flex justify-between text-[#4A5950]">
+              <div className="flex justify-between text-[#64748B]">
                 <span>CGST ({settings.cgstRateBps / 100}%)</span>
                 <span className="font-mono">
                   {formatINR(billPreview.cgstPaise)}
                 </span>
               </div>
-              <div className="flex justify-between text-[#4A5950]">
+              <div className="flex justify-between text-[#64748B]">
                 <span>SGST ({settings.sgstRateBps / 100}%)</span>
                 <span className="font-mono">
                   {formatINR(billPreview.sgstPaise)}
                 </span>
               </div>
               {billPreview.roundOffPaise !== 0 && (
-                <div className="flex justify-between text-[#718077]">
+                <div className="flex justify-between text-[#64748B]">
                   <span>Rupee Round-Off</span>
                   <span className="font-mono">
                     {billPreview.roundOffPaise > 0 ? "+" : ""}
@@ -487,7 +487,7 @@ function GuestCartCheckoutContent() {
                   </span>
                 </div>
               )}
-              <div className="flex justify-between font-bold text-base text-[#0F291E] border-t border-[#E5E0D5] pt-2.5">
+              <div className="flex justify-between font-bold text-base text-[#101820] border-t border-[#E5E7EB] pt-2.5">
                 <span>Payable Grand Total</span>
                 <span className="font-mono">
                   {formatINR(billPreview.totalPaise)}
@@ -498,9 +498,9 @@ function GuestCartCheckoutContent() {
             <button
               type="submit"
               disabled={submitting}
-              className="w-full inline-flex items-center justify-center gap-2 rounded-2xl bg-[#0F291E] py-4 px-6 text-sm font-bold text-white hover:bg-[#163829] shadow-editorial disabled:opacity-50"
+              className="w-full inline-flex items-center justify-center gap-2 rounded-2xl bg-[#176B52] py-4 px-6 text-sm font-bold text-white hover:bg-[#125541] shadow-editorial disabled:opacity-50"
             >
-              <CheckCircle2 className="h-4 w-4 text-[#84CC16]" />
+              <CheckCircle2 className="h-4 w-4 text-[#20A67A]" />
               {submitting
                 ? "Firing KOT to Kitchen..."
                 : `Confirm & Send Order to Kitchen (${formatINR(
@@ -518,7 +518,7 @@ export default function GuestCartCheckoutPage() {
   return (
     <Suspense
       fallback={
-        <div className="min-h-screen bg-[#FBF9F5] flex items-center justify-center p-6 text-xs text-[#4A5950]">
+        <div className="min-h-screen bg-[#F8F7F3] flex items-center justify-center p-6 text-xs text-[#64748B]">
           Loading guest cart...
         </div>
       }

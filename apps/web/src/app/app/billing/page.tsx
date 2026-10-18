@@ -86,18 +86,18 @@ export default function BillingPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="font-display text-2xl font-bold text-[#0F291E]">
+        <h2 className="font-display text-2xl font-bold text-[#101820]">
           Subscription Plan & Entitlements
         </h2>
-        <p className="text-xs text-[#4A5950]">
+        <p className="text-xs text-[#64748B]">
           Manage your active DinePilot SaaS subscription tier
         </p>
       </div>
 
       {!isLoading && sub && (
-        <div className="rounded-2xl border border-[#0F291E] bg-[#0F291E] text-white p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div className="rounded-2xl border border-[#176B52] bg-[#176B52] text-white p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div className="space-y-1">
-            <span className="rounded bg-[#84CC16] px-2 py-0.5 text-[10px] font-bold text-[#0F291E]">
+            <span className="rounded bg-[#20A67A] px-2 py-0.5 text-[10px] font-bold text-[#101820]">
               {sub.status} SUBSCRIPTION
             </span>
             <h3 className="font-display font-bold text-xl pt-1">
@@ -109,7 +109,7 @@ export default function BillingPage() {
               Ledger: {sub.entitlements?.loyaltyEngine ? "Enabled" : "Disabled"}
             </p>
           </div>
-          <CreditCard className="h-8 w-8 text-[#84CC16] shrink-0" />
+          <CreditCard className="h-8 w-8 text-[#20A67A] shrink-0" />
         </div>
       )}
 
@@ -121,31 +121,31 @@ export default function BillingPage() {
               key={p.id}
               className={`rounded-2xl border p-6 flex flex-col justify-between space-y-5 ${
                 isCurrent
-                  ? "border-[#0F291E] ring-2 ring-[#0F291E] bg-white"
-                  : "border-[#E5E0D5] bg-white"
+                  ? "border-[#176B52] ring-2 ring-[#176B52] bg-white"
+                  : "border-[#E5E7EB] bg-white"
               }`}
             >
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
-                  <h3 className="font-display font-bold text-lg text-[#0F291E]">
+                  <h3 className="font-display font-bold text-lg text-[#101820]">
                     {p.name}
                   </h3>
                   {isCurrent && (
-                    <span className="rounded-full bg-[#E6ECE8] px-2.5 py-0.5 text-[10px] font-bold text-[#0F291E]">
+                    <span className="rounded-full bg-[#E8F3EF] px-2.5 py-0.5 text-[10px] font-bold text-[#101820]">
                       Active Plan
                     </span>
                   )}
                 </div>
-                <p className="font-mono text-2xl font-bold text-[#0F291E]">
+                <p className="font-mono text-2xl font-bold text-[#101820]">
                   {formatINR(p.pricePaise)}{" "}
-                  <span className="text-xs font-normal text-[#718077]">
+                  <span className="text-xs font-normal text-[#64748B]">
                     / mo
                   </span>
                 </p>
-                <ul className="space-y-2 text-xs text-[#4A5950]">
+                <ul className="space-y-2 text-xs text-[#64748B]">
                   {p.features.map((f) => (
                     <li key={f} className="flex items-start gap-2">
-                      <Check className="h-3.5 w-3.5 text-[#0F291E] shrink-0 mt-0.5" />
+                      <Check className="h-3.5 w-3.5 text-[#101820] shrink-0 mt-0.5" />
                       <span>{f}</span>
                     </li>
                   ))}
@@ -158,8 +158,8 @@ export default function BillingPage() {
                 onClick={() => handlePlanChange(p.id)}
                 className={`w-full rounded-xl py-2.5 text-xs font-semibold transition-colors ${
                   isCurrent
-                    ? "bg-[#E6ECE8] text-[#0F291E] cursor-default"
-                    : "bg-[#0F291E] text-white hover:bg-[#163829]"
+                    ? "bg-[#E8F3EF] text-[#101820] cursor-default"
+                    : "bg-[#176B52] text-white hover:bg-[#125541]"
                 }`}
               >
                 {isCurrent ? "Current Plan" : `Switch to ${p.name}`}

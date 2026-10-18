@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import {
   Compass,
   LayoutDashboard,
@@ -59,6 +60,7 @@ export default function AppDashboardLayout({
   const pathname = usePathname();
   const router = useRouter();
   const queryClient = useQueryClient();
+  const prefersReducedMotion = useReducedMotion();
   const { toast } = useToast();
   const {
     user,
@@ -139,9 +141,9 @@ export default function AppDashboardLayout({
 
   if (isLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#FBF9F5]">
-        <div className="flex items-center gap-3 text-sm font-semibold text-[#0F291E]">
-          <div className="h-5 w-5 rounded-full border-2 border-[#0F291E] border-t-transparent animate-spin" />
+      <div className="min-h-screen flex items-center justify-center bg-[#F8F7F3]">
+        <div className="flex items-center gap-3 text-sm font-semibold text-[#101820]">
+          <div className="h-5 w-5 rounded-full border-2 border-[#176B52] border-t-transparent animate-spin" />
           Loading DinePilot Workspace...
         </div>
       </div>
@@ -160,18 +162,18 @@ export default function AppDashboardLayout({
   }
 
   return (
-    <div className="min-h-screen flex bg-[#FBF9F5] text-[#111C16]">
-      <aside className="hidden lg:flex lg:w-64 lg:flex-col lg:fixed lg:inset-y-0 bg-[#0F291E] text-[#E6ECE8] border-r border-white/10">
+    <div className="min-h-screen flex bg-[#F8F7F3] text-[#101820]">
+      <aside className="hidden lg:flex lg:w-64 lg:flex-col lg:fixed lg:inset-y-0 bg-[#101820] text-[#F8F7F3] border-r border-white/10">
         <div className="h-16 px-5 flex items-center justify-between border-b border-white/10">
-          <Link href="/app/overview" className="flex items-center gap-2.5">
-            <div className="h-8 w-8 rounded-lg bg-[#84CC16] flex items-center justify-center text-[#0F291E]">
+          <Link href="/app/overview" className="flex items-center gap-3">
+            <div className="h-8 w-8 rounded-xl bg-[#176B52] flex items-center justify-center text-white shadow-sm">
               <Compass className="h-5 w-5" />
             </div>
             <div>
               <span className="font-display font-bold text-base text-white tracking-tight">
                 DinePilot
               </span>
-              <span className="block text-[10px] text-[#84CC16] font-mono uppercase">
+              <span className="block text-[10px] text-[#20A67A] font-mono uppercase">
                 {restaurant?.city || "India"} • {role || "STAFF"}
               </span>
             </div>
@@ -186,13 +188,24 @@ export default function AppDashboardLayout({
               <Link
                 key={item.href}
                 href={item.href}
-                className={`flex items-center gap-3 rounded-xl px-3 py-2.5 text-xs font-semibold transition-colors ${
+                className={`relative flex items-center gap-3 rounded-xl px-3 py-2.5 text-xs font-medium transition-colors z-10 ${
                   active
-                    ? "bg-[#84CC16] text-[#0F291E] shadow-sm"
-                    : "text-[#E6ECE8]/80 hover:bg-white/10 hover:text-white"
+                    ? "text-white font-semibold"
+                    : "text-[#94A3B8] hover:bg-white/5 hover:text-white"
                 }`}
               >
-                <Icon className="h-4 w-4 shrink-0" />
+                {active && (
+                  <motion.span
+                    layoutId="app-sidebar-active"
+                    transition={{ duration: 0.2, ease: "easeOut" }}
+                    className="absolute inset-0 rounded-xl bg-[#176B52] border border-[#20A67A]/30 shadow-sm -z-10"
+                  />
+                )}
+                <Icon
+                  className={`h-4 w-4 shrink-0 ${
+                    active ? "text-[#20A67A]" : "text-[#94A3B8]"
+                  }`}
+                />
                 <span>{item.label}</span>
               </Link>
             );
@@ -202,7 +215,7 @@ export default function AppDashboardLayout({
             <div className="pt-3 mt-3 border-t border-white/10">
               <Link
                 href="/platform/overview"
-                className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-xs font-semibold text-amber-300 hover:bg-white/10"
+                className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-xs font-semibold text-[#C6A15B] hover:bg-white/5"
               >
                 <ShieldAlert className="h-4 w-4" />
                 <span>Platform Admin</span>
@@ -211,25 +224,25 @@ export default function AppDashboardLayout({
           )}
         </nav>
 
-        <div className="p-3 border-t border-white/10 space-y-2">
+        <div className="p-3 border-t border-white/10 space-y-2.5 bg-[#0B1117]/60">
           <div className="flex items-center gap-2">
             <Link
               href={`/menu/${restaurant?.slug || "saoji-spice-nagpur"}?table=tbl_saoji_t01`}
-              className="flex-1 inline-flex items-center justify-center gap-1.5 rounded-lg bg-white/10 hover:bg-white/15 px-2.5 py-2 text-[11px] font-semibold text-white"
+              className="flex-1 inline-flex items-center justify-center gap-1.5 rounded-xl bg-[#182430] hover:bg-[#223242] border border-white/10 px-2.5 py-2 text-[11px] font-semibold text-white transition-colors"
             >
-              <QrCode className="h-3.5 w-3.5 text-[#84CC16]" />
+              <QrCode className="h-3.5 w-3.5 text-[#20A67A]" />
               Guest QR
             </Link>
             <Link
               href="/kitchen"
-              className="flex-1 inline-flex items-center justify-center gap-1.5 rounded-lg bg-white/10 hover:bg-white/15 px-2.5 py-2 text-[11px] font-semibold text-white"
+              className="flex-1 inline-flex items-center justify-center gap-1.5 rounded-xl bg-[#182430] hover:bg-[#223242] border border-white/10 px-2.5 py-2 text-[11px] font-semibold text-white transition-colors"
             >
-              <ChefHat className="h-3.5 w-3.5 text-[#D97706]" />
+              <ChefHat className="h-3.5 w-3.5 text-[#C6A15B]" />
               Live KDS
             </Link>
           </div>
 
-          <div className="flex items-center justify-between px-2 pt-1 text-xs text-[#E6ECE8]/75">
+          <div className="flex items-center justify-between px-2 pt-1 text-xs text-[#94A3B8]">
             <div className="truncate pr-2">
               <p className="font-semibold text-white truncate">{user.name}</p>
               <p className="text-[11px] truncate">{user.email}</p>
@@ -240,7 +253,7 @@ export default function AppDashboardLayout({
                 await logout();
                 router.push("/login");
               }}
-              className="p-1.5 rounded-lg hover:bg-white/10 text-[#E6ECE8]"
+              className="p-1.5 rounded-lg hover:bg-white/10 text-[#94A3B8] hover:text-white transition-colors"
               title="Sign Out"
             >
               <LogOut className="h-4 w-4" />
@@ -250,12 +263,12 @@ export default function AppDashboardLayout({
       </aside>
 
       <div className="flex-1 lg:pl-64 flex flex-col min-w-0">
-        <header className="sticky top-0 z-30 h-16 bg-[#FBF9F5]/95 backdrop-blur border-b border-[#E5E0D5] px-4 sm:px-6 flex items-center justify-between gap-4">
+        <header className="sticky top-0 z-30 h-16 bg-white/90 backdrop-blur-md border-b border-[#E5E7EB] px-4 sm:px-6 flex items-center justify-between gap-4">
           <div className="flex items-center gap-3 min-w-0">
             <button
               type="button"
               onClick={() => setMobileSidebarOpen(true)}
-              className="lg:hidden rounded-lg p-2 text-[#0F291E] hover:bg-[#E6ECE8]"
+              className="lg:hidden rounded-xl p-2 text-[#101820] hover:bg-[#F8F7F3] border border-[#E5E7EB]"
               aria-label="Open menu"
             >
               <Menu className="h-5 w-5" />
@@ -265,7 +278,7 @@ export default function AppDashboardLayout({
               <select
                 value={restaurant?.id || ""}
                 onChange={(e) => switchWorkspace(e.target.value)}
-                className="rounded-lg border border-[#E5E0D5] bg-white px-3 py-1.5 text-xs font-semibold text-[#0F291E]"
+                className="rounded-xl border border-[#E5E7EB] bg-[#F8F7F3] px-3 py-1.5 text-xs font-semibold text-[#101820]"
               >
                 {workspaces.map((w) => (
                   <option key={w.id} value={w.id}>
@@ -275,24 +288,25 @@ export default function AppDashboardLayout({
               </select>
             ) : (
               <div className="truncate">
-                <h1 className="font-display font-bold text-sm sm:text-base text-[#0F291E] truncate">
+                <h1 className="font-display font-bold text-sm sm:text-base text-[#101820] truncate">
                   {restaurant?.name || "Restaurant Workspace"}
                 </h1>
               </div>
             )}
 
             {restaurant?.isDemo && (
-              <span className="hidden sm:inline-flex items-center gap-1.5 rounded-full bg-amber-100 border border-amber-300 px-2.5 py-0.5 text-[11px] font-bold text-amber-900">
+              <span className="hidden sm:inline-flex items-center gap-1.5 rounded-full bg-[#F9F4EA] border border-[#C6A15B]/40 px-2.5 py-0.5 text-[11px] font-bold text-[#101820]">
+                <span className="h-1.5 w-1.5 rounded-full bg-[#C6A15B]" />
                 DEMO ENVIRONMENT
               </span>
             )}
           </div>
 
           <div className="flex items-center gap-3">
-            <div className="hidden md:flex items-center gap-1.5 rounded-full bg-[#E6ECE8] px-3 py-1 text-[11px] font-semibold text-[#0F291E]">
+            <div className="hidden md:flex items-center gap-1.5 rounded-full bg-[#E8F3EF] border border-[#176B52]/20 px-3 py-1 text-[11px] font-semibold text-[#176B52]">
               <span
                 className={`h-2 w-2 rounded-full ${
-                  socketConnected ? "bg-emerald-600" : "bg-amber-500"
+                  socketConnected ? "bg-[#20A67A]" : "bg-amber-500"
                 }`}
               />
               <span>{socketConnected ? "Live Sync" : "Syncing"}</span>
@@ -300,18 +314,18 @@ export default function AppDashboardLayout({
 
             <Link
               href={`/menu/${restaurant?.slug || "saoji-spice-nagpur"}?table=tbl_saoji_t01`}
-              className="hidden sm:inline-flex items-center gap-1.5 rounded-lg border border-[#E5E0D5] bg-white px-3 py-1.5 text-xs font-semibold text-[#0F291E] hover:bg-[#F2EFE9]"
+              className="hidden sm:inline-flex items-center gap-1.5 rounded-xl border border-[#E5E7EB] bg-white px-3 py-1.5 text-xs font-semibold text-[#101820] hover:bg-[#F8F7F3] transition-colors"
             >
-              <QrCode className="h-3.5 w-3.5 text-[#D97706]" />
+              <QrCode className="h-3.5 w-3.5 text-[#176B52]" />
               Guest QR Menu
-              <ExternalLink className="h-3 w-3 opacity-60" />
+              <ExternalLink className="h-3 w-3 text-[#64748B]" />
             </Link>
 
             <Link
               href="/kitchen"
-              className="hidden sm:inline-flex items-center gap-1.5 rounded-lg bg-[#0F291E] px-3 py-1.5 text-xs font-semibold text-white hover:bg-[#163829]"
+              className="hidden sm:inline-flex items-center gap-1.5 rounded-xl bg-[#101820] px-3 py-1.5 text-xs font-semibold text-white hover:bg-[#182430] transition-colors"
             >
-              <ChefHat className="h-3.5 w-3.5 text-[#84CC16]" />
+              <ChefHat className="h-3.5 w-3.5 text-[#20A67A]" />
               Kitchen KDS
             </Link>
 
@@ -319,104 +333,135 @@ export default function AppDashboardLayout({
               <button
                 type="button"
                 onClick={() => setNotifOpen((v) => !v)}
-                className="relative rounded-lg border border-[#E5E0D5] bg-white p-2 text-[#0F291E] hover:bg-[#F2EFE9]"
+                className="relative rounded-xl border border-[#E5E7EB] bg-white p-2 text-[#101820] hover:bg-[#F8F7F3] transition-colors"
                 aria-label="Notifications"
               >
                 <Bell className="h-4 w-4" />
                 {unreadCount > 0 && (
-                  <span className="absolute -top-1 -right-1 h-4 min-w-[16px] rounded-full bg-[#D97706] px-1 text-[10px] font-bold text-white flex items-center justify-center">
+                  <span className="absolute -top-1 -right-1 h-4 min-w-[16px] rounded-full bg-[#176B52] px-1 text-[10px] font-bold text-white flex items-center justify-center">
                     {unreadCount}
                   </span>
                 )}
               </button>
 
-              {notifOpen && (
-                <div className="absolute right-0 mt-2 w-80 rounded-2xl border border-[#E5E0D5] bg-white shadow-editorial p-3 z-50 space-y-2">
-                  <div className="flex items-center justify-between px-1 pb-2 border-b border-[#E5E0D5]">
-                    <span className="text-xs font-bold text-[#0F291E]">
-                      Operational Alerts ({unreadCount} unread)
-                    </span>
-                    <button
-                      type="button"
-                      onClick={() => setNotifOpen(false)}
-                      className="text-xs text-[#718077]"
-                    >
-                      Close
-                    </button>
-                  </div>
-                  <div className="max-h-72 overflow-y-auto space-y-2">
-                    {notifications.length === 0 ? (
-                      <p className="text-xs text-[#718077] py-4 text-center">
-                        No notifications yet.
-                      </p>
-                    ) : (
-                      notifications.slice(0, 10).map((n: any) => (
-                        <div
-                          key={n._id}
-                          onClick={() => markNotificationRead(n._id)}
-                          className={`cursor-pointer rounded-xl p-2.5 text-xs border transition-colors ${
-                            n.isRead
-                              ? "border-transparent bg-[#FBF9F5] text-[#4A5950]"
-                              : "border-amber-200 bg-amber-50/70 text-[#111C16]"
-                          }`}
-                        >
-                          <p className="font-semibold">{n.title}</p>
-                          <p className="text-[11px] mt-0.5">{n.message}</p>
-                        </div>
-                      ))
-                    )}
-                  </div>
-                </div>
-              )}
+              <AnimatePresence>
+                {notifOpen && (
+                  <motion.div
+                    initial={
+                      prefersReducedMotion
+                        ? { opacity: 0 }
+                        : { opacity: 0, y: 6, scale: 0.98 }
+                    }
+                    animate={
+                      prefersReducedMotion
+                        ? { opacity: 1 }
+                        : { opacity: 1, y: 0, scale: 1 }
+                    }
+                    exit={
+                      prefersReducedMotion
+                        ? { opacity: 0 }
+                        : { opacity: 0, y: 6, scale: 0.98 }
+                    }
+                    transition={{ duration: 0.16, ease: "easeOut" }}
+                    className="absolute right-0 mt-2 w-80 rounded-2xl border border-[#E5E7EB] bg-white shadow-elevated p-3 z-50 space-y-2"
+                  >
+                    <div className="flex items-center justify-between px-1 pb-2 border-b border-[#E5E7EB]">
+                      <span className="text-xs font-bold text-[#101820]">
+                        Operational Alerts ({unreadCount} unread)
+                      </span>
+                      <button
+                        type="button"
+                        onClick={() => setNotifOpen(false)}
+                        className="text-xs text-[#64748B] hover:text-[#101820]"
+                      >
+                        Close
+                      </button>
+                    </div>
+                    <div className="max-h-72 overflow-y-auto space-y-2">
+                      {notifications.length === 0 ? (
+                        <p className="text-xs text-[#64748B] py-4 text-center">
+                          No notifications yet.
+                        </p>
+                      ) : (
+                        notifications.slice(0, 10).map((n: any) => (
+                          <div
+                            key={n._id}
+                            onClick={() => markNotificationRead(n._id)}
+                            className={`cursor-pointer rounded-xl p-2.5 text-xs border transition-colors ${
+                              n.isRead
+                                ? "border-transparent bg-[#F8F7F3] text-[#64748B]"
+                                : "border-[#C6A15B]/40 bg-[#FCF9F3] text-[#101820]"
+                            }`}
+                          >
+                            <p className="font-semibold">{n.title}</p>
+                            <p className="mt-0.5 text-[11px]">{n.message}</p>
+                          </div>
+                        ))
+                      )}
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
           </div>
         </header>
 
-        {mobileSidebarOpen && (
-          <div className="fixed inset-0 z-50 lg:hidden flex">
-            <div
-              className="fixed inset-0 bg-black/50"
-              onClick={() => setMobileSidebarOpen(false)}
-            />
-            <div className="relative w-72 max-w-xs bg-[#0F291E] text-white h-full flex flex-col z-10">
-              <div className="h-16 px-4 flex items-center justify-between border-b border-white/10">
-                <span className="font-display font-bold text-base">
-                  DinePilot Navigation
-                </span>
-                <button
-                  type="button"
-                  onClick={() => setMobileSidebarOpen(false)}
-                  className="p-1 text-white"
-                >
-                  <X className="h-5 w-5" />
-                </button>
-              </div>
-              <div className="flex-1 overflow-y-auto p-3 space-y-1">
-                {NAV_ITEMS.map((item) => {
-                  const Icon = item.icon;
-                  const active = pathname === item.href;
-                  return (
-                    <Link
-                      key={item.href}
-                      href={item.href}
-                      onClick={() => setMobileSidebarOpen(false)}
-                      className={`flex items-center gap-3 rounded-xl px-3 py-2.5 text-xs font-semibold ${
-                        active
-                          ? "bg-[#84CC16] text-[#0F291E]"
-                          : "text-[#E6ECE8]/80"
-                      }`}
-                    >
-                      <Icon className="h-4 w-4" />
-                      <span>{item.label}</span>
-                    </Link>
-                  );
-                })}
-              </div>
+        <AnimatePresence>
+          {mobileSidebarOpen && (
+            <div className="fixed inset-0 z-50 lg:hidden flex">
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="fixed inset-0 bg-[#101820]/60 backdrop-blur-xs"
+                onClick={() => setMobileSidebarOpen(false)}
+              />
+              <motion.aside
+                initial={prefersReducedMotion ? { x: 0 } : { x: -260 }}
+                animate={{ x: 0 }}
+                exit={prefersReducedMotion ? { opacity: 0 } : { x: -260 }}
+                transition={{ duration: 0.2, ease: "easeOut" }}
+                className="relative w-64 max-w-xs bg-[#101820] text-[#F8F7F3] flex flex-col z-10"
+              >
+                <div className="h-16 px-4 flex items-center justify-between border-b border-white/10">
+                  <span className="font-display font-bold text-base text-white">
+                    DinePilot
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => setMobileSidebarOpen(false)}
+                    className="p-1.5 text-[#94A3B8] hover:text-white"
+                  >
+                    <X className="h-5 w-5" />
+                  </button>
+                </div>
+                <nav className="flex-1 overflow-y-auto px-3 py-4 space-y-1">
+                  {NAV_ITEMS.map((item) => {
+                    const Icon = item.icon;
+                    const active = pathname === item.href;
+                    return (
+                      <Link
+                        key={item.href}
+                        href={item.href}
+                        onClick={() => setMobileSidebarOpen(false)}
+                        className={`flex items-center gap-3 rounded-xl px-3 py-2.5 text-xs font-semibold ${
+                          active
+                            ? "bg-[#176B52] text-white"
+                            : "text-[#94A3B8] hover:bg-white/10 hover:text-white"
+                        }`}
+                      >
+                        <Icon className="h-4 w-4" />
+                        <span>{item.label}</span>
+                      </Link>
+                    );
+                  })}
+                </nav>
+              </motion.aside>
             </div>
-          </div>
-        )}
+          )}
+        </AnimatePresence>
 
-        <main className="flex-1 p-4 sm:p-6 lg:p-8 max-w-7xl w-full mx-auto">
+        <main className="flex-1 p-4 sm:p-6 lg:p-8 max-w-[1440px] w-full mx-auto">
           {children}
         </main>
       </div>

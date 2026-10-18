@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { useQuery } from "@tanstack/react-query";
+import { motion } from "framer-motion";
 import {
   ResponsiveContainer,
   BarChart,
@@ -15,11 +16,9 @@ import {
 import {
   TrendingUp,
   ClipboardList,
-  Scale,
   AlertTriangle,
   BrainCircuit,
   ArrowRight,
-  Users,
   Trash2,
   ReceiptIndianRupee,
 } from "lucide-react";
@@ -59,7 +58,8 @@ export default function OverviewPage() {
           )}`
         : "Loading...",
       icon: ReceiptIndianRupee,
-      tone: "text-[#0F291E]",
+      tone: "text-[#101820]",
+      iconBg: "bg-[#E8F3EF] text-[#176B52]",
     },
     {
       label: "Est. Gross Profit",
@@ -72,7 +72,8 @@ export default function OverviewPage() {
           )})`
         : "Loading...",
       icon: TrendingUp,
-      tone: "text-emerald-700",
+      tone: "text-[#20A67A]",
+      iconBg: "bg-[#E6F7F1] text-[#20A67A]",
     },
     {
       label: "Orders & AOV",
@@ -83,7 +84,8 @@ export default function OverviewPage() {
           )} (${overview.completedOrdersCount} completed)`
         : "Loading...",
       icon: ClipboardList,
-      tone: "text-[#0F291E]",
+      tone: "text-[#101820]",
+      iconBg: "bg-[#F8F7F3] text-[#101820]",
     },
     {
       label: "Kitchen Waste & Retention",
@@ -93,6 +95,7 @@ export default function OverviewPage() {
         : "Loading...",
       icon: Trash2,
       tone: "text-amber-700",
+      iconBg: "bg-amber-50 text-amber-700",
     },
   ];
 
@@ -108,30 +111,40 @@ export default function OverviewPage() {
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h2 className="font-display text-2xl font-bold text-[#0F291E]">
+          <h2 className="font-display text-2xl font-bold text-[#101820]">
             Operations & Profitability Overview
           </h2>
-          <p className="text-xs text-[#4A5950] mt-0.5">
+          <p className="text-xs text-[#64748B] mt-0.5">
             {overview?.accountingDefinition ||
               "Real-time financial, kitchen, and ingredient telemetry"}
           </p>
         </div>
 
-        <div className="flex items-center gap-2">
-          {[7, 30, 90].map((d) => (
-            <button
-              key={d}
-              type="button"
-              onClick={() => setDays(d)}
-              className={`rounded-lg px-3 py-1.5 text-xs font-semibold transition-colors ${
-                days === d
-                  ? "bg-[#0F291E] text-white"
-                  : "bg-white border border-[#E5E0D5] text-[#4A5950] hover:text-[#0F291E]"
-              }`}
-            >
-              Last {d} Days
-            </button>
-          ))}
+        <div className="inline-flex items-center gap-1 rounded-xl border border-[#E5E7EB] bg-white p-1 shadow-card">
+          {[7, 30, 90].map((d) => {
+            const active = days === d;
+            return (
+              <button
+                key={d}
+                type="button"
+                onClick={() => setDays(d)}
+                className={`relative rounded-lg px-3 py-1.5 text-xs font-semibold transition-colors z-10 ${
+                  active
+                    ? "text-white"
+                    : "text-[#64748B] hover:text-[#101820]"
+                }`}
+              >
+                {active && (
+                  <motion.span
+                    layoutId="overview-days-pill"
+                    transition={{ duration: 0.2, ease: "easeOut" }}
+                    className="absolute inset-0 rounded-lg bg-[#176B52] -z-10"
+                  />
+                )}
+                Last {d} Days
+              </button>
+            );
+          })}
         </div>
       </div>
 
@@ -141,22 +154,28 @@ export default function OverviewPage() {
           return (
             <div
               key={card.label}
-              className="rounded-2xl border border-[#E5E0D5] bg-white p-5 shadow-card space-y-2"
+              className="rounded-2xl border border-[#E5E7EB] bg-white p-5 shadow-card hover:shadow-editorial transition-shadow space-y-2.5"
             >
               <div className="flex items-center justify-between">
-                <span className="text-xs font-semibold text-[#4A5950]">
+                <span className="text-xs font-semibold text-[#64748B]">
                   {card.label}
                 </span>
-                <Icon className="h-4 w-4 text-[#0F291E]" />
+                <div
+                  className={`h-8 w-8 rounded-lg flex items-center justify-center ${card.iconBg}`}
+                >
+                  <Icon className="h-4 w-4" />
+                </div>
               </div>
               {loadingOverview ? (
-                <div className="h-7 w-28 rounded bg-[#F2EFE9] animate-pulse" />
+                <div className="h-7 w-28 rounded bg-[#F1EFE9] animate-pulse" />
               ) : (
-                <p className={`font-mono text-2xl font-bold ${card.tone}`}>
+                <p
+                  className={`font-mono text-2xl font-bold tabular-nums ${card.tone}`}
+                >
                   {card.value}
                 </p>
               )}
-              <p className="text-[11px] text-[#718077] leading-relaxed">
+              <p className="text-[11px] text-[#64748B] leading-relaxed">
                 {card.sub}
               </p>
             </div>
@@ -165,19 +184,19 @@ export default function OverviewPage() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-        <div className="lg:col-span-7 rounded-2xl border border-[#E5E0D5] bg-white p-6 shadow-card space-y-4">
+        <div className="lg:col-span-7 rounded-2xl border border-[#E5E7EB] bg-white p-6 shadow-card space-y-4">
           <div className="flex items-center justify-between">
             <div>
-              <h3 className="font-display font-bold text-base text-[#0F291E]">
+              <h3 className="font-display font-bold text-base text-[#101820]">
                 Live Floor & Kitchen Queue ({activeOrders.length})
               </h3>
-              <p className="text-xs text-[#718077]">
+              <p className="text-xs text-[#64748B]">
                 Active orders in NEW, ACCEPTED, PREPARING, or READY states
               </p>
             </div>
             <Link
               href="/app/orders"
-              className="text-xs font-semibold text-[#0F291E] hover:underline inline-flex items-center gap-1"
+              className="text-xs font-semibold text-[#176B52] hover:underline inline-flex items-center gap-1"
             >
               Open Order Desk
               <ArrowRight className="h-3.5 w-3.5" />
@@ -185,11 +204,11 @@ export default function OverviewPage() {
           </div>
 
           {activeOrders.length === 0 ? (
-            <div className="rounded-xl border border-dashed border-[#E5E0D5] p-8 text-center space-y-2">
-              <p className="text-sm font-semibold text-[#0F291E]">
+            <div className="rounded-xl border border-dashed border-[#E5E7EB] p-8 text-center space-y-2">
+              <p className="text-sm font-semibold text-[#101820]">
                 No active orders in the queue right now
               </p>
-              <p className="text-xs text-[#718077]">
+              <p className="text-xs text-[#64748B]">
                 Create a staff POS order or place a test order via the Guest QR
                 Menu.
               </p>
@@ -199,14 +218,14 @@ export default function OverviewPage() {
               {activeOrders.slice(0, 5).map((ord: any) => (
                 <div
                   key={ord._id}
-                  className="rounded-xl border border-[#E5E0D5] bg-[#FBF9F5] p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3"
+                  className="rounded-xl border border-[#E5E7EB] bg-[#F8F7F3] p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3"
                 >
                   <div className="space-y-1">
                     <div className="flex items-center gap-2">
-                      <span className="font-mono font-bold text-sm text-[#0F291E]">
+                      <span className="font-mono font-bold text-sm text-[#101820]">
                         {ord.orderNumber}
                       </span>
-                      <span className="rounded-md bg-[#E6ECE8] px-2 py-0.5 text-[10px] font-bold text-[#0F291E]">
+                      <span className="rounded-md bg-[#E8F3EF] px-2 py-0.5 text-[10px] font-bold text-[#176B52]">
                         {ord.tableLabelSnapshot
                           ? `Table ${ord.tableLabelSnapshot}`
                           : ord.orderType}
@@ -216,19 +235,19 @@ export default function OverviewPage() {
                           ord.status === "NEW"
                             ? "bg-amber-100 text-amber-900"
                             : ord.status === "READY"
-                            ? "bg-emerald-100 text-emerald-900"
+                            ? "bg-[#E6F7F1] text-[#176B52]"
                             : "bg-blue-100 text-blue-900"
                         }`}
                       >
                         {ord.status}
                       </span>
                       {ord.kotBatches?.length > 1 && (
-                        <span className="rounded-md bg-purple-100 px-2 py-0.5 text-[10px] font-bold text-purple-900">
+                        <span className="rounded-md bg-[#F9F4EA] border border-[#C6A15B]/30 px-2 py-0.5 text-[10px] font-bold text-[#101820]">
                           {ord.kotBatches.length} KOTs
                         </span>
                       )}
                     </div>
-                    <p className="text-xs text-[#4A5950]">
+                    <p className="text-xs text-[#64748B]">
                       {ord.items
                         .map((i: any) => `${i.quantity}x ${i.nameSnapshot}`)
                         .join(", ")}
@@ -237,16 +256,16 @@ export default function OverviewPage() {
 
                   <div className="flex items-center gap-3 shrink-0">
                     <div className="text-right">
-                      <p className="font-mono font-bold text-sm text-[#0F291E]">
+                      <p className="font-mono font-bold text-sm text-[#101820] tabular-nums">
                         {formatINR(ord.totalPaise)}
                       </p>
-                      <p className="text-[10px] font-semibold uppercase text-[#718077]">
+                      <p className="text-[10px] font-semibold uppercase text-[#64748B]">
                         {ord.paymentStatus}
                       </p>
                     </div>
                     <Link
                       href="/app/orders"
-                      className="rounded-lg bg-[#0F291E] px-3 py-1.5 text-xs font-semibold text-white hover:bg-[#163829]"
+                      className="rounded-xl bg-[#176B52] px-3.5 py-2 text-xs font-semibold text-white hover:bg-[#125541] transition-colors"
                     >
                       Manage
                     </Link>
@@ -257,51 +276,51 @@ export default function OverviewPage() {
           )}
         </div>
 
-        <div className="lg:col-span-5 rounded-2xl border border-[#E5E0D5] bg-white p-6 shadow-card space-y-4">
+        <div className="lg:col-span-5 rounded-2xl border border-[#E5E7EB] bg-white p-6 shadow-card space-y-4">
           <div className="flex items-center justify-between">
             <div>
-              <h3 className="font-display font-bold text-base text-[#0F291E]">
+              <h3 className="font-display font-bold text-base text-[#101820]">
                 Revenue by Menu Category
               </h3>
-              <p className="text-xs text-[#718077]">
+              <p className="text-xs text-[#64748B]">
                 Measured gross line sales in INR (₹)
               </p>
             </div>
             <Link
               href="/app/analytics"
-              className="text-xs font-semibold text-[#0F291E] hover:underline"
+              className="text-xs font-semibold text-[#176B52] hover:underline"
             >
               Profitability Matrix →
             </Link>
           </div>
 
           {categoryChartData.length === 0 ? (
-            <div className="h-56 flex items-center justify-center text-xs text-[#718077]">
+            <div className="h-56 flex items-center justify-center text-xs text-[#64748B]">
               No category sales recorded in this period.
             </div>
           ) : (
             <div className="h-60 w-full">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={categoryChartData} layout="vertical">
-                  <CartesianGrid strokeDasharray="3 3" stroke="#E5E0D5" />
-                  <XAxis type="number" tick={{ fontSize: 11 }} />
+                  <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" />
+                  <XAxis type="number" tick={{ fontSize: 11, fill: "#64748B" }} />
                   <YAxis
                     type="category"
                     dataKey="name"
                     width={130}
-                    tick={{ fontSize: 11 }}
+                    tick={{ fontSize: 11, fill: "#101820" }}
                   />
                   <Tooltip
                     formatter={(val: any) => [`₹${val}`, "Revenue"]}
                     contentStyle={{
                       borderRadius: "12px",
-                      borderColor: "#E5E0D5",
+                      borderColor: "#E5E7EB",
                       fontSize: "12px",
                     }}
                   />
                   <Bar
                     dataKey="salesRupees"
-                    fill="#0F291E"
+                    fill="#176B52"
                     radius={[0, 6, 6, 0]}
                   />
                 </BarChart>
@@ -312,17 +331,17 @@ export default function OverviewPage() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-        <div className="lg:col-span-7 rounded-2xl border border-[#E5E0D5] bg-white p-6 shadow-card space-y-4">
+        <div className="lg:col-span-7 rounded-2xl border border-[#E5E7EB] bg-white p-6 shadow-card space-y-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <AlertTriangle className="h-4 w-4 text-[#D97706]" />
-              <h3 className="font-display font-bold text-base text-[#0F291E]">
+              <AlertTriangle className="h-4 w-4 text-amber-600" />
+              <h3 className="font-display font-bold text-base text-[#101820]">
                 Ingredient Replenishment & Expiry Alerts
               </h3>
             </div>
             <Link
               href="/app/inventory"
-              className="text-xs font-semibold text-[#0F291E] hover:underline"
+              className="text-xs font-semibold text-[#176B52] hover:underline"
             >
               Manage Inventory →
             </Link>
@@ -331,7 +350,7 @@ export default function OverviewPage() {
           {!alerts ||
           (alerts.lowStockAlerts?.length === 0 &&
             alerts.expiringAlerts?.length === 0) ? (
-            <p className="text-xs text-[#718077] py-4">
+            <p className="text-xs text-[#64748B] py-4">
               All tracked ingredients are currently above their safety reorder
               thresholds.
             </p>
@@ -351,7 +370,7 @@ export default function OverviewPage() {
                       {item.explanation}
                     </p>
                   </div>
-                  <span className="shrink-0 rounded-lg bg-white border border-amber-200 px-2.5 py-1 font-mono text-xs font-bold text-[#0F291E]">
+                  <span className="shrink-0 rounded-lg bg-white border border-amber-200 px-2.5 py-1 font-mono text-xs font-bold text-[#101820]">
                     Order +{item.suggestedOrderQty} {item.unit}
                   </span>
                 </div>
@@ -360,26 +379,26 @@ export default function OverviewPage() {
           )}
         </div>
 
-        <div className="lg:col-span-5 rounded-2xl bg-[#0F291E] text-white p-6 flex flex-col justify-between space-y-4">
-          <div className="space-y-2">
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-[#84CC16] px-2.5 py-0.5 text-[10px] font-bold text-[#0F291E]">
+        <div className="lg:col-span-5 rounded-2xl bg-navy-mesh text-white p-6 flex flex-col justify-between space-y-4 shadow-navy">
+          <div className="space-y-2.5">
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-[#C6A15B]/15 border border-[#C6A15B]/40 px-2.5 py-0.5 text-[10px] font-bold text-[#C6A15B]">
               <BrainCircuit className="h-3.5 w-3.5" />
               AI Business Copilot
             </span>
             <h3 className="font-display font-bold text-xl">
               Ask DinePilot Copilot about your margins & stock burn
             </h3>
-            <p className="text-xs text-[#E6ECE8]/80 leading-relaxed">
+            <p className="text-xs text-[#94A3B8] leading-relaxed">
               Identify high-volume dishes with compressed margins, forecast
               7-day ingredient purchasing needs, and audit kitchen waste drivers.
             </p>
           </div>
           <Link
             href="/app/ai-insights"
-            className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#84CC16] py-3 px-4 text-xs font-bold text-[#0F291E] hover:bg-[#9BE028] transition-colors"
+            className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#176B52] py-3 px-4 text-xs font-bold text-white hover:bg-[#125541] transition-colors"
           >
             Launch AI Business Copilot
-            <ArrowRight className="h-4 w-4" />
+            <ArrowRight className="h-4 w-4 text-[#20A67A]" />
           </Link>
         </div>
       </div>
