@@ -1,0 +1,99 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --dp-bg-canvas: #fbf9f5;
+  --dp-bg-surface: #ffffff;
+  --dp-bg-subtle: #f2efe9;
+  --dp-text-primary: #111c16;
+  --dp-text-secondary: #4a5950;
+  --dp-text-muted: #718077;
+  --dp-brand-primary: #0f291e;
+  --dp-brand-secondary: #1c3f30;
+  --dp-brand-sage: #e6ece8;
+  --dp-accent-amber: #d97706;
+  --dp-accent-lime: #84cc16;
+  --dp-border-subtle: #e5e0d5;
+  --dp-radius-md: 0.75rem;
+  --dp-radius-lg: 1rem;
+}
+
+body {
+  background-color: var(--dp-bg-canvas);
+  color: var(--dp-text-primary);
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  -webkit-font-smoothing: antialiased;
+}
+
+*:focus-visible {
+  outline: 2px solid #0f291e;
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+.qr-theme-botanical {
+  --qr-bg: #fbf9f5;
+  --qr-surface: #ffffff;
+  --qr-header-bg: #0f291e;
+  --qr-header-text: #fbf9f5;
+  --qr-text: #111c16;
+  --qr-muted: #526358;
+  --qr-primary: #0f291e;
+  --qr-accent: #84cc16;
+  --qr-accent-fg: #ffffff;
+  --qr-badge: #e6ece8;
+  --qr-border: #e5e0d5;
+}
+
+.qr-theme-midnight {
+  --qr-bg: #0c1116;
+  --qr-surface: #151d26;
+  --qr-header-bg: #070a0e;
+  --qr-header-text: #f8fafc;
+  --qr-text: #f1f5f9;
+  --qr-muted: #94a3b8;
+  --qr-primary: #f59e0b;
+  --qr-accent: #f59e0b;
+  --qr-accent-fg: #0c1116;
+  --qr-badge: #1e293b;
+  --qr-border: #263346;
+}
+
+.qr-theme-terracotta {
+  --qr-bg: #fdf6f0;
+  --qr-surface: #ffffff;
+  --qr-header-bg: #5c1f14;
+  --qr-header-text: #fff7ed;
+  --qr-text: #2a120d;
+  --qr-muted: #784b42;
+  --qr-primary: #b43c23;
+  --qr-accent: #f59e0b;
+  --qr-accent-fg: #ffffff;
+  --qr-badge: #fde8dd;
+  --qr-border: #eed7c9;
+}
+
+.qr-theme-nordic {
+  --qr-bg: #f8fafc;
+  --qr-surface: #ffffff;
+  --qr-header-bg: #18181b;
+  --qr-header-text: #ffffff;
+  --qr-text: #0f172a;
+  --qr-muted: #64748b;
+  --qr-primary: #0f172a;
+  --qr-accent: #e2e8f0;
+  --qr-accent-fg: #ffffff;
+  --qr-badge: #f1f5f9;
+  --qr-border: #e2e8f0;
+}
