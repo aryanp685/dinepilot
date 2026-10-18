@@ -340,6 +340,66 @@ export default function SettingsPage() {
           ))}
         </div>
       </div>
+
+      <div className="rounded-2xl border border-[#E5E7EB] bg-white p-6 shadow-card space-y-4">
+        <div className="flex items-center justify-between border-b border-[#E5E7EB] pb-3">
+          <div>
+            <h3 className="font-display font-bold text-base text-[#121715]">
+              Notifications & Service Preferences
+            </h3>
+            <p className="text-xs text-[#64748B]">
+              Configure operating hours, real-time Kitchen Display alerts, and
+              inventory reorder notifications.
+            </p>
+          </div>
+          <span className="rounded-md bg-[#E8F3EF] px-2.5 py-1 text-[11px] font-semibold text-[#176B52]">
+            Socket.IO Active
+          </span>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs">
+          <div>
+            <label className="block font-semibold text-[#121715] mb-1">
+              Opening Time (IST)
+            </label>
+            <input
+              type="time"
+              value={operatingHoursOpen}
+              onChange={(e) => setOperatingHoursOpen(e.target.value)}
+              className="w-full rounded-xl border border-[#E5E7EB] bg-[#F8F7F3] px-3 py-2 font-mono"
+            />
+          </div>
+          <div>
+            <label className="block font-semibold text-[#121715] mb-1">
+              Closing Time (IST)
+            </label>
+            <input
+              type="time"
+              value={operatingHoursClose}
+              onChange={(e) => setOperatingHoursClose(e.target.value)}
+              className="w-full rounded-xl border border-[#E5E7EB] bg-[#F8F7F3] px-3 py-2 font-mono"
+            />
+          </div>
+          <div className="rounded-xl border border-[#E5E7EB] bg-[#F8F7F3] p-3 space-y-1">
+            <span className="font-semibold text-[#121715] block">
+              Live Order & KDS Push
+            </span>
+            <p className="text-[11px] text-[#64748B]">
+              New QR orders broadcast immediately to Order Desk and Kitchen
+              Display.
+            </p>
+          </div>
+          <div className="rounded-xl border border-[#E5E7EB] bg-[#F8F7F3] p-3 space-y-1">
+            <span className="font-semibold text-[#121715] block">
+              Low-Stock Reorder Alerts
+            </span>
+            <p className="text-[11px] text-[#64748B]">
+              Automatically flags ingredients below their reorder threshold on
+              Overview.
+            </p>
+          </div>
+        </div>
+      </div>
     </form>
   );
 }

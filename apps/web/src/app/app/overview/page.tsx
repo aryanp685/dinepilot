@@ -111,7 +111,10 @@ export default function OverviewPage() {
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h2 className="font-display text-2xl font-bold text-[#101820]">
+          <span className="text-[11px] font-bold uppercase tracking-wider text-[#176B52]">
+            Restaurant Command Center
+          </span>
+          <h2 className="font-display text-2xl font-bold text-[#121715]">
             Operations & Profitability Overview
           </h2>
           <p className="text-xs text-[#64748B] mt-0.5">
@@ -131,7 +134,7 @@ export default function OverviewPage() {
                 className={`relative rounded-lg px-3 py-1.5 text-xs font-semibold transition-colors z-10 ${
                   active
                     ? "text-white"
-                    : "text-[#64748B] hover:text-[#101820]"
+                    : "text-[#64748B] hover:text-[#121715]"
                 }`}
               >
                 {active && (
@@ -145,6 +148,58 @@ export default function OverviewPage() {
               </button>
             );
           })}
+        </div>
+      </div>
+
+      <div className="rounded-2xl border border-[#E5E7EB] bg-white p-4 sm:p-5 shadow-card flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+        <div className="space-y-1">
+          <span className="text-[11px] font-bold uppercase tracking-wider text-[#176B52]">
+            End-to-End Live Order Flow
+          </span>
+          <p className="text-xs text-[#64748B]">
+            QR Scan → Menu → Order Submitted → Staff Accepts → Kitchen Prepares
+            → Ready to Serve
+          </p>
+        </div>
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+          {[
+            {
+              stage: "NEW",
+              label: "New / Incoming",
+              count: activeOrders.filter((o: any) => o.status === "NEW").length,
+              tone: "bg-amber-50 border-amber-200 text-amber-900",
+            },
+            {
+              stage: "ACCEPTED",
+              label: "Accepted",
+              count: activeOrders.filter((o: any) => o.status === "ACCEPTED")
+                .length,
+              tone: "bg-blue-50 border-blue-200 text-blue-900",
+            },
+            {
+              stage: "PREPARING",
+              label: "In Kitchen",
+              count: activeOrders.filter((o: any) => o.status === "PREPARING")
+                .length,
+              tone: "bg-[#E8F3EF] border-[#176B52]/20 text-[#176B52]",
+            },
+            {
+              stage: "READY",
+              label: "Ready to Serve",
+              count: activeOrders.filter((o: any) => o.status === "READY")
+                .length,
+              tone: "bg-[#E6F7F1] border-[#20A67A]/30 text-[#176B52]",
+            },
+          ].map((st) => (
+            <Link
+              key={st.stage}
+              href="/app/orders"
+              className={`rounded-xl border px-3.5 py-2 flex items-center justify-between gap-3 transition-transform hover:-translate-y-0.5 ${st.tone}`}
+            >
+              <span className="text-[11px] font-semibold">{st.label}</span>
+              <span className="font-mono font-bold text-sm">{st.count}</span>
+            </Link>
+          ))}
         </div>
       </div>
 

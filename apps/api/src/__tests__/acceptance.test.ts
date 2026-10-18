@@ -22,6 +22,7 @@ describe("DinePilot Full-Stack API Acceptance & Security Suite", () => {
   let restaurantBId = "";
 
   beforeAll(async () => {
+    (globalThis as any).__loadTwinMongo = () => import("@volter/twin-mongodb");
     await connectDatabase({ inMemoryOnly: true });
   });
 

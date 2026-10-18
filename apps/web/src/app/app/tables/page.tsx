@@ -11,10 +11,18 @@ import {
   Printer,
   ExternalLink,
   Users,
+  Copy,
+  Check,
 } from "lucide-react";
 import { formatINR } from "@dinepilot/shared";
 import { apiFetch } from "@/lib/api";
 import { useAuth, useToast } from "@/providers/AppProviders";
+import {
+  PageHeader,
+  StatusPill,
+  AccessibleModal,
+  EmptyStateCard,
+} from "@/components/ui/DesignSystem";
 
 export default function TablesAndQrPage() {
   const queryClient = useQueryClient();
@@ -23,6 +31,9 @@ export default function TablesAndQrPage() {
 
   const [addOpen, setAddOpen] = useState(false);
   const [printMode, setPrintMode] = useState(false);
+  const [previewTable, setPreviewTable] = useState<any | null>(null);
+  const [copiedId, setCopiedId] = useState<string | null>(null);
+
   const [label, setLabel] = useState("");
   const [zone, setZone] = useState("Indoor AC Dining");
   const [capacity, setCapacity] = useState("4");
@@ -33,7 +44,9 @@ export default function TablesAndQrPage() {
   });
 
   const origin =
-    typeof window !== "undefined" ? window.location.origin : "http://localhost:3000";
+    typeof window !== "undefined"
+      ? window.location.origin
+      : "http://localhost:3000";
 
   async function handleCreateTable(e: React.FormEvent) {
     e.preventDefault();
@@ -85,57 +98,65 @@ export default function TablesAndQrPage() {
     }
   }
 
+  function handleCopyUrl(table: any) {
+    const fullUrl = `${origin}${table.qrPath}`;
+    if (typeof navigator !== "undefined" && navigator.clipboard) {
+      navigator.clipboard.writeText(fullUrl);
+      setCopiedId(table._id);
+      toast({
+        title: `Copied QR link for Table ${table.label}`,
+        variant: "success",
+      });
+      setTimeout(() => setCopiedId(null), 1800);
+    }
+  }
+
   return (
     <div className="space-y-6">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div>
-          <h2 className="font-display text-2xl font-bold text-[#101820]">
-            Dining Tables & QR Code Studio
-          </h2>
-          <p className="text-xs text-[#64748B]">
-            Occupancy reflects only active running orders (completed orders
-            never mark a table occupied). Note: A QR code identifies the table
-            token, not physical GPS proof.
-          </p>
-        </div>
-
-        <div className="flex items-center gap-2.5">
-          <button
-            type="button"
-            onClick={() => setPrintMode((v) => !v)}
-            className="inline-flex items-center gap-1.5 rounded-xl border border-[#E5E7EB] bg-white px-3.5 py-2.5 text-xs font-semibold text-[#101820] hover:bg-[#F1EFE9]"
-          >
-            <Printer className="h-4 w-4 text-[#C6A15B]" />
-            {printMode ? "Exit Printable Sheet" : "Printable QR Tent Sheet"}
-          </button>
-          <button
-            type="button"
-            onClick={() => setAddOpen(true)}
-            className="inline-flex items-center gap-1.5 rounded-xl bg-[#176B52] px-4 py-2.5 text-xs font-semibold text-white hover:bg-[#125541]"
-          >
-            <Plus className="h-4 w-4 text-[#20A67A]" />
-            Add Table
-          </button>
-        </div>
-      </div>
+      <PageHeader
+        eyebrow="Floor Plan & QR Code Studio"
+        title="Table & Floor Management"
+        subtitle="Generate table-specific QR codes, preview and print acrylic table tents, and monitor live active-order table occupancy."
+        actions={
+          <>
+            <button
+              type="button"
+              onClick={() => setPrintMode((v) => !v)}
+              className="inline-flex items-center gap-1.5 rounded-xl border border-[#E5E7EB] bg-white px-3.5 py-2.5 text-xs font-semibold text-[#121715] hover:bg-[#F8F7F3] transition-colors"
+            >
+              <Printer className="h-4 w-4 text-[#176B52]" />
+              {printMode ? "Exit Printable Sheet" : "Print All Table QR Tents"}
+            </button>
+            <button
+              type="button"
+              onClick={() => setAddOpen(true)}
+              className="inline-flex items-center gap-1.5 rounded-xl bg-[#176B52] px-4 py-2.5 text-xs font-semibold text-white hover:bg-[#125541] shadow-card transition-colors"
+            >
+              <Plus className="h-4 w-4 text-[#20A67A]" />
+              Add Dining Table
+            </button>
+          </>
+        }
+      />
 
       {printMode && (
-        <div className="rounded-2xl border border-[#176B52] bg-white p-6 space-y-4">
-          <div className="flex items-center justify-between border-b border-[#E5E7EB] pb-3">
+        <div className="rounded-2xl border border-[#176B52] bg-white p-6 space-y-4 shadow-editorial">
+          <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[#E5E7EB] pb-3.5">
             <div>
-              <h3 className="font-display font-bold text-lg text-[#101820]">
+              <h3 className="font-display font-bold text-lg text-[#121715]">
                 Printable Table Tent QR Sheet — {restaurant?.name}
               </h3>
               <p className="text-xs text-[#64748B]">
                 Use your browser Print dialog (Ctrl+P / Cmd+P) to print acrylic
-                table tents.
+                table tents for your dining room.
               </p>
             </div>
             <button
               type="button"
               onClick={() => window.print()}
-              className="rounded-xl bg-[#176B52] px-4 py-2 text-xs font-semibold text-white"
+              className="inline-flex items-center gap-1.5 rounded-xl bg-[#176B52] px-4 py-2 text-xs font-semibold text-white hover:bg-[#125541]"
             >
+              <Printer className="h-3.5 w-3.5" />
               Print Sheet Now
             </button>
           </div>
@@ -146,22 +167,22 @@ export default function TablesAndQrPage() {
               return (
                 <div
                   key={t._id}
-                  className="rounded-2xl border-2 border-[#176B52] p-5 text-center space-y-2.5 flex flex-col items-center"
+                  className="rounded-2xl border-2 border-[#176B52] p-5 text-center space-y-2.5 flex flex-col items-center bg-[#F8F7F3]/40"
                 >
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-[#286249]">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-[#176B52]">
                     {restaurant?.name}
                   </span>
-                  <h4 className="font-display font-bold text-xl text-[#101820]">
+                  <h4 className="font-display font-bold text-xl text-[#121715]">
                     Table {t.label}
                   </h4>
-                  <div className="p-2 bg-white rounded-xl border border-[#E5E7EB]">
+                  <div className="p-2.5 bg-white rounded-xl border border-[#E5E7EB] shadow-sm">
                     <QRCodeCanvas value={fullUrl} size={132} />
                   </div>
-                  <p className="text-[11px] font-mono text-[#64748B]">
+                  <p className="text-[11px] font-mono text-[#121715]">
                     Table PIN: <strong>{t.sessionPin}</strong>
                   </p>
                   <p className="text-[10px] text-[#64748B]">
-                    Scan to browse menu & place order
+                    Scan with phone camera to view menu & order
                   </p>
                 </div>
               );
@@ -179,6 +200,21 @@ export default function TablesAndQrPage() {
             />
           ))}
         </div>
+      ) : tables.length === 0 ? (
+        <EmptyStateCard
+          icon={<QrCode className="h-5 w-5" />}
+          title="No dining tables configured yet"
+          description="Add your first dining table to generate a table-specific QR code and session PIN."
+          action={
+            <button
+              type="button"
+              onClick={() => setAddOpen(true)}
+              className="rounded-xl bg-[#176B52] px-4 py-2 text-xs font-semibold text-white"
+            >
+              Add First Table
+            </button>
+          }
+        />
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {tables.map((table: any) => {
@@ -186,44 +222,52 @@ export default function TablesAndQrPage() {
             return (
               <div
                 key={table._id}
-                className={`rounded-2xl border bg-white p-5 shadow-card flex flex-col justify-between space-y-4 ${
+                className={`rounded-2xl border bg-white p-5 shadow-card flex flex-col justify-between space-y-4 transition-shadow hover:shadow-editorial ${
                   table.isOccupied
                     ? "border-amber-400 ring-1 ring-amber-300"
                     : "border-[#E5E7EB]"
                 }`}
               >
                 <div className="flex items-start justify-between gap-4">
-                  <div className="space-y-1">
+                  <div className="space-y-1.5">
                     <div className="flex items-center gap-2">
-                      <span className="font-display font-bold text-xl text-[#101820]">
+                      <span className="font-display font-bold text-xl text-[#121715]">
                         {table.label}
                       </span>
-                      <span
-                        className={`rounded-full px-2.5 py-0.5 text-[10px] font-bold ${
-                          table.isOccupied
-                            ? "bg-amber-100 text-amber-900"
-                            : "bg-emerald-100 text-emerald-900"
-                        }`}
+                      <StatusPill
+                        tone={table.isOccupied ? "amber" : "emerald"}
+                        pulse={table.isOccupied}
                       >
                         {table.isOccupied ? "OCCUPIED" : "AVAILABLE"}
-                      </span>
+                      </StatusPill>
                     </div>
                     <p className="text-xs text-[#64748B] flex items-center gap-1.5">
-                      <Users className="h-3.5 w-3.5" />
+                      <Users className="h-3.5 w-3.5 text-[#176B52]" />
                       {table.capacity} Seats • {table.zone}
                     </p>
                     <p className="text-[11px] font-mono text-[#64748B]">
-                      Session PIN: <strong>{table.sessionPin}</strong>
+                      Session PIN:{" "}
+                      <strong className="text-[#121715]">
+                        {table.sessionPin}
+                      </strong>
                     </p>
                   </div>
 
-                  <div className="p-2 rounded-xl border border-[#E5E7EB] bg-[#F8F7F3]">
-                    <QRCodeCanvas value={fullUrl} size={76} />
-                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setPreviewTable(table)}
+                    title="Click to preview & print QR tent"
+                    className="p-2 rounded-xl border border-[#E5E7EB] bg-[#F8F7F3] hover:border-[#176B52] transition-colors group"
+                  >
+                    <QRCodeCanvas value={fullUrl} size={74} />
+                    <span className="block text-[9px] font-semibold text-[#176B52] mt-1 group-hover:underline">
+                      Preview QR
+                    </span>
+                  </button>
                 </div>
 
                 {table.activeOrderSummary ? (
-                  <div className="rounded-xl bg-amber-50/80 border border-amber-200 p-3 text-xs space-y-1">
+                  <div className="rounded-xl bg-amber-50/90 border border-amber-200 p-3 text-xs space-y-1">
                     <div className="flex items-center justify-between font-bold text-amber-950">
                       <span>
                         Running Order: {table.activeOrderSummary.orderNumber}
@@ -243,24 +287,33 @@ export default function TablesAndQrPage() {
                   </div>
                 )}
 
-                <div className="pt-2 border-t border-[#E5E7EB] flex items-center justify-between gap-2">
-                  <Link
-                    href={table.qrPath}
-                    className="inline-flex items-center gap-1.5 rounded-lg bg-[#176B52] px-3 py-1.5 text-xs font-semibold text-white hover:bg-[#125541]"
-                  >
-                    <QrCode className="h-3.5 w-3.5 text-[#20A67A]" />
-                    Open Guest QR Link
-                    <ExternalLink className="h-3 w-3" />
-                  </Link>
+                <div className="pt-2.5 border-t border-[#E5E7EB] flex flex-wrap items-center justify-between gap-2">
+                  <div className="flex items-center gap-1.5">
+                    <Link
+                      href={table.qrPath}
+                      className="inline-flex items-center gap-1 rounded-lg bg-[#176B52] px-3 py-1.5 text-xs font-semibold text-white hover:bg-[#125541]"
+                    >
+                      Open QR Menu
+                      <ExternalLink className="h-3 w-3" />
+                    </Link>
+                    <button
+                      type="button"
+                      onClick={() => setPreviewTable(table)}
+                      className="inline-flex items-center gap-1 rounded-lg border border-[#E5E7EB] bg-[#F8F7F3] px-2.5 py-1.5 text-xs font-semibold text-[#121715] hover:bg-[#E8F3EF]"
+                    >
+                      <QrCode className="h-3.5 w-3.5 text-[#176B52]" />
+                      QR Tent
+                    </button>
+                  </div>
 
                   <button
                     type="button"
                     onClick={() => handleRotateToken(table._id, table.label)}
-                    className="inline-flex items-center gap-1 rounded-lg border border-[#E5E7EB] px-2.5 py-1.5 text-[11px] font-semibold text-[#64748B] hover:text-[#101820]"
-                    title="Rotate QR Token & Session PIN"
+                    className="inline-flex items-center gap-1 rounded-lg border border-[#E5E7EB] px-2.5 py-1.5 text-[11px] font-semibold text-[#64748B] hover:text-[#121715] hover:bg-[#F8F7F3]"
+                    title="Rotate QR token & session PIN"
                   >
                     <RefreshCw className="h-3 w-3" />
-                    Rotate QR
+                    Rotate PIN
                   </button>
                 </div>
               </div>
@@ -269,69 +322,146 @@ export default function TablesAndQrPage() {
         </div>
       )}
 
-      {addOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
-          <div className="w-full max-w-md rounded-2xl bg-white border border-[#E5E7EB] p-6 shadow-editorial space-y-4">
-            <h3 className="font-display font-bold text-lg text-[#101820]">
-              Create Dining Table & QR Token
-            </h3>
-            <form onSubmit={handleCreateTable} className="space-y-3">
-              <div>
-                <label className="block text-xs font-semibold mb-1">
-                  Table Label *
-                </label>
-                <input
-                  required
-                  value={label}
-                  onChange={(e) => setLabel(e.target.value)}
-                  placeholder="T-07"
-                  className="w-full rounded-lg border border-[#E5E7EB] px-3 py-2 text-xs"
+      <AccessibleModal
+        open={Boolean(previewTable)}
+        onClose={() => setPreviewTable(null)}
+        title={
+          previewTable
+            ? `Table ${previewTable.label} — QR Tent Preview & Print`
+            : "QR Preview"
+        }
+        subtitle="Print this standalone table tent or copy the verified guest ordering link."
+        maxWidthClass="max-w-md"
+      >
+        {previewTable && (
+          <div className="space-y-4">
+            <div className="rounded-2xl border-2 border-[#176B52] bg-[#F8F7F3] p-6 text-center space-y-3 flex flex-col items-center">
+              <span className="rounded-md bg-[#E8F3EF] px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-[#176B52]">
+                {restaurant?.name || "DinePilot Restaurant"}
+              </span>
+              <h4 className="font-display font-bold text-2xl text-[#121715]">
+                Table {previewTable.label}
+              </h4>
+              <p className="text-xs text-[#64748B]">
+                {previewTable.zone} • {previewTable.capacity} Seats
+              </p>
+              <div className="p-3 bg-white rounded-2xl border border-[#E5E7EB] shadow-card">
+                <QRCodeCanvas
+                  value={`${origin}${previewTable.qrPath}`}
+                  size={180}
                 />
               </div>
-              <div className="grid grid-cols-2 gap-3">
-                <div>
-                  <label className="block text-xs font-semibold mb-1">
-                    Dining Zone
-                  </label>
-                  <input
-                    value={zone}
-                    onChange={(e) => setZone(e.target.value)}
-                    className="w-full rounded-lg border border-[#E5E7EB] px-3 py-2 text-xs"
-                  />
-                </div>
-                <div>
-                  <label className="block text-xs font-semibold mb-1">
-                    Seating Capacity
-                  </label>
-                  <input
-                    type="number"
-                    min="1"
-                    max="30"
-                    value={capacity}
-                    onChange={(e) => setCapacity(e.target.value)}
-                    className="w-full rounded-lg border border-[#E5E7EB] px-3 py-2 text-xs font-mono"
-                  />
-                </div>
+              <div className="font-mono text-xs text-[#121715] bg-white border border-[#E5E7EB] rounded-lg px-3 py-1">
+                Session PIN: <strong>{previewTable.sessionPin}</strong>
               </div>
-              <div className="flex justify-end gap-2 pt-2">
+              <p className="text-[11px] text-[#64748B] max-w-xs">
+                Point your phone camera at this QR code to browse our live menu
+                and place your order.
+              </p>
+            </div>
+
+            <div className="flex flex-wrap items-center justify-between gap-2">
+              <button
+                type="button"
+                onClick={() => handleCopyUrl(previewTable)}
+                className="inline-flex items-center gap-1.5 rounded-xl border border-[#E5E7EB] bg-white px-3.5 py-2 text-xs font-semibold text-[#121715] hover:bg-[#F8F7F3]"
+              >
+                {copiedId === previewTable._id ? (
+                  <>
+                    <Check className="h-3.5 w-3.5 text-[#20A67A]" />
+                    Copied Link
+                  </>
+                ) : (
+                  <>
+                    <Copy className="h-3.5 w-3.5" />
+                    Copy QR Link
+                  </>
+                )}
+              </button>
+
+              <div className="flex items-center gap-2">
                 <button
                   type="button"
-                  onClick={() => setAddOpen(false)}
-                  className="rounded-xl border border-[#E5E7EB] px-4 py-2 text-xs font-semibold"
+                  onClick={() => window.print()}
+                  className="inline-flex items-center gap-1.5 rounded-xl border border-[#E5E7EB] bg-[#F8F7F3] px-3.5 py-2 text-xs font-semibold text-[#121715] hover:bg-[#E8F3EF]"
                 >
-                  Cancel
+                  <Printer className="h-3.5 w-3.5 text-[#176B52]" />
+                  Print Tent
                 </button>
-                <button
-                  type="submit"
-                  className="rounded-xl bg-[#176B52] px-4 py-2 text-xs font-semibold text-white"
+                <Link
+                  href={previewTable.qrPath}
+                  className="inline-flex items-center gap-1.5 rounded-xl bg-[#176B52] px-4 py-2 text-xs font-semibold text-white hover:bg-[#125541]"
                 >
-                  Create Table
-                </button>
+                  Test QR Menu
+                  <ExternalLink className="h-3.5 w-3.5" />
+                </Link>
               </div>
-            </form>
+            </div>
           </div>
-        </div>
-      )}
+        )}
+      </AccessibleModal>
+
+      <AccessibleModal
+        open={addOpen}
+        onClose={() => setAddOpen(false)}
+        title="Add New Dining Table"
+        subtitle="Creates a unique cryptographic QR token and session PIN for this table."
+        maxWidthClass="max-w-md"
+      >
+        <form onSubmit={handleCreateTable} className="space-y-3.5">
+          <div>
+            <label className="block text-xs font-semibold text-[#121715] mb-1">
+              Table Label *
+            </label>
+            <input
+              required
+              value={label}
+              onChange={(e) => setLabel(e.target.value)}
+              placeholder="T-07"
+              className="w-full rounded-xl border border-[#E5E7EB] bg-[#F8F7F3] px-3.5 py-2 text-xs"
+            />
+          </div>
+          <div>
+            <label className="block text-xs font-semibold text-[#121715] mb-1">
+              Dining Zone
+            </label>
+            <input
+              value={zone}
+              onChange={(e) => setZone(e.target.value)}
+              placeholder="Indoor AC Dining"
+              className="w-full rounded-xl border border-[#E5E7EB] bg-[#F8F7F3] px-3.5 py-2 text-xs"
+            />
+          </div>
+          <div>
+            <label className="block text-xs font-semibold text-[#121715] mb-1">
+              Seating Capacity
+            </label>
+            <input
+              type="number"
+              min="1"
+              max="30"
+              value={capacity}
+              onChange={(e) => setCapacity(e.target.value)}
+              className="w-full rounded-xl border border-[#E5E7EB] bg-[#F8F7F3] px-3.5 py-2 text-xs font-mono"
+            />
+          </div>
+          <div className="flex justify-end gap-2 pt-2">
+            <button
+              type="button"
+              onClick={() => setAddOpen(false)}
+              className="rounded-xl border border-[#E5E7EB] px-4 py-2 text-xs font-semibold text-[#121715]"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              className="rounded-xl bg-[#176B52] px-4 py-2 text-xs font-semibold text-white hover:bg-[#125541]"
+            >
+              Create Table & QR
+            </button>
+          </div>
+        </form>
+      </AccessibleModal>
     </div>
   );
 }

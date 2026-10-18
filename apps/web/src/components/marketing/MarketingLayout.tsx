@@ -12,7 +12,6 @@ import {
   QrCode,
   ChefHat,
   LayoutDashboard,
-  Sparkles,
 } from "lucide-react";
 import { useAuth } from "@/providers/AppProviders";
 
@@ -23,21 +22,24 @@ export function MarketingLayout({ children }: { children: React.ReactNode }) {
   const prefersReducedMotion = useReducedMotion();
 
   const navLinks = [
-    { href: "/features", label: "Platform Architecture" },
+    { href: "/features", label: "Features" },
+    { href: "/#qr-ordering", label: "QR Ordering" },
+    { href: "/#kitchen-workflow", label: "Kitchen & Ops" },
+    { href: "/#analytics-intelligence", label: "Analytics & Costing" },
     { href: "/pricing", label: "Pricing" },
-    { href: "/about", label: "Our Philosophy" },
-    { href: "/contact", label: "Contact" },
+    { href: "/#faq", label: "FAQ" },
+    { href: "/contact", label: "Book Demo" },
   ];
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#F8F7F3] text-[#101820]">
-      <div className="bg-[#101820] text-[#F8F7F3]/90 text-xs py-2.5 px-4 border-b border-white/10">
+    <div className="min-h-screen flex flex-col bg-[#F8F7F3] text-[#121715]">
+      <div className="bg-[#121715] text-[#F8F7F3]/90 text-xs py-2.5 px-4 border-b border-white/10">
         <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
           <div className="flex items-center gap-2.5">
             <span className="inline-flex h-2 w-2 rounded-full bg-[#20A67A]" />
-            <span className="font-medium tracking-wide">
-              Engineered for independent restaurants, cafés & cloud kitchens in
-              India • Full GST & Multi-KOT support
+            <span className="font-medium">
+              Complete QR Table Ordering, Kitchen Display & Restaurant
+              Operations Platform — No App Install Required
             </span>
           </div>
           <div className="flex items-center gap-5">
@@ -46,7 +48,7 @@ export function MarketingLayout({ children }: { children: React.ReactNode }) {
               className="text-[#F8F7F3] hover:text-[#20A67A] transition-colors inline-flex items-center gap-1.5 font-medium"
             >
               <QrCode className="h-3.5 w-3.5 text-[#20A67A]" />
-              Try Live Guest QR Menu
+              Live Guest QR Menu
             </Link>
             <Link
               href="/order/ord_demo_preparing_1010"
@@ -58,72 +60,64 @@ export function MarketingLayout({ children }: { children: React.ReactNode }) {
         </div>
       </div>
 
-      <header className="sticky top-0 z-40 bg-[#F8F7F3]/90 backdrop-blur-md border-b border-[#E5E7EB]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-3 group">
-            <div className="h-9 w-9 rounded-xl bg-[#101820] border border-[#176B52]/40 flex items-center justify-center text-[#20A67A] shadow-card group-hover:bg-[#176B52] group-hover:text-white transition-colors">
+      <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-[#E5E7EB]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+          <Link href="/" className="flex items-center gap-2.5 group shrink-0">
+            <div className="h-9 w-9 rounded-xl bg-[#176B52] flex items-center justify-center text-white shadow-card group-hover:bg-[#125541] transition-colors">
               <Compass className="h-5 w-5" />
             </div>
             <div className="flex items-center gap-2">
-              <span className="font-display font-bold text-lg tracking-tight text-[#101820]">
+              <span className="font-display font-bold text-lg tracking-tight text-[#121715]">
                 DinePilot
               </span>
-              <span className="hidden sm:inline-flex items-center gap-1 rounded-md bg-white border border-[#E5E7EB] px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-[#176B52]">
-                <Sparkles className="h-2.5 w-2.5 text-[#C6A15B]" />
-                Operations OS
+              <span className="hidden xl:inline-flex items-center rounded-md bg-[#E8F3EF] border border-[#176B52]/20 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-[#176B52]">
+                Restaurant OS
               </span>
             </div>
           </Link>
 
-          <nav className="hidden md:flex items-center gap-1 bg-white/80 border border-[#E5E7EB] rounded-xl p-1 shadow-card">
+          <nav className="hidden lg:flex items-center gap-1">
             {navLinks.map((link) => {
               const active = pathname === link.href;
               return (
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`relative px-3.5 py-1.5 text-sm font-medium rounded-lg transition-colors ${
+                  className={`relative px-3 py-1.5 text-xs font-semibold rounded-lg transition-colors ${
                     active
-                      ? "text-[#101820] font-semibold"
-                      : "text-[#64748B] hover:text-[#101820]"
+                      ? "text-[#176B52] bg-[#E8F3EF]"
+                      : "text-[#64748B] hover:text-[#121715] hover:bg-[#F8F7F3]"
                   }`}
                 >
-                  {active && (
-                    <motion.span
-                      layoutId="marketing-nav-pill"
-                      transition={{ duration: 0.2, ease: "easeOut" }}
-                      className="absolute inset-0 rounded-lg bg-[#E8F3EF] border border-[#176B52]/20 -z-10"
-                    />
-                  )}
                   {link.label}
                 </Link>
               );
             })}
           </nav>
 
-          <div className="hidden md:flex items-center gap-3">
+          <div className="hidden md:flex items-center gap-2.5 shrink-0">
             {user ? (
               <Link
                 href="/app/overview"
-                className="inline-flex items-center gap-2 rounded-xl bg-[#176B52] px-4 py-2 text-sm font-semibold text-white hover:bg-[#125541] transition-colors shadow-card"
+                className="inline-flex items-center gap-2 rounded-xl bg-[#176B52] px-4 py-2 text-xs font-semibold text-white hover:bg-[#125541] transition-colors shadow-card"
               >
-                <LayoutDashboard className="h-4 w-4 text-[#F8F7F3]" />
+                <LayoutDashboard className="h-4 w-4" />
                 Open Workspace
               </Link>
             ) : (
               <>
                 <Link
                   href="/login"
-                  className="rounded-xl px-3.5 py-2 text-sm font-semibold text-[#101820] hover:bg-white border border-transparent hover:border-[#E5E7EB] transition-all"
+                  className="rounded-xl px-3.5 py-2 text-xs font-semibold text-[#121715] hover:bg-[#F8F7F3] border border-[#E5E7EB] transition-all"
                 >
                   Sign In / Demo
                 </Link>
                 <Link
                   href="/register"
-                  className="inline-flex items-center gap-1.5 rounded-xl bg-[#176B52] px-4 py-2 text-sm font-semibold text-white hover:bg-[#125541] transition-colors shadow-card"
+                  className="inline-flex items-center gap-1.5 rounded-xl bg-[#176B52] px-4 py-2 text-xs font-semibold text-white hover:bg-[#125541] transition-colors shadow-card"
                 >
-                  Start Restaurant Workspace
-                  <ArrowRight className="h-4 w-4 text-[#F8F7F3]" />
+                  Start Workspace
+                  <ArrowRight className="h-3.5 w-3.5" />
                 </Link>
               </>
             )}
@@ -132,13 +126,13 @@ export function MarketingLayout({ children }: { children: React.ReactNode }) {
           <button
             type="button"
             onClick={() => setMobileMenuOpen((v) => !v)}
-            className="md:hidden rounded-xl p-2 text-[#101820] hover:bg-white border border-transparent hover:border-[#E5E7EB]"
+            className="lg:hidden rounded-xl p-2 text-[#121715] hover:bg-[#F8F7F3] border border-[#E5E7EB]"
             aria-label="Toggle navigation menu"
           >
             {mobileMenuOpen ? (
-              <X className="h-6 w-6" />
+              <X className="h-5 w-5" />
             ) : (
-              <Menu className="h-6 w-6" />
+              <Menu className="h-5 w-5" />
             )}
           </button>
         </div>
@@ -156,14 +150,14 @@ export function MarketingLayout({ children }: { children: React.ReactNode }) {
                 prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: -8 }
               }
               transition={{ duration: 0.18, ease: "easeOut" }}
-              className="md:hidden border-t border-[#E5E7EB] bg-white px-4 py-4 space-y-2 shadow-editorial"
+              className="lg:hidden border-t border-[#E5E7EB] bg-white px-4 py-4 space-y-1.5 shadow-editorial"
             >
               {navLinks.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
                   onClick={() => setMobileMenuOpen(false)}
-                  className="block rounded-lg px-3 py-2 text-sm font-medium text-[#101820] hover:bg-[#F8F7F3]"
+                  className="block rounded-lg px-3 py-2 text-sm font-medium text-[#121715] hover:bg-[#F8F7F3]"
                 >
                   {link.label}
                 </Link>
@@ -172,7 +166,7 @@ export function MarketingLayout({ children }: { children: React.ReactNode }) {
                 <Link
                   href="/login"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="w-full text-center rounded-xl border border-[#E5E7EB] bg-[#F8F7F3] py-2.5 text-sm font-semibold text-[#101820]"
+                  className="w-full text-center rounded-xl border border-[#E5E7EB] bg-[#F8F7F3] py-2.5 text-sm font-semibold text-[#121715]"
                 >
                   Sign In / Interactive Demo
                 </Link>
@@ -191,74 +185,71 @@ export function MarketingLayout({ children }: { children: React.ReactNode }) {
 
       <main className="flex-1">{children}</main>
 
-      <footer className="bg-[#101820] text-[#F8F7F3] border-t border-white/10">
+      <footer className="bg-[#121715] text-[#F8F7F3] border-t border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
           <div className="grid grid-cols-1 md:grid-cols-5 gap-10">
             <div className="md:col-span-2 space-y-4">
               <div className="flex items-center gap-3">
-                <div className="h-9 w-9 rounded-xl bg-[#176B52] flex items-center justify-center text-white shadow-sm">
+                <div className="h-9 w-9 rounded-xl bg-[#176B52] flex items-center justify-center text-white">
                   <Compass className="h-5 w-5" />
                 </div>
                 <span className="font-display font-bold text-lg text-white">
                   DinePilot
                 </span>
-                <span className="rounded border border-[#C6A15B]/40 bg-[#C6A15B]/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-[#C6A15B]">
-                  Enterprise Hospitality
-                </span>
               </div>
               <p className="text-sm text-[#94A3B8] max-w-sm leading-relaxed">
-                Restaurant profitability, ingredient yield costing, multi-KOT QR
-                ordering, and AI-assisted operational intelligence built for
-                independent food businesses across India.
+                Modern QR table ordering, digital menus, real-time kitchen
+                display workflows, and recipe profitability intelligence for
+                restaurants and cafés.
               </p>
               <div className="text-xs text-[#64748B] font-mono">
-                Default Currency: INR (₹) • Timezone: Asia/Kolkata (IST)
+                Currency: INR (₹) • Timezone: Asia/Kolkata (IST)
               </div>
             </div>
 
             <div>
-              <h3 className="text-xs font-semibold uppercase tracking-wider text-[#C6A15B] mb-3.5">
-                Platform
+              <h3 className="text-xs font-semibold uppercase tracking-wider text-[#20A67A] mb-3.5">
+                Product Modules
               </h3>
               <ul className="space-y-2.5 text-sm text-[#94A3B8]">
                 <li>
                   <Link
-                    href="/features"
+                    href="/#qr-ordering"
                     className="hover:text-white transition-colors"
                   >
-                    Menu Profitability Engine
+                    QR Table Ordering
                   </Link>
                 </li>
                 <li>
                   <Link
-                    href="/features"
+                    href="/#digital-menu"
                     className="hover:text-white transition-colors"
                   >
-                    Inventory & Yield Costing
+                    Digital Menu & Modifiers
                   </Link>
                 </li>
                 <li>
                   <Link
-                    href="/features"
+                    href="/#kitchen-workflow"
                     className="hover:text-white transition-colors"
                   >
-                    AI Business Copilot
+                    Live Order Desk & KDS
                   </Link>
                 </li>
                 <li>
                   <Link
-                    href="/pricing"
+                    href="/#analytics-intelligence"
                     className="hover:text-white transition-colors"
                   >
-                    Pricing & Plans
+                    Analytics & Recipe Costing
                   </Link>
                 </li>
               </ul>
             </div>
 
             <div>
-              <h3 className="text-xs font-semibold uppercase tracking-wider text-[#C6A15B] mb-3.5">
-                Live Experiences
+              <h3 className="text-xs font-semibold uppercase tracking-wider text-[#20A67A] mb-3.5">
+                Interactive Previews
               </h3>
               <ul className="space-y-2.5 text-sm text-[#94A3B8]">
                 <li>
@@ -267,7 +258,7 @@ export function MarketingLayout({ children }: { children: React.ReactNode }) {
                     className="hover:text-white transition-colors inline-flex items-center gap-1.5"
                   >
                     <QrCode className="h-3.5 w-3.5 text-[#20A67A]" />
-                    Guest QR Menu (Table T-01)
+                    Customer QR Menu
                   </Link>
                 </li>
                 <li>
@@ -275,7 +266,7 @@ export function MarketingLayout({ children }: { children: React.ReactNode }) {
                     href="/order/ord_demo_preparing_1010"
                     className="hover:text-white transition-colors"
                   >
-                    Guest Live Order Tracker
+                    Live Order Status Tracker
                   </Link>
                 </li>
                 <li>
@@ -284,7 +275,7 @@ export function MarketingLayout({ children }: { children: React.ReactNode }) {
                     className="hover:text-white transition-colors inline-flex items-center gap-1.5"
                   >
                     <ChefHat className="h-3.5 w-3.5 text-[#20A67A]" />
-                    Kitchen Display (KDS)
+                    Kitchen Display System
                   </Link>
                 </li>
                 <li>
@@ -292,23 +283,23 @@ export function MarketingLayout({ children }: { children: React.ReactNode }) {
                     href="/login"
                     className="hover:text-white transition-colors"
                   >
-                    Owner & Admin Console
+                    Owner Workspace Demo
                   </Link>
                 </li>
               </ul>
             </div>
 
             <div>
-              <h3 className="text-xs font-semibold uppercase tracking-wider text-[#C6A15B] mb-3.5">
-                Company & Legal
+              <h3 className="text-xs font-semibold uppercase tracking-wider text-[#20A67A] mb-3.5">
+                Company & Account
               </h3>
               <ul className="space-y-2.5 text-sm text-[#94A3B8]">
                 <li>
                   <Link
-                    href="/about"
+                    href="/pricing"
                     className="hover:text-white transition-colors"
                   >
-                    About DinePilot
+                    Pricing & Plans
                   </Link>
                 </li>
                 <li>
@@ -316,7 +307,15 @@ export function MarketingLayout({ children }: { children: React.ReactNode }) {
                     href="/contact"
                     className="hover:text-white transition-colors"
                   >
-                    Contact & Support
+                    Book a Demo / Contact
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/forgot-password"
+                    className="hover:text-white transition-colors"
+                  >
+                    Password Recovery
                   </Link>
                 </li>
                 <li>
@@ -324,15 +323,7 @@ export function MarketingLayout({ children }: { children: React.ReactNode }) {
                     href="/privacy"
                     className="hover:text-white transition-colors"
                   >
-                    Privacy Policy
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/terms"
-                    className="hover:text-white transition-colors"
-                  >
-                    Terms of Service
+                    Privacy & Terms
                   </Link>
                 </li>
               </ul>
@@ -340,10 +331,10 @@ export function MarketingLayout({ children }: { children: React.ReactNode }) {
           </div>
 
           <div className="mt-12 pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between text-xs text-[#64748B] gap-4">
-            <p>© 2026 DinePilot Systems. Built for serious restaurant operators.</p>
+            <p>© 2026 DinePilot Systems. Built for modern hospitality teams.</p>
             <p>
-              Deterministic financial accounting • Multi-tenant isolation •
-              India-first GST engine.
+              Browser-based QR ordering • Staff POS fallback • Real-time KDS
+              sync.
             </p>
           </div>
         </div>

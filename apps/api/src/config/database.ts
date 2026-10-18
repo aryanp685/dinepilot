@@ -25,12 +25,12 @@ export async function connectDatabase(options?: {
   let uri = env.MONGODB_URI;
 
   if (!uri) {
-    const dynamicImport = new Function("m", "return import(m)") as (
-      moduleName: string
-    ) => Promise<any>;
-    const { createMongodbTwinServer } = await dynamicImport(
-      "@volter/twin-mongodb"
-    );
+    const loader =
+      (globalThis as any).__loadTwinMongo ||
+      (new Function("m", "return import(m)") as (
+        moduleName: string
+      ) => Promise<any>);
+    const { createMongodbTwinServer } = await loader("@volter/twin-mongodb");
     const useMemory = options?.inMemoryOnly ?? env.NODE_ENV === "test";
     const isServerless = Boolean(process.env.VERCEL);
 

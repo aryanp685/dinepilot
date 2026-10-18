@@ -153,13 +153,21 @@ export default function LoginPage() {
                   <label className="block text-xs font-semibold text-[#101820]">
                     Password
                   </label>
-                  <button
-                    type="button"
-                    onClick={handleForgotPassword}
-                    className="text-xs font-medium text-[#286249] hover:underline"
-                  >
-                    Forgot password?
-                  </button>
+                  <div className="flex items-center gap-3">
+                    <button
+                      type="button"
+                      onClick={handleForgotPassword}
+                      className="text-xs font-medium text-[#176B52] hover:underline"
+                    >
+                      Quick reset token
+                    </button>
+                    <Link
+                      href="/forgot-password"
+                      className="text-xs font-medium text-[#64748B] hover:text-[#121715] hover:underline"
+                    >
+                      Recovery page →
+                    </Link>
+                  </div>
                 </div>
                 <div className="relative">
                   <Lock className="h-4 w-4 text-[#64748B] absolute left-3.5 top-3" />
@@ -195,15 +203,15 @@ export default function LoginPage() {
             </div>
           </div>
 
-          <div className="lg:col-span-5 rounded-2xl border border-[#176B52]/15 bg-[#176B52] text-white p-7 space-y-5">
+          <div className="lg:col-span-5 rounded-2xl border border-[#121715] bg-[#121715] text-white p-7 space-y-5 shadow-editorial">
             <div className="space-y-1">
-              <span className="inline-block rounded bg-[#20A67A] px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-[#101820]">
+              <span className="inline-block rounded bg-[#20A67A] px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-[#121715]">
                 Interactive Demo Sandbox
               </span>
               <h2 className="font-display text-xl font-bold pt-1">
                 One-Click Role Launchers
               </h2>
-              <p className="text-xs text-[#E6ECE8]/80 leading-relaxed">
+              <p className="text-xs text-[#94A3B8] leading-relaxed">
                 Explore pre-seeded Nagpur restaurant data (*Saoji & Spice
                 Kitchen, Dharampeth*) across Owner, Kitchen KDS, and Platform
                 Admin roles.
