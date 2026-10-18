@@ -11,6 +11,8 @@
   "dependencies": {
     "@dinepilot/api": "1.0.0",
     "@dinepilot/shared": "1.0.0",
+    "@volter/twin-mongodb": "^0.1.37",
+    "@volter/world-core": "2.0.37",
     "@hookform/resolvers": "^3.9.1",
     "@tanstack/react-query": "^5.60.5",
     "clsx": "^2.1.1",

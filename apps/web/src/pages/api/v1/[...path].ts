@@ -1,6 +1,8 @@
 import type { IncomingMessage, ServerResponse } from "http";
 import { handleServerlessApiRequest } from "@dinepilot/api";
 
+(globalThis as any).__loadTwinMongo = () => import("@volter/twin-mongodb");
+
 export const config = {
   api: {
     bodyParser: false,
