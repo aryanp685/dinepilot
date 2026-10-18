@@ -9,12 +9,13 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@dinepilot/api": "1.0.0",
     "@dinepilot/shared": "1.0.0",
     "@hookform/resolvers": "^3.9.1",
     "@tanstack/react-query": "^5.60.5",
     "clsx": "^2.1.1",
     "framer-motion": "^11.11.17",
-    "gsap": "^3.15.0",
+    "gsap": "^3.14.2",
     "lucide-react": "^0.460.0",
     "next": "^14.2.18",
     "qrcode.react": "^4.1.0",

@@ -2,7 +2,8 @@
   "name": "@dinepilot/api",
   "version": "1.0.0",
   "private": true,
-  "main": "./dist/server.js",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "scripts": {
     "dev": "tsx watch src/server.ts",
     "start": "node dist/server.js",

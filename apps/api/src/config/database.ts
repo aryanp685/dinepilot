@@ -25,8 +25,14 @@ export async function connectDatabase(options?: {
   let uri = env.MONGODB_URI;
 
   if (!uri) {
-    const { createMongodbTwinServer } = await import("@volter/twin-mongodb");
+    const dynamicImport = new Function("m", "return import(m)") as (
+      moduleName: string
+    ) => Promise<any>;
+    const { createMongodbTwinServer } = await dynamicImport(
+      "@volter/twin-mongodb"
+    );
     const useMemory = options?.inMemoryOnly ?? env.NODE_ENV === "test";
+    const isServerless = Boolean(process.env.VERCEL);
 
     let rootDir: string;
     if (useMemory) {
@@ -34,6 +40,9 @@ export async function connectDatabase(options?: {
         path.join(os.tmpdir(), "dinepilot-test-db-")
       );
       rootDir = ephemeralDir;
+    } else if (isServerless) {
+      rootDir = path.join(os.tmpdir(), "dinepilot-vercel-db");
+      fs.mkdirSync(rootDir, { recursive: true });
     } else {
       rootDir = path.resolve(process.cwd(), "../../.data/mongodb");
       fs.mkdirSync(rootDir, { recursive: true });
